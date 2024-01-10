@@ -1,12 +1,22 @@
-# 5. Astropy: Bias Reduction
+#14021020
+
+# 5. Astropy: Image combination
+# (Tutorial @ https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/01-06-Image-combination.html)
+# Image combination serves several purposes. Combining images: reduces noise in images, can remove transient artifacts like cosmic rays and satellite tracks, can remove stars in flat images taken at twilight
+
+# The bottom line: combine by averaging images, but clip extreme values
+
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#14021020
 
-# Photutils package:
+# 4. Photutils package:
 # photutils provides a couple of options for stellar source detection that will be familiar to users of IRAF. To get it you need to:
 # First activate the virtual environment you use for astropy. Then:
 
 pip install photutils
+
+#!!!!! Still unsuccessful coz can't call it through jupyter-lab!!!!!!
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +34,7 @@ cp FILENAME.py ADDRESS U GOT FROM ABOVE
 #Now you can directly call this library from within jupyter notebook.
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#14021020
 
 # 2. Astropy: Opening FITS files and loading the image data:
 # (original Tutorial: https://learn.astropy.org/tutorials/FITS-images.html)
@@ -46,8 +57,9 @@ image = show_image(image_data, cmap='gray')
 plt.savefig('flat_image.png')
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#14021020
 
-# 1. Priliminary Steps to Start using Astropy within jupyter-lab:
+# 1. Priliminary Steps to Start using Astropy within jupyter-lab: 
 
 # In order for Jupyter-lab to recognize Astropy I need to creating a separate Python environment specifically for Jupyter Lab and 
 # install Astropy within that environment. Obviosly this only needs to be done once. This will ensure that Jupyter Lab is using a consistent and compatible version of Astropy.
