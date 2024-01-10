@@ -1,0 +1,27 @@
+# Priliminary Steps to Start using Astropy within jupyter-lab:
+
+# In order for Jupyter-lab to recognize Astropy I need to creating a separate Python environment specifically for Jupyter Lab and 
+# install Astropy within that environment. Obviosly this only needs to be done once. This will ensure that Jupyter Lab is using a consistent and compatible version of Astropy.
+# This is what the code to do that looks like:
+
+# Install the virtualenv package using pip:
+pip install virtualenv
+
+# Create a virtual environment for Jupyter Lab:
+virtualenv jupyterlab-env
+
+# Activate the virtual environment:
+source jupyterlab-env/bin/activate
+
+# Install Astropy within the virtual environment:
+pip install astropy
+
+# Launch Jupyter Lab using the virtual environment (the ~/jupyterlab is indicating that all jupyter notes are to be saved in here so if you don't have that folder create it in the home folder first):
+jupyter-lab --notebook-dir=~/jupyterlab
+
+# Now this time when I execute some astropy command in the jupyter note, it does indeed recognize astropy.
+# So the Main takeaway from this was that I need to start using jupyter-lab from within the same environment as the one astropy is installed in and this env should be
+# broughut up everytime I wantto use that:
+
+source jupyterlab-env/bin/activate
+jupyter-lab --notebook-dir=~/jupyterlab
