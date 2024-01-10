@@ -1,4 +1,53 @@
-# Priliminary Steps to Start using Astropy within jupyter-lab:
+# 5. Astropy: Bias Reduction
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Photutils package:
+# photutils provides a couple of options for stellar source detection that will be familiar to users of IRAF. To get it you need to:
+# First activate the virtual environment you use for astropy. Then:
+
+pip install photutils
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 3. Adding Extra packages that are not initially in Astropy's library
+
+#The simplest way to add your convenience_functions.py file to the libraries that your installed Astropy reads from is 
+#to copy the file into one of Astropy's search paths. Astropy will automatically discover and import any Python modules that it finds in these search paths.
+
+#The following command will output a list of directories that Astropy will search for Python modules.
+python -c "import site; print(site.getsitepackages())"
+
+#After finding it you should copy the *.py library that you want into here:
+cp FILENAME.py ADDRESS U GOT FROM ABOVE
+
+#Now you can directly call this library from within jupyter notebook.
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 2. Astropy: Opening FITS files and loading the image data:
+# (original Tutorial: https://learn.astropy.org/tutorials/FITS-images.html)
+
+import numpy as np
+# Note that convenience_functions.py is not originally in Astropy's library and you need go through step 3 above to be able to call it here
+from convenience_functions import show_image
+import matplotlib.pyplot as plt
+%matplotlib inline
+from astropy.io import fits
+
+hdu_list = fits.open('/Users/applestore/exo-observe/Data/INO-ic-10/flat/Night-Oct-8/1/g/flat-g-2023_10_08-exp00.01.00.000-1x1_Low_1.fit')
+primary_hdu = hdu_list[0]
+image_data = primary_hdu.data
+
+# Create the image
+image = show_image(image_data, cmap='gray')
+
+# Save the image as a PNG file
+plt.savefig('flat_image.png')
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 1. Priliminary Steps to Start using Astropy within jupyter-lab:
 
 # In order for Jupyter-lab to recognize Astropy I need to creating a separate Python environment specifically for Jupyter Lab and 
 # install Astropy within that environment. Obviosly this only needs to be done once. This will ensure that Jupyter Lab is using a consistent and compatible version of Astropy.
@@ -22,6 +71,7 @@ jupyter-lab --notebook-dir=~/jupyterlab
 # Now this time when I execute some astropy command in the jupyter note, it does indeed recognize astropy.
 # So the Main takeaway from this was that I need to start using jupyter-lab from within the same environment as the one astropy is installed in and this env should be
 # broughut up everytime I wantto use that:
+# first in terminal go to the directory where jupyterlab-env is located and then:
 
 source jupyterlab-env/bin/activate
 jupyter-lab --notebook-dir=~/jupyterlab
