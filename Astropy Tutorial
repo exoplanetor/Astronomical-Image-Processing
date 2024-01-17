@@ -1,4 +1,66 @@
-#14021020
+#14021027
+#Viewing Images in Astropy:
+# Today I learned about different image scales in DS9 and tried to recreate some of them in astropy. I'll copy what I have so far here but
+# mainly I'd like to say that those types of stuff are basically useful for creating nice images to look at by eye or to look for something
+# in the image by eye. As far as I'm concerned right now for image processing purposes, all I need is to work with the loaded "image_data"
+# in the code. But anyways, here's the code I have so far for viewing one fits image in two: linear and logarithmic scales:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+from astropy.visualization import astropy_mpl_style
+plt.style.use(astropy_mpl_style)
+from astropy.io import fits
+from astropy.utils.data import get_pkg_data_filename
+from matplotlib.colors import LogNorm
+
+image_file = os.path.join('/Users/applestore/Downloads', 'kp1513517.fits.fz' )
+
+# display the structure of the file
+fits.info(image_file)
+
+#read the image data (my file didn't have ext=0 (sort of means it had no header))
+image_data = fits.getdata(image_file, ext=1)
+
+#The data is now stored as a 2D numpy array. Print the dimensions using the shape attribute:
+
+print(type(image_data))
+print(image_data.shape)
+
+#Display the image data (single plot):
+plt.figure()
+plt.imshow(image_data, cmap='gray')
+plt.colorbar()
+plt.grid(False)
+
+#Display two plots side by side, one logarithmic and one linear:
+fig, (ax1, ax2) = plt.subplots(1, 2)
+ax1.imshow(image_data, cmap='gray', norm=LogNorm())
+ax1.set_title('Logarithmic Scale')
+ax1.grid(False)
+
+ax2.imshow(image_data, cmap='gray', norm=None)
+ax2.set_title('Normal Linear Scale')
+ax2.grid(False)
+
+plt.tight_layout()
+plt.show()
+
+# Next we look more into the data in the file
+print('Min:', np.min(image_data))
+print('Max:', np.max(image_data))
+print('Mean:', np.mean(image_data))
+print('Stdev:', np.std(image_data))
+
+print(type(image_data.flatten()))
+print(image_data.flatten().shape)
+
+# And this is for plotting a histogram if needed:
+histogram = plt.hist(image_data.flatten(), bins='auto')
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#14021025
+# PROBLEM ENCOUNTERED --- I have problem downloading and working with ccdproc package.
 
 # 5. Astropy: Image combination
 # (Tutorial @ https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/01-06-Image-combination.html)
