@@ -1,5 +1,64 @@
 #14021027
+# Basic image math: image stacking: (https://learn.astropy.org/tutorials/FITS-images.html)
+
+# In this particular example, we'll stack several images of M13 taken with a ~10'' telescope.
+# Let's start by opening a series of FITS files and store the data in a list, which we've named image_concat
+
+#### Use this block if you want to use the simulated data pack
+
+#from astropy.utils.data import download_file
+#base_url = 'http://data.astropy.org/tutorials/FITS-images/M13_blue_{0:04d}.fits'
+#image_list = [download_file(base_url.format(n), cache=True) 
+#              for n in range(1, 5+1)]
+#image_concat = [fits.getdata(image) for image in image_list]
+
+##### Use this block to read files from a folder on your machine
+
+downloads_path = os.path.expanduser("/Users/applestore/Downloads")  # Assuming Linux/macOS
+# Get a list of FITS files in the Downloads folder (modify the filter if needed)
+fits_files = [f for f in os.listdir(downloads_path) if f.endswith(".fits.fz")]
+# Create the image list directly from the file paths
+image_list = [os.path.join(downloads_path, f) for f in fits_files]
+# Extract data from each image
+image_concat = [fits.getdata(image) for image in image_list]
+
+# The long way
+final_image = np.zeros(shape=image_concat[0].shape)
+
+for image in image_concat:
+    final_image += image
+
+# The short way
+# final_image = np.sum(image_concat, axis=0)
+
+# We're going to show the image, but need to decide on the best range for axes. To do so let's plot a histogram of the data.
+
+image_hist = plt.hist(final_image.flatten(), bins='auto')
+
+#After looking at the histogram and deiding what range to use for the plot, then plot it with:
+plt.imshow(final_image, cmap='gray', vmin=5E3, vmax=8E3)
+plt.grid(False)
+plt.colorbar()
+
+
+# Well in the example files that I had I my computer I saw that the two images I have actually been stacked but since their positiones in
+# sky are slightly different there is two of everything. So How to solve that?
+
+#And finally creating the stacked image fits file. Writing image data to a FITS file
+#We can do this with the writeto() method.
+#Warning: you'll receive an error if the file you are trying to write already exists. That's why we've set overwrite=True.
+
+outfile = 'stacked_M13_blue.fits'
+
+hdu = fits.PrimaryHDU(final_image)
+hdu.writeto(outfile, overwrite=True)
+
+
+# --------------------------------------------------------------------------------------------------------------------------
+#14021027
 #Viewing Images in Astropy: (https://learn.astropy.org/tutorials/FITS-images.html)
+
+# I can now view the fits image inside of a fits file. The code for that is below:
 # Today I learned about different image scales in DS9 and tried to recreate some of them in astropy. I'll copy what I have so far here but
 # mainly I'd like to say that those types of stuff are basically useful for creating nice images to look at by eye or to look for something
 # in the image by eye. As far as I'm concerned right now for image processing purposes, all I need is to work with the loaded "image_data"
@@ -58,7 +117,7 @@ print(image_data.flatten().shape)
 # And this is for plotting a histogram if needed:
 histogram = plt.hist(image_data.flatten(), bins='auto')
 
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------------
 #14021025
 # PROBLEM ENCOUNTERED --- I have problem downloading and working with ccdproc package.
 
