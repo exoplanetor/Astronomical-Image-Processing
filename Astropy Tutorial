@@ -1,5 +1,5 @@
 #14021027
-#Viewing Images in Astropy:
+#Viewing Images in Astropy: (https://learn.astropy.org/tutorials/FITS-images.html)
 # Today I learned about different image scales in DS9 and tried to recreate some of them in astropy. I'll copy what I have so far here but
 # mainly I'd like to say that those types of stuff are basically useful for creating nice images to look at by eye or to look for something
 # in the image by eye. As far as I'm concerned right now for image processing purposes, all I need is to work with the loaded "image_data"
