@@ -1,3 +1,79 @@
+#14021102
+# PAY ATTENTION that I have switched to Windows from this point onward:
+# Reading Images and working with directories
+# Today I went through the tutorial in here: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/01-11-reading-images.html
+# what happens there is that the tutorial generates a number of fake flat, dark etc. images. 
+# And then shows how to work with the data in those images.
+
+# My Task Right now is to try to do a similar thing with the training files I have myself.
+# Training files are: INO-ic-10
+
+# 1. Working with directories
+data_directory = 'C:\\Users\\Observatory\\Exo\\tut-images\\dark'
+
+from pathlib import Path
+from astropy.nddata import CCDData
+from astropy.io import fits
+from pathlib import Path
+from itertools import cycle
+
+import numpy as np
+
+data_directory = 'C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark'
+
+image_path = Path(data_directory)
+
+image_path.mkdir(parents=True, exist_ok=True)
+
+# Reading a single image with astropy.io.fits
+image_name = 'dark-2023_09_10-exp00.01.40.000-1x1_High_1.fit'
+
+image_path = Path(data_directory) / image_name
+
+hdu_list = fits.open(image_path)
+hdu_list.info()
+
+# This is the output I get out of this:
+# Filename: C:\Users\Observatory\Exo\tut\INO-ic-10\dark\dark-2023_09_10-exp00.01.40.000-1x1_High_1.fit
+# No.    Name      Ver    Type      Cards   Dimensions   Format
+#  0  PRIMARY       1 PrimaryHDU      79   (4096, 4096)   int16 (rescales to uint16)   
+
+# The hdu_list is a list of FITS Header-Data Units. In this case there is just one, containing both
+# the image header and data, which can be accessed as shown below.
+
+hdu = hdu_list[0]
+hdu.header
+
+# I am trying to see if I can find a fits file is a dark, bias etc. by looking its header:
+# Well so far looking at the header of the Dark.fits I am working with I can see these keywords that
+# might be related to that:
+
+# IMGTYPE= 1 / The Image Type (Ex. High Gain)
+# LOWDARK =                    T / Low Dark Current flag                          
+
+# And that's it! So as of right now I don't think that our headers include a keyword like this: 
+# (this is from the tutorial pages and from another telescope) IMAGETYP= 'BIAS    '
+# I examined this on other files like bias and the result was the same. So maybe we should suggest
+# a change in the values this keyword could accept 
+
+# 2. Working with a directory of images using ImageFileCollection
+# The affiliated package ccdproc provides an easier way to work with collections of images in a 
+# directory: an ImageFileCollection. The ImageFileCollection is initialized with the name of the 
+# directory containing the images.
+
+from ccdproc import ImageFileCollection
+im_collection = ImageFileCollection(data_directory)
+
+# The summary property provides an overview of the files in the directory: it’s an astropy Table,
+# so you can access columns in the usual way.
+
+
+
+
+
+
+
+# --------------------------------------------------------------------------------------------------------------------------
 #14021027
 # Basic image math: image stacking: (https://learn.astropy.org/tutorials/FITS-images.html)
 
@@ -119,6 +195,10 @@ histogram = plt.hist(image_data.flatten(), bins='auto')
 
 # --------------------------------------------------------------------------------------------------------------------------
 #14021025
+# PROBLEM SOLVED (14021102) --- Mr. Malekan from the INO solved this on the PC I have there. The problem was with a
+# inside branch of one of its routines (something like scrappy or sth) which needed C++ & two other things to be
+# installed on the machine so that it would work. 
+# !!! IMPORTANT NOTE !!! I should definitely solve it on my mac as well
 # PROBLEM ENCOUNTERED --- I have problem downloading and working with ccdproc package.
 
 # 5. Astropy: Image combination
@@ -126,8 +206,15 @@ histogram = plt.hist(image_data.flatten(), bins='auto')
 # Image combination serves several purposes. Combining images: reduces noise in images, can remove transient artifacts like cosmic rays and satellite tracks, can remove stars in flat images taken at twilight
 
 # The bottom line: combine by averaging images, but clip extreme values
-
-
+# ----------------------------
+# 14021102 - UPDATE
+# ----------------------------
+# I am now going through the image combination Tutorial > Overscan
+# Overscan: The overscan region of a CCD, if present, is a part of the chip that is covered. Depending on the camera,
+# it can be a useful way to remove small variations in the bias level from frame to frame.
+#
+# Conclusion: I don't think it is a choice I make but if we encounter problems with the edges of the images
+# I should consider using Overscan
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #14021020
 
