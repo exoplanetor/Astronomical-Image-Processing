@@ -1,4 +1,11 @@
 #14021102
+#About bias and overscan:
+# (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/02-01-overscan-trimming-and-bias-subtraction-background.html)
+# I think I want to start this section with studying what a good bias frame is
+
+
+# --------------------------------------------------------------------------------------
+#14021102
 # PAY ATTENTION that I have switched to Windows from this point onward:
 # Reading Images and working with directories
 # Today I went through the tutorial in here: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/01-11-reading-images.html
@@ -64,12 +71,28 @@ hdu.header
 from ccdproc import ImageFileCollection
 im_collection = ImageFileCollection(data_directory)
 
-# The summary property provides an overview of the files in the directory: it’s an astropy Table,
-# so you can access columns in the usual way.
+# I can see the header of all the fits files in a directory using the folowing command. The data is
+# presented in a table format. Each row containing all header keywords of one file.
 
+im_collection.summary
 
+#3. Filtering and iterating over images
+# The great thing about ImageFileCollection is that it provides convenient ways to filter or
+# loop over files via FITS header keyword values. For example, looping over just the flat files is one line of code:
 
+for a_flat in im_collection.hdus(imagetyp='FLAT'):
+    print(a_flat.header['EXPOSURE'])
 
+# Instead of iterating over HDUs, as in the example above, you can iterate over just the headers
+# (with .headers) or just the data (with .data). You can use any FITS keyword from the header as
+# a keyword for selecting the images you want. In addition, you can return the file name while also
+# iterating.
+
+for a_flat, fname in im_collection.hdus(imagetyp='LIGHT', object='m82', return_fname=True):
+    print(f'In file {fname} the exposure is:', a_flat.header['EXPOSURE'], 'with standard deviation ', a_flat.data.std())
+
+# Check the Documentation of ImageFileCollection (https://ccdproc.readthedocs.io/en/latest/ccdproc/image_management.html)
+# for more functionalities.
 
 
 
