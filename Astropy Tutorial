@@ -83,16 +83,49 @@ plt.xticks(rotation='vertical')
 plt.tight_layout()
 fig.savefig("Histogram Grid.png")
 
-####??? The Puzzeling thing I see as the result of this code is that I see different histograms when I plot the same 
-# Multiplot several times. There Must be a problem but I didn't Track it. I will next try to examine the data inside
+## SOLVED-> The Puzzeling thing I see as the result of this code is that I see different histograms when I plot the same 
+# Multiplot several times. There Must be a problem. ANSWER: The problem was with in this line:
+#     image_hist = axes[row, col].hist(image_data_flattened, bins='auto')
+# And with the auto flag. Once I fixed my bins the problem solved:
+
+    # Specify the bin intervals
+    bin_min = 0
+    bin_max = 500
+    bin_width = 15
+
+    # Create a list of bin edges
+    bin_edges = np.arange(bin_min, bin_max + bin_width, bin_width)
+
+    # Create histogram
+    image_hist = axes[row, col].hist(image_data_flattened, bins=bin_edges)
+
+#I will next try to examine the data inside
 # Each bias file to see if I can spot outliers from there too:
 
-# Next we look more into the data in the file
-print('Min:', np.min(image_data))
-print('Max:', np.max(image_data))
-print('Mean:', np.mean(image_data))
-print('Stdev:', np.std(image_data))
+# Next we look more into the data in the file and print the results in a table:
+# Create an empty table to store the results
+table = []  # <-- Added this line to define the table variable
+# Loop through each image file and calculate statistics
+for i, image_file in enumerate(image_files):
+    # Extract the image data
+    hdu = fits.open(image_file)
+    image_data = hdu[0].data
+    # Calculate statistics
+    min_value = np.min(image_data)
+    max_value = np.max(image_data)
+    mean_value = np.mean(image_data)
+    std_value = np.std(image_data)
 
+    # Add statistics to the table as a row
+    table.append([f"Bias {i+1}", min_value, max_value, mean_value, std_value])
+
+# Print the table header
+print("Image  | Min    | Max    | Mean   | Stdev")
+print("-------|--------|--------|--------|-------")
+
+# Print each row of the table
+for row in table:
+    print(f"{row[0]:>6} | {row[1]:>6} | {row[2]:>6} | {row[3]:>6.2f} | {row[4]:>6.2f}")
 
 
 
@@ -112,6 +145,35 @@ reduced_images = ccdp.ImageFileCollection(calibrated_path)
 # selects the calibrated bias images,
 # combines them using the combine function,
 # adds the keyword COMBINED to the header so that later calibration steps can easily identify which bias to use, and writes the file.
+
+# Performing the actual combination of the bias images and performing sigmacli[pping as well.
+# Combine all files in the directory without filtering
+all_files = reduced_images.files_filtered(include_path=True)  # Get all files
+combined_bias = ccdp.combine(all_files,
+                             method='average',
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6
+                             )
+
+combined_bias.meta['combined'] = True
+
+combined_bias.write(calibrated_path / 'combined_bias.fit')
+
+# A single calibrated image and the combined image are shown below. There is significant two-dimensional
+# structure in the bias that cannot easily be removed by subtracting only the overscan in the next image reduction
+# steps. It takes little time to acquire bias images and doing so will result in higher quality science images.
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+
+show_image(CCDData.read(image_files[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+ax1.set_title('Single calibrated bias')
+show_image(combined_bias.data, cmap='gray', ax=ax2, fig=fig, percl=90)
+ax2.set_title('8 bias images combined'.format(len(calibrated_biases)))
+
+# Adjust layout and save the plot
+plt.tight_layout()
+fig.savefig("combined_comparison.png")
 
 
 # --------------------------------------------------------------------------------------
