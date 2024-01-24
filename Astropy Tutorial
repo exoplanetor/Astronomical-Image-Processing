@@ -1,12 +1,136 @@
-#14021102
+# --------------------------------------------------------------------------------------
+#14021104-2
 #About bias and overscan:
 # (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/02-01-overscan-trimming-and-bias-subtraction-background.html)
-# I think I want to start this section with studying what a good bias frame is
+
+# AIM: LEARNING ABOUT BIAS IMAGES:
+# (https://practicalastrophotography.com/a-brief-guide-to-calibration-frames/)
+
+# What Calibration Does -> Increases signal-to-noise Ratio.
+# Think of it as when you take an image with your cell phone in night where it's dark and with no flash
+# the image will look grainy. And if we got a video we'd see the noise flickering in video frames. This
+# is the definition of low S/N
+# Note that the light from the source is (in most cases-perhaps not for exoplanet transits) constant
+# But Noise is not and it varies randomly. Keep in mind that if you have a camera with 12 million pixels
+# It is impossible to have all pixels act the same. Calibration allows us to mathematically calibrate each
+# pixel to react the same way to each photon it sees. 
+# Bias Frames - Your Camera inherently has a base level of read-out noise as it reads the values of each pixel of the sensor, called bias. When averaged out, basically it's an inherent gradient to the sensor. BIAS frames are meant to capture this so it can be removed.
+# Dark Frames - When taking a long exposure, the chip will introduce "thermal" noise. Its level is magnified by three things - temperature, exposure time, and ISO. Dark frames are used to subtract this sensor noise from your image and mitigate "hot or cold" pixels. (Some modern sensors automatically calculate dark levels and don't need dark frames). Dark Frames also will calibrate the chip so all pixels give the same value when not exposed to light.
+# Flat Frames - I've seen people say flats help with light pollution. NOT TRUE AT ALL. Flat frames allow you to calculate the correction factor for each pixel so they all give the same value when exposed to the same quantity of light for a given optical path. Things like dust motes, lens vignetting consistently reduce the light to a given pixel, flat frames allow you to mathematically remove them to give a smooth evenly illuminated image.
+# Dark Flat Frames- These are just like dark frames for your lights, but are for your flats. (May not be needed depending on what software & process you're using)
+
+# what makes a good bias frame? Taken with the same camera settings and taken in a completely dark environemt.
+
+# These are the tasks I did at this stage:
+# 1. Specifying a directory which includes all of my Bias fits files
+# 2. Trying to spot outliers or images that shouldn't be put among the grop of bias files to be stackes
+# & made into a master bias by Making a multiplot of histograms of each file in that directory
+# 3. After removing the outliers from the group -> Make a stack image of all biases and save it as master Bias
+
+# You can find the Details of these steps below:
+# First, the following Routine includes the code for the first 3 steps
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+from astropy.visualization import astropy_mpl_style
+plt.style.use(astropy_mpl_style)
+from astropy.io import fits
+from astropy.utils.data import get_pkg_data_filename
+from matplotlib.colors import LogNorm
+
+# Import the math module
+import math
+
+# Specify the folder path containing the image files
+image_folder = "C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\bias"
+
+# Extract the filenames of the image files
+image_files = [os.path.join(image_folder, filename) for filename in os.listdir(image_folder) if filename.endswith(".fit")]
+
+# Number of rows in the multi-plot
+num_rows = math.ceil(len(image_files) / 3)
+
+# Initialize the figure and subplots
+fig, axes = plt.subplots(num_rows, 3, figsize=(12, 12))
+
+# Iterate through the image files and create histograms
+for i, image_file in enumerate(image_files):
+    row = int(i // 3)
+    col = i % 3
+
+    # Extract the image data
+    hdu = fits.open(image_file)
+    image_data = hdu[0].data
+
+    # Flatten the image data
+    image_data_flattened = image_data.flatten()
+
+    # Create histogram
+    image_hist = axes[row, col].hist(image_data_flattened, bins='auto')
+
+    # Extract the filename from the full path
+    filename = os.path.basename(image_file)
+
+    # Add labels and title to the histogram
+    axes[row, col].set_xlabel('Pixel value')
+    axes[row, col].set_ylabel('Number of pixels')
+    axes[row, col].set_title(f"Histogram of {filename}")
+
+# Rotate x-axis labels for better readability
+plt.xticks(rotation='vertical')
+
+# Adjust layout and save the plot
+plt.tight_layout()
+fig.savefig("Histogram Grid.png")
+
+####??? The Puzzeling thing I see as the result of this code is that I see different histograms when I plot the same 
+# Multiplot several times. There Must be a problem but I didn't Track it. I will next try to examine the data inside
+# Each bias file to see if I can spot outliers from there too:
+
+# Next we look more into the data in the file
+print('Min:', np.min(image_data))
+print('Max:', np.max(image_data))
+print('Mean:', np.mean(image_data))
+print('Stdev:', np.std(image_data))
+
+
+
+
+# Now Let's go to the bias image combination step (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/02-04-Combine-bias-images-to-make-master.html)
+# As discussed in the notebook about combining images, the recommendation is that you combine by averaging the individual images but sigma clip to remove extreme values
+# This is done by A function called combine, which we will use here because the function allows you
+# to specify the maximum amount of memory that should be used during combination. This feature can be
+# essential depending on how many images you need to combine, how big they are, and how much memory your
+# computer has.
+
+# The remainder of this section assumes the calibrated (means corrected for Overscan only) bias images 
+# are in a specified folder:
+calibrated_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\bias-2023_09_10-exp00.00.00.000020-1x1_High')
+reduced_images = ccdp.ImageFileCollection(calibrated_path)
+
+# The code below:
+# selects the calibrated bias images,
+# combines them using the combine function,
+# adds the keyword COMBINED to the header so that later calibration steps can easily identify which bias to use, and writes the file.
 
 
 # --------------------------------------------------------------------------------------
-#14021102
+# 14021104-1
+# Veiwing the actual data in a fits file:
+# (Note that this was completely meaningless and not useful as it put out a huge, and I mean huge array of numbers in long rows)
+
+import numpy as np
+from astropy.io import fits
+
+# Print the entire array
+for row in data:
+    for element in row:
+        print(element, end=' ')
+    print()
+# --------------------------------------------------------------------------------------
+#14021102-1
 # PAY ATTENTION that I have switched to Windows from this point onward:
+
 # Reading Images and working with directories
 # Today I went through the tutorial in here: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/01-11-reading-images.html
 # what happens there is that the tutorial generates a number of fake flat, dark etc. images. 
@@ -16,7 +140,6 @@
 # Training files are: INO-ic-10
 
 # 1. Working with directories
-data_directory = 'C:\\Users\\Observatory\\Exo\\tut-images\\dark'
 
 from pathlib import Path
 from astropy.nddata import CCDData
@@ -97,8 +220,8 @@ for a_flat, fname in im_collection.hdus(imagetyp='LIGHT', object='m82', return_f
 
 
 # --------------------------------------------------------------------------------------------------------------------------
-#14021027
-# Basic image math: image stacking: (https://learn.astropy.org/tutorials/FITS-images.html)
+#14021027-2
+# Basic image math: image stacking (combining): (https://learn.astropy.org/tutorials/FITS-images.html)
 
 # In this particular example, we'll stack several images of M13 taken with a ~10'' telescope.
 # Let's start by opening a series of FITS files and store the data in a list, which we've named image_concat
@@ -154,7 +277,7 @@ hdu.writeto(outfile, overwrite=True)
 
 
 # --------------------------------------------------------------------------------------------------------------------------
-#14021027
+#14021027-1
 #Viewing Images in Astropy: (https://learn.astropy.org/tutorials/FITS-images.html)
 
 # I can now view the fits image inside of a fits file. The code for that is below:
@@ -177,7 +300,7 @@ image_file = os.path.join('/Users/applestore/Downloads', 'kp1513517.fits.fz' )
 # display the structure of the file
 fits.info(image_file)
 
-#read the image data (my file didn't have ext=0 (sort of means it had no header))
+#read the image data (my file didn't have ext=0 (sort of means it had no header)-but windows accepter ext=0)
 image_data = fits.getdata(image_file, ext=1)
 
 #The data is now stored as a 2D numpy array. Print the dimensions using the shape attribute:
@@ -239,7 +362,7 @@ histogram = plt.hist(image_data.flatten(), bins='auto')
 # Conclusion: I don't think it is a choice I make but if we encounter problems with the edges of the images
 # I should consider using Overscan
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#14021020
+#14021020-3
 
 # 4. Photutils package:
 # photutils provides a couple of options for stellar source detection that will be familiar to users of IRAF. To get it you need to:
@@ -265,7 +388,7 @@ cp FILENAME.py ADDRESS U GOT FROM ABOVE
 #Now you can directly call this library from within jupyter notebook.
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#14021020
+#14021020-2
 
 # 2. Astropy: Opening FITS files and loading the image data:
 # (original Tutorial: https://learn.astropy.org/tutorials/FITS-images.html)
@@ -288,7 +411,7 @@ image = show_image(image_data, cmap='gray')
 plt.savefig('flat_image.png')
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#14021020
+#14021020-1
 
 # 1. Priliminary Steps to Start using Astropy within jupyter-lab: 
 
