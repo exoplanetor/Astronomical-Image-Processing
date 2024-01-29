@@ -1,5 +1,45 @@
 # --------------------------------------------------------------------------------------
 #14021109-2
+# Flat corrections
+
+#LOG
+# The purpose of flat corrections is to compensate for any nonuniformity in the response of the CCD to
+#light. There can be several reasons that the response is not uniform across the detector:
+#    Variations in the sensitivity of pixels in the detector, though this source is usually small.
+#    Dust on either the filter or the glass window covering the detector.
+#    Vignetting, a dimming in the corners of the image.
+
+# Anything else in the optical path that affects how much light reaches the sensor.
+# The fix for nonuniformity is the same in all cases: take an image in which the illumination is
+# uniform and use that to measure the response of the CCD.
+
+#Unfortunately, achieving uniform illumination is difficult, and uniform illumination with th  2e same
+# spectrum as the astronomical objects of interest is impossible.
+
+# There are a few ways of taking “flat” images:
+#    Twilight flats are images of the sky near zenith taken around sunrise or sunset.
+#    Dome flats are images of the inside of the dome (typically of a smooth surface, not of the dome itself), illuminated by some light source in the dome. For smaller telescopes an electroluminescent or LED illuminated panel can be used as the light source.
+#    Sky flats are composed of several science images.
+
+# Ideally the flat images have fairly high counts (roughly half the maximum counts of the detector) so
+# that the only important source of error is Poisson error due to the light in the flat images, and so
+# that the signal-to-noise ratio in those images is essentially zero.
+
+
+
+
+TO BE CONTINUED
+
+
+
+
+
+
+
+
+
+
+
 
 # --------------------------------------------------------------------------------------
 # 14021109-1
