@@ -1,4 +1,201 @@
 # --------------------------------------------------------------------------------------
+#14021109-2
+
+# --------------------------------------------------------------------------------------
+# 14021109-1
+#Dark current and hot pixels:
+# Summary: 
+# 1. With the instrument specifications at INO the min time needed for each Dark Frame is 24.6 seconds
+# And This is generally taken Care of because the team takes exposures as long as the light exposure for 
+# Dark frames.
+# 2. Do not take short Dark Frames coz it ain't dark just noise! What is the effect of adding up Dark frames? When We stack 20 dark Frames, the read noise falles
+# to 1/radical(20) = 1/20^0.5 = 2.2 -> this means that less time is needed for dark exposure time to reach
+# the noise
+# 3. If you do not need to scale the dark frames to a different exposure time then do not subtract the bias
+# from the darks. The dark frames will serve to remove both the bias and the dark current your images.
+# 4. A dark frame only measures dark current if the expected dark counts exceed the read noise of the
+# camera by a factor of a few. Take multiple dark frames and combine them to reduce the noise level in
+# the combined image as much as possible. Most pixels in a CCD have very low dark current. A consequence
+# of 1 and 3 is that you should almost never scale your dark frames up to a longer exposure time because
+# you will amplify noise instead of eliminating dark current, even if you have combined multiple images
+# as in 2. Identify hot pixels and mask them out or otherwise deal with them.
+
+# LOG:
+# Today I am finally moving on from bias and entering Dark frames. Here is what I should know about these
+# images:
+
+# Every image from a CCD contains dark current, which are counts in a raw image caused by thermal effects
+#in the CCD. The dark current in modern CCDs is extremely small if the camera is cooled in some way. 
+#Cameras cooled with liquid nitrogen have nearly zero dark current while thermoelectrically-cooled CCDs
+#have a somewhat larger dark current. The dark current in a CCD operating at room temperature will 
+#typically be very large.
+
+# DARK NEEDS LONG EXPOSURE TIME
+# Measuring the dark current in a camera requires taking images with fairly long exposure time, ideally
+#long enough that the expected counts due to dark current is larger than the expected noise in the image.
+# If that isn’t the case then the dark images will be measuring noise, not dark current
+# There are two ways to ensure that you are measuring dark current:
+# - Take some long-exposure dark frames. The exposure time should be long enough that the expected dark
+#    counts is at least as large as the noise expected in a single image.
+# - Take several of these images and combine them to reduce the noise in the result. The noise in the
+# combined image is proportional to 1/N^0.5 (1 over radical N), where N is the number of images that
+# are combined.
+
+# WHAT IS DARK FRAMES?
+# Recall that dark current refers to counts (electrons) generated in a pixel because an electron in
+# the pixel happens to have enough energy to “break free” and register as a count. The distribution of
+# electron thermal energies in a pixel follows a Maxwell-Boltzmann distribution in which most electrons
+# have energy around kT, where T is the temperature of the sensor and k is the Boltzmann constant.
+# There is a distribution of energies, though, and occasionally an electron will be high energy enough
+# to jump to the conducting band in the chip, registering the same as an electron excited by a photon.
+# Since the Maxwell-Boltzmann distribution depends on temperature, the rate at which dark current appears
+# in a pixel is also expected to depend on temperature.
+
+#A dark frame (also called a dark image) is an image taken with your camera with the shutter closed. It is
+# the sum of the bias level of your camera, the readout noise, and the dark current.
+# Dark counts follow a Poisson distribution
+
+# For liquid-cooled cameras, particularly ones cooled by liquid nitrogen, the operating temperature doesn’t
+# change. For thermoelectrically-cooled cameras you are able to set the desired operating temperature. 
+# As a result, you should be able to ignore the temperature dependence of the dark current.
+
+# The thermoelectric coolers can usually cool by some fixed amount below the ambient temperature. Though
+# in principle you could choose to always cool by the same fixed amount, like C below the ambient
+# temperature, there is an advantage to always running your camera at the same temperature: dark frames
+# taken on one date are potentially useful on another date. If the operating temperature varies then you
+# need to make sure to take dark frames every time you observe unless you carefully characterize the
+# temperature dependence of your dark current.
+
+# It will turn out that for practical reasons — not all pixels in your camera have the same dark current
+— it is usually best to take dark frames every time you observe anyway.
+
+# The dark current on modern CCDs, even relatively inexpensive ones, is very small. In a typical exposure
+# the dark current is likely smaller, maybe much smaller, than the read noise. Despite that, it is worth
+# examining some dark frames from your camera because not all pixels have the same dark current. Some,
+# called hot pixels, have much higher dark current than the rest of the sensor. Some sensors have 
+# non-astronomical sources of counts whose value are proportional to exposure time, like dark current, 
+# but whose origin is nonthermal effects.
+
+# ESTIMATING EXPOSURE TIME AND NUMBER OF FRAMES FOR MEASURING DARK CURRENT:
+# Min Necessary time for dark frames = read noise for the camera / dark current for the Camera
+# This for INO according to the Camera (KL4040 FI) Overview located at: (https://www.flicamera.com/pdf/KeplerOV.pdf) is:
+# 3.7/0.15=24.6 seconds.
+
+# DO I NEED SCALING(STACKING) DARK FRAMES?
+# It depends on on the exposure times of the other images you need to reduce. If the other images have
+#exposure times that match your dark frames then you do not need to scale the darks. If any other images
+#(except bias frames, which are always zero exposure) have exposure time that do not match the exposure
+# times of the darks, then you will need to scale the darks by exposure time.
+#
+#If you do not need to scale the dark frames to a different exposure time then do not subtract the bias
+# from the darks. The dark frames will serve to remove both the bias and the dark current your images.
+#As a reminder, you should try very hard to avoid scaling dark frames up to a longer exposure time 
+# because you will primarily be scaling up noise rather than dark current.
+
+
+# CALIBRATING DARK IMAGES:
+# If you need to there are three types of calibrations that could be done for a dark frame:
+# Subtracting overscan - Trim the image - Subtract bias (if you need to scale the calibrated dark frames to a different exposure time).
+# So basically I won't be needing it.
+
+# COMBINE CALIBRATED DARK IMAGES FOR USE IN  LATER REDUCTION STEPs:
+#The final step is to combine the individual calibrated dark images into a single combined image. That combined
+#image will have less noise than the individual images, minimizing the noise added to the remaining images
+# when the dark is subtracted.
+#
+# I did this. The routine is separately located in a notebook around here somewhere.
+# But here is the code as well;
+#
+import numpy as np
+from astropy.io import fits
+from pathlib import Path
+from astropy.nddata import CCDData
+from itertools import cycle
+from ccdproc import ImageFileCollection
+import os
+
+from astropy.stats import mad_std
+
+import ccdproc as ccdp
+import matplotlib.pyplot as plt
+from convenience_functions import show_image
+
+# The tutorial I am following gives a method for calculating the exposure time for dark frames.
+# After talkimh to Mr. Altafi what I gathered was that what's currently done in INO is that the dark exposure time is equal to the
+# light exposure time to minimize noise effect. I've got to somehow make sure that this is the correct path for my project too.
+# Estimating exposure time and number of frames for measuring dark current (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/03-02-Real-dark-current-noise-and-other-artifacts.html)
+# Opening the image file data and looking at the header to look for :
+hdu_list = fits.open('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark-2023_09_10-exp00.01.40.000-1x1_High\\2.fit')
+
+hdu = hdu_list[0]
+hdu.header
+
+# Let's take a look at all the header files of all the darks included in this directory
+data_directory = 'C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark'
+
+image_path = Path(data_directory)
+
+image_path.mkdir(parents=True, exist_ok=True)
+
+im_collection = ImageFileCollection(data_directory)
+
+im_collection.summary
+
+# Combine calibrated dark images for use in later reduction steps
+# First Lets tell it where the Dark Frames are:
+calibrated_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark-2023_09_10-exp00.01.40.000-1x1_High')
+reduced_images = ccdp.ImageFileCollection(calibrated_path)
+
+###???? Check this with someone
+# Our Files Do not have the ( BUNIT = adu ) in the header which is compulsory by ccdproc. So this module is adding this keyword to the
+# header of all the files located in the specified folder
+
+# Specify the folder path containing the image files
+image_folder = "C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark-2023_09_10-exp00.01.40.000-1x1_High"
+# Extract the filenames of the image files
+image_files = [os.path.join(image_folder, filename) for filename in os.listdir(image_folder) if filename.endswith(".fit")]
+
+for image_file in image_files:
+    hdulist = fits.open(image_file, mode='update')  # Open the file for modification
+    header = hdulist[0].header  # Access the header of the primary HDU
+
+    if 'BUNIT' not in header:  # Check if the keyword already exists
+        header['BUNIT'] = 'adu'  # Add the keyword with the value 'adu'
+
+    hdulist.flush()  # Write changes to disk
+    hdulist.close()  # Close the file
+
+# Performing the actual combination of the bias images and performing sigmacli[pping as well.
+# Combine all files in the directory without filtering
+all_darks = reduced_images.files_filtered(include_path=True)  # Get all files
+combined_dark = ccdp.combine(all_darks,
+                             method='average',
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6
+                             )
+
+combined_dark.meta['comb-ave'] = True
+
+combined_dark.write(calibrated_path / 'combined_dar.fit')
+
+# A single calibrated image and the combined image are shown below. There is significant two-dimensional structure in the bias that cannot easily be removed by subtracting only the overscan in the next image reduction steps. It takes little time to acquire bias images and doing so will result in higher quality science images.
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+
+show_image(CCDData.read(image_files[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+ax1.set_title('Single Dark')
+show_image(combined_dark.data, cmap='gray', ax=ax2, fig=fig, percl=90)
+ax2.set_title('8 Darks combined')
+
+# Adjust layout and save the plot
+plt.tight_layout()
+fig.savefig("combined_vs_single Dark.png")
+
+# Remember that the combined fits file is stored inside the same folder those 8 darks are.
+
+# End of Darks
+
+# --------------------------------------------------------------------------------------
 #14021104-2
 #About bias and overscan:
 # (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/02-01-overscan-trimming-and-bias-subtraction-background.html)
@@ -136,7 +333,7 @@ for row in table:
 # essential depending on how many images you need to combine, how big they are, and how much memory your
 # computer has.
 
-# The remainder of this section assumes the calibrated (means corrected for Overscan only) bias images 
+# The remainder of this section assumes the calibrated (calibrated here means corrected for Overscan only) bias images 
 # are in a specified folder:
 calibrated_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\bias-2023_09_10-exp00.00.00.000020-1x1_High')
 reduced_images = ccdp.ImageFileCollection(calibrated_path)
