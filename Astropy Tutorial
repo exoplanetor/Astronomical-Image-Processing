@@ -1,6 +1,124 @@
 # --------------------------------------------------------------------------------------
+#14021116-1
+# Flat corrections- Part3
+# Summary:
+#https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/05-04-Combining-flats.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# --------------------------------------------------------------------------------------
+#14021111-1
+# Flat corrections- Part2
+# Summary: In this section I learned how to subtract a combined dark image from a list of flat files included in a directory.
+
+# LOG: Subtracting Dark from Flat
+import numpy as np
+from astropy.io import fits
+from pathlib import Path
+from astropy.nddata import CCDData
+from itertools import cycle
+from ccdproc import ImageFileCollection
+import os
+from astropy.stats import mad_std
+import ccdproc as ccdp
+import matplotlib.pyplot as plt
+from convenience_functions import show_image
+from matplotlib.colors import LogNorm
+import astropy.units as u
+
+# Combine calibrated flat images for use in later reduction steps
+# First Lets tell it where the flat Frames are:
+calibrated_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\flat\\Night-Oct-8\\1\\g')
+reduced_images = ccdp.ImageFileCollection(calibrated_path)
+# Let's open one Flat image and take a look at it
+image_file = os.path.join('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\flat\\Night-Oct-8\\1\\g', 'flat-g-2023_10_08-exp00.01.00.000_1x1_High_1.fit' )
+# display the structure of the file
+fits.info(image_file)
+
+#Display the image data (single plot):
+show_image(image_data, cmap='gray')
+reduced_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\flat\\Night-Oct-8\\1\\g')
+ifc_reduced = ccdp.ImageFileCollection(reduced_path)
+flat_image_type = 'FLATFIELD'
+
+ifc_raw = ccdp.ImageFileCollection(reduced_path)
+
+# Our Files Do not have the ( BUNIT = adu ) in the header which is compulsory by ccdproc. So this module is adding this keyword to the
+# header of all the files located in the specified folder
+
+# Extract the filenames of the image files
+image_files = [os.path.join(reduced_path, filename) for filename in os.listdir(reduced_path) if filename.endswith(".fit")]
+
+for image_file in image_files:
+    hdulist = fits.open(image_file, mode='update')  # Open the file for modification
+    header = hdulist[0].header  # Access the header of the primary HDU
+
+    if 'BUNIT' not in header:  # Check if the keyword already exists
+        header['BUNIT'] = 'adu'  # Add the keyword with the value 'adu'
+
+    if 'IMG_TYP' not in header:  # Check if the keyword already exists
+        header['IMG_TYP'] = 'flatfield'  # Add the keyword with the value 'adu'
+        
+    hdulist.flush()  # Write changes to disk
+    hdulist.close()  # Close the file
+
+# Looking inside the header list I saw that I am specifying the flag for it to look for wrongly: It should be img_typ instead of imagetype.
+# When solved I see the image below:
+
+filtered_files = ifc_raw.files_filtered(img_typ='flatfield', include_path=True)
+if filtered_files:  # Check if the list is not empty
+    a_flat = CCDData.read(filtered_files[0], unit='adu')
+    show_image(a_flat, cmap='gray')
+else:
+    print("No flatfield images found")
+
+# Next Step Would be to Subtract overscan and trim, if necessary, which I don't need but the tutorial is here just in case:
+# https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/05-03-Calibrating-the-flats.html -----> Section 4.2.2.1.
+
+
+# NExt Step: Subtract dark current
+
+# Right now I am not using the following two lines but again just in case:
+# We need to subtract the dark without scaling it. Rather than manually figuring out which dark to subtract, we use the dark frame closest in exposure time to the flat, within a tolerance
+# of 1 second to ensure that we do not end up using a dark too far off in exposure time from the flat.
+
+# What I actually am doing is to give the address to my combined dark image manually and then subtract it from a single flat file:
+
+# Load the combined dark from the specified local address
+combined_dark_path = "C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\dark\\combined_dar.fit"
+combined_dark = CCDData.read(combined_dark_path, unit='adu')
+
+# Subtract the loaded combined dark from a_flat_reduced
+a_flat_reduced = ccdp.subtract_dark(a_flat, combined_dark, exposure_time='exptime', exposure_unit=10*u.second, scale=False)
+
+# Display the resulting image
+show_image(a_flat_reduced, cmap='gray')
+
+
+# Next Step: Calibrate all of the Flats in one folder
+
+for ccd, file_name in ifc_raw.ccds(img_typ='FLATFIELD', ccd_kwargs={'unit': 'adu'}, return_fname=True ):
+    # Subtract the dark current 
+    ccd = ccdp.subtract_dark(ccd, combined_dark,
+                             exposure_time='exptime', exposure_unit=10*u.second)
+
+    # Save the result; there are some duplicate file names so pre-pend "flat"
+    ccd.write(reduced_path / ('dark_removed-' + file_name), overwrite=True)
+
+# --------------------------------------------------------------------------------------
 #14021109-2
-# Flat corrections
+# Flat corrections- Part1
 
 #LOG
 # The purpose of flat corrections is to compensate for any nonuniformity in the response of the CCD to
@@ -24,23 +142,6 @@
 # Ideally the flat images have fairly high counts (roughly half the maximum counts of the detector) so
 # that the only important source of error is Poisson error due to the light in the flat images, and so
 # that the signal-to-noise ratio in those images is essentially zero.
-
-
-
-
-TO BE CONTINUED
-
-
-
-
-
-
-
-
-
-
-
-
 # --------------------------------------------------------------------------------------
 # 14021109-1
 #Dark current and hot pixels:
