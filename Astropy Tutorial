@@ -1,21 +1,51 @@
 # --------------------------------------------------------------------------------------
+#14021123-1
+# Combing Step was not at all straight forward - I need to follow this later
+
+# --------------------------------------------------------------------------------------
 #14021116-1
 # Flat corrections- Part3
-# Summary:
+# Summary: Removing Dark from directories of flat
 #https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/05-04-Combining-flats.html
 
+#LOG:
+# Today (after preparing my monthly report on project's progress) I went a step back to remove dark current from the i-filter flats
+# in the data directory. This means that I went through the (flat-reduce-darks.ipynab) routine and it worked fine until the final
+# step which was sutracting the combined dark from all flat images in a director and this was when this happened:
+
+ValueError: operands could not be subtracted with shapes (1366, 1366) (4096, 4096)
+
+# This is making me think that perhaps one of the files in the flat directory has a different dimention so let's check that out:
+# Remember the use of im_collection from before? Let's change and use it in here very fast:
+
+reduced_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\flat\\Night-Oct-8\\1\\i')
+image_path = Path(reduced_path)
+image_path.mkdir(parents=True, exist_ok=True)
+im_collection = ImageFileCollection(reduced_path)
+im_collection.summary
+
+# This list actually showed me that 4 of the fits files had a dimension of 1366x1366. Their visual looks didn't show anything specifically
+# different but finding what their names was I realized that they are the 4 images with 3x3 binning. I think this is one of those
+# instances where I should try to filter the targetting files using their headers. What I did today was to manually move those 3 into
+# another folder but in time I should look for a solution there.
+
+# Moving on: 
+# Let's perform a similar task for the other flat files at hand to see if any other new problems arise.
+# Well things went smoothly. We have 4 filters: g i r u | The u filter for this night contained a large number of 3x3 binning files
+# so I didn't go through with that. Moving on again...
 
 
 
+# Combining flats: 
+# There is one step in combining flats that is different from most other image combination:
+# ******the flats should be scaled to a common value before combining them*****. This is particularly
+# important if the flats are twilight flats in which the average image value typically
+# changes significantly as the images are being taken.
 
+#Flats are typically grouped by filter when combining them. That is, one combined flat
+# is produced for each filter in which flats were taken.
 
-
-
-
-
-
-
-
+# Combing Step was not at all straight forward - I need to follow this later
 
 # --------------------------------------------------------------------------------------
 #14021111-1
