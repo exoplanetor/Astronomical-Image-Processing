@@ -1,7 +1,60 @@
 # --------------------------------------------------------------------------------------
 #14021123-1
 # Combing Step was not at all straight forward - I need to follow this later
+# Today I went through with this step. Here is what I currently have: 
 
+# This code combines a number of dark removed flats in a directory specified as: directory_path
+from pathlib import Path
+import glob
+import numpy as np
+import matplotlib.pyplot as plt
+
+import ccdproc as ccdp
+from astropy.stats import mad_std
+from astropy.visualization import hist
+import os
+
+from convenience_functions import show_image
+
+directory_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\flat\\Night-Oct-8\\1\\g')
+flat_imagetyp = 'flatfield'
+ifc = ccdp.ImageFileCollection(directory_path)
+#print (ifc)
+
+
+# These flats are dome flats, essentially pictures of a screen in the dome illuminated by a light source, so you would not expect there to be much variable in the typical pixel
+# value between different exposures. There is typically some variation, though, so we graph it below.
+
+median_count = [np.median(data) for data in ifc.data(img_typ='flatfield')]
+mean_count = [np.mean(data) for data in ifc.data(img_typ='flatfield')]
+plt.plot(median_count, label='median')
+plt.plot(mean_count, label='mean')
+plt.xlabel('Image number')
+plt.ylabel('Count (ADU)')
+plt.title('Pixel value in calibrated flat frames')
+plt.legend()
+print(median_count)
+
+# To scale the frames so that they have the same median value, we need to define a function that can calculate the inverse of the median given the data.
+def inv_median(a):
+    return 1 / np.median(a)
+
+# Retrieve all .fit files in the directory
+to_combine = [str(file) for file in directory_path.glob('*.fit')]
+
+# Checking- Print the list of files
+#print(to_combine)
+
+combined_flat = ccdp.combine(to_combine,
+                             method='average', scale=inv_median,
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6)
+
+combined_flat.meta['combined'] = True
+dark_file_name = 'combined_flat_filter.fit'
+combined_flat.write(directory_path / dark_file_name)  
+# This creates a file called combined_flat_filter.fit in the same directory as the initial files.
 # --------------------------------------------------------------------------------------
 #14021116-1
 # Flat corrections- Part3
