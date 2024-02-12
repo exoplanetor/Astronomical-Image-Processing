@@ -1,4 +1,42 @@
 # --------------------------------------------------------------------------------------
+#14021125-1
+# Science image calibration
+# from pathlib import Path
+
+from matplotlib import pyplot as plt
+import numpy as np
+
+from astropy import units as u
+import ccdproc as ccdp
+
+from convenience_functions import show_image
+
+# ccdproc provides a couple of ways to approach calibration of the science images:
+    # Perform each of the individual steps manually using subtract_bias, subtract_dark, and flat_correct.
+    #Use the ccd_process function to perform all of the reduction steps.
+#This notebook will do each of these in separate sections below.
+
+# Continuing from Here: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/06-03-science-images-calibration-examples.html
+
+# --------------------------------------------------------------------------------------
+#14021123-2
+# I think it's now time for a quick recap of the steps that need to be taken for Flat images:
+    # 0. You might need to perform overscan on your flat image (I don't)
+    # 1. First subtract a combined dark image (according to each filter) from each flat image. (pay attention to binning at this stage-needs to be the same for both darks and flats)
+    # 2. Next for each filter, create a combined (master) flat image which would be used for later image reduction
+
+# I already have created such a master image for our g-filter now as practice I will move-on to perform the same task for all other flats I have at hand.
+# Alright-> starting from filter i > dark reduction
+# Pay attention to the fact that working with the directories here is sort of tricky and as time goes by,
+# I should move on to storing all necessary information in the headers or things will get really complicated 
+# to follow each time. Right now since the exposure times and binnings, etc. are very different for the filter at
+# hand in that observing night, I have created a folder inside my "directory_path" put everything inside it and then copied 
+# and pasted a set having similar properties in the "directory_path" to work with them only. This should be repeated
+# accordingly at later attempts.
+
+# Well it seems to work almost smoothly.
+
+# --------------------------------------------------------------------------------------
 #14021123-1
 # Combing Step was not at all straight forward - I need to follow this later
 # Today I went through with this step. Here is what I currently have: 
