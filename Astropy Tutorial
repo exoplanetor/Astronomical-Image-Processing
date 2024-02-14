@@ -1,22 +1,67 @@
 # --------------------------------------------------------------------------------------
 #14021125-1
 # Science image calibration
-# from pathlib import Path
+# Summary: Subtracting master dark and master flats from light images
 
+# The two examples given in the tutorial (https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/06-03-science-images-calibration-examples.html)
+# were too complicated for our needs. That's why I came up with another set of much simpler snippets to do the task
+# I referred to the actual documentation for ccdpro.subrtact function and seems that it did the job. 
+
+# The initial results of the whole process is far too bad as expected of course but I think today was a good day altogether
+#Coz I finally have all the working codes to subtract dark and bias from my light frames. follow the steps in the following:
+
+from pathlib import Path
+from astropy.io import fits
 from matplotlib import pyplot as plt
 import numpy as np
-
+import os
 from astropy import units as u
 import ccdproc as ccdp
-
+from astropy.nddata import CCDData
 from convenience_functions import show_image
 
-# ccdproc provides a couple of ways to approach calibration of the science images:
-    # Perform each of the individual steps manually using subtract_bias, subtract_dark, and flat_correct.
-    #Use the ccd_process function to perform all of the reduction steps.
-#This notebook will do each of these in separate sections below.
+reduced_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\calibrated-files')
+raw_path = Path('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\calibrated-files\\raw')
 
-# Continuing from Here: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/06-03-science-images-calibration-examples.html
+science_imagetyp = 'object'
+flat_imagetyp = 'flatfield'
+exposure = 'exptime'
+
+im_collection = ccdp.ImageFileCollection(raw_path)
+#im_collection.summary
+lights= im_collection.summary
+lights['date-obs', 'exptime','img_typ','bunit','combined']
+
+# Next, a look at the calibrated combined images available to us.
+
+calib_collection = ccdp.ImageFileCollection(reduced_path)
+#im_collection.summary
+lights= calib_collection.summary
+lights['date-obs', 'exptime','img_typ','bunit','combined']
+
+raw_data = CCDData.read('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\calibrated-files\\raw\\light-i-2023_10_08-exp00.00.20.000-1x1_High_1.fit')
+#print(raw_data)
+
+dark_data = CCDData.read('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\calibrated-files\\combined_dark.fit')
+#print(dark_data)
+
+flat_data = CCDData.read('C:\\Users\\Observatory\\Exo\\tut\\INO-ic-10\\calibrated-files\\combined_flat_filter.fit')
+#print(flat_data)
+
+### Performing the Actual subtraction of dark from light)###
+reduced = ccdp.subtract_dark(raw_data, dark_data,exposure_time=exposure, exposure_unit=u.second)
+#print(reduced)
+
+### Performing the Actual subtraction of flat from light)###
+reduced = ccdp.flat_correct(reduced, flat_data)
+#print(reduced)
+
+#Writing the output to a file
+reduced.write(reduced_path / ('master_dark-and-flat_removed' + file_name), overwrite=True)
+
+# The code finally outputs a [calibrated-file].fit in the same working directory which if better than the original image 
+# should do well to pass onto later scientific steps.
+
 
 # --------------------------------------------------------------------------------------
 #14021123-2
