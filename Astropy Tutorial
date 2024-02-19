@@ -1,3 +1,329 @@
+#14021130
+# Summary: Today I pasted all my image calibration routines together into a file called "All-in-one-calibration"
+
+import numpy as np
+from astropy.io import fits
+from pathlib import Path
+from astropy.nddata import CCDData
+from itertools import cycle
+from ccdproc import ImageFileCollection
+import os
+from astropy.stats import mad_std
+import ccdproc as ccdp
+import matplotlib.pyplot as plt
+from convenience_functions import show_image
+from matplotlib.colors import LogNorm
+import astropy.units as u
+import glob
+#### STEP 0 - Specifiying Locations ####
+
+# Darks
+dark_path = Path('C:\\Users\\Observatory\\Exo\\tut\\data\\INO-ic-10\\dark')
+
+combined_dark_name = 'median_combined_dark.fit'
+
+# Flats
+flat_path = Path('C:\\Users\\Observatory\\Exo\\tut\\data\\INO-ic-10\\flat\\Night-Oct-8\\1\\r')
+#The dir_path below should be fixed later - this is where to put flat files to be combined
+dir_path = Path('C:\\Users\\Observatory\\Exo\\tut\\data\\INO-ic-10\\flat\\Night-Oct-8\\1\\r\\to_be_combined')
+combined_flat_name = 'median_combined_flat.fit'
+combined_flat_withdark = 'combined_flat_with_dark.fit'
+
+#Science Frame
+raw_science_frame_path = Path('C:\\Users\\Observatory\\Exo\\tut\\data\\INO-ic-10\\combined\\raw_science_frame')
+light_frame_name = 'light-r-2023_10_08-exp00.03.20.000-1x1_Merge_1.fit'
+light_minus_flat_withdark = 'light_minus_falt_onlyflat-r-2023_10_08-exp00.00.30.000-1x1_Merge_1.fit'
+
+# This is where I tell the code to write combined dark and flat files
+combined_path =  Path('C:\\Users\\Observatory\\Exo\\tut\\data\\INO-ic-10\\combined')
+#Taking a look at all the header files in a directory - Run if necessary
+
+#image_path = Path(flat_path)
+#image_path.mkdir(parents=True, exist_ok=True)
+#im_collection = ImageFileCollection(flat_path)
+#im_collection.summary
+# Extract the filenames from within folders
+dark_files = [os.path.join(dark_path, filename) for filename in os.listdir(dark_path) if filename.endswith(".fit")]
+#### STEP 1 - Adding Necessary Flags to Headers ####
+# Our Files Do not have the ( UNIT = adu ) in the header which is compulsory by ccdproc. So this module is adding this keyword to the
+# header of all the files located in the specified folder
+
+for dark_file in dark_files:
+    hdulist = fits.open(dark_file, mode='update')  # Open the file for modification
+    header = hdulist[0].header  # Access the header of the primary HDU
+
+    if 'BUNIT' not in header:  # Check if the keyword already exists
+        header['BUNIT'] = 'adu'  # Add the keyword with the value 'adu'
+    if 'IMG_TYP' not in header:  # Check if the keyword already exists
+        header['IMG_TYP'] = 'dark'  # Add the keyword with the value 'adu'
+
+    hdulist.flush()  # Write changes to disk
+    hdulist.close()  # Close the file
+
+flat_files = [os.path.join(flat_path, filename) for filename in os.listdir(flat_path) if filename.endswith(".fit")]
+
+for flat_file in flat_files:
+    hdulist = fits.open(flat_file, mode='update')  # Open the file for modification
+    header = hdulist[0].header  # Access the header of the primary HDU
+
+    if 'BUNIT' not in header:  # Check if the keyword already exists
+        header['BUNIT'] = 'adu'  # Add the keyword with the value 'adu'
+    if 'IMG_TYP' not in header:  # Check if the keyword already exists
+        header['IMG_TYP'] = 'flat'  # Add the keyword with the value 'adu'
+        
+    hdulist.flush()  # Write changes to disk
+    hdulist.close()  # Close the file
+#### STEP 2 - Combining Bias ####
+# If you do not need to scale the dark frames to a different exposure time then do not subtract the bias from the darks. 
+# The dark frames will serve to remove both the bias and the dark current your images.
+#### STEP 3 - Combining Darks ####
+
+# NOTE! Darks should have exposure times closest to light. (No need for bias correction if darks don't need scaling down time. Never scale darks up in time or it would add noise!)
+# Performing combination of the dark images and performing sigmacli[pping as well.
+
+reduced_dark_images = ccdp.ImageFileCollection(dark_path)
+
+# Performing the actual combination of the bias images and performing sigmacli[pping as well.
+all_darks = reduced_dark_images.files_filtered(include_path=True)  # Get all files
+combined_dark = ccdp.combine(all_darks,
+                             method='median',
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6
+                             )
+
+combined_dark.meta['comb-med'] = True
+
+combined_dark.write(combined_path / 'median_combined_dark.fit',overwrite=True)
+# A single calibrated image and the combined image are shown below.
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+
+show_image(CCDData.read(dark_files[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+ax1.set_title('Single Dark')
+show_image(combined_dark.data, cmap='gray', ax=ax2, fig=fig, percl=90)
+ax2.set_title('9 Darks combined')
+
+# Adjust layout and save the plot
+plt.tight_layout()
+fig.savefig("9darks-INO-ic-10_average.png")
+#### STEP 4 - Subtracting Darks from Flat Frames ####
+# For Flats what you should take care of is the count (should be 1/2 to 1/4 count of light frames)
+# Combine calibrated flat images for use in later reduction steps
+
+ifc_raw = ccdp.ImageFileCollection(flat_path)
+flat_image_type = 'FLAT'
+
+# Vewing one flat file
+filtered_files = ifc_raw.files_filtered(img_typ='flat', include_path=True)
+if filtered_files:  # Check if the list is not empty
+    b_flat = CCDData.read(filtered_files[0], unit='adu')
+    show_image(b_flat, cmap='gray')
+else:
+    print("No flatfield images found")
+# Next Step Would be to Subtract overscan and trim from each flat frame, if necessary, which I don't need but the tutorial is here just in case:
+# https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/05-03-Calibrating-the-flats.html -----> Section 4.2.2.1.
+
+# NExt Step: Subtract combined dark current from a single flat frame:
+# Below I am telling it how to find the combined dark file
+combined_file = os.path.join(combined_path, combined_dark_name )
+
+combined_data = CCDData.read(combined_file, unit='adu')
+# Subtract the loaded combined dark from a_flat_reduced
+b_flat_reduced = ccdp.subtract_dark(b_flat, combined_data, exposure_time='exptime', exposure_unit=10*u.second, scale=False)
+
+# Display the resulting image
+show_image(b_flat_reduced, cmap='gray')
+# Vewing A single raw flat image and a dark_reduced flat image next to each other
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+
+filtered_files = ifc_raw.files_filtered(img_typ='flat', include_path=True)
+if filtered_files:  # Check if the list is not empty
+    b_flat = CCDData.read(filtered_files[0], unit='adu')
+    show_image(b_flat, cmap='gray', ax=ax1, fig=fig, percl=90)
+    ax1.set_title('Single Raw Flat')
+    show_image(b_flat_reduced, cmap='gray', ax=ax2, fig=fig, percl=90)
+    ax2.set_title('Same Flat minus Combined Dark')
+    plt.tight_layout()
+    fig.savefig("raw_vs_combined dark reduced_flat.png")
+else:
+    print("No flatfield images found")
+# This part removes combined darks from each flat frame inside flat_path and creates the "dark_removed+filename" inside the same directory
+
+for ccd, file_name in ifc_raw.ccds(img_typ='FLAT', ccd_kwargs={'unit': 'adu'}, return_fname=True ):
+    # Subtract the dark current 
+    ccd = ccdp.subtract_dark(ccd, combined_data,
+                             exposure_time='exptime', exposure_unit=10*u.second)
+
+    # Save the result; there are some duplicate file names so pre-pend "flat"
+    ccd.write(flat_path / ('dark_removed_' + file_name), overwrite=True)
+#### STEP 6 - Creating Master Flat ####
+# The first thing to do at this stage is to decide which set of flat_minus_combined_dark files you want to add together in order to make a 
+# master flat. Place them in the (dir_path) folder. Some things to conside here:
+#      1- You can only add frames with the same exposure time
+#      2- Merge Frames (for INO340 telescope) are actually themselves high+low frames combined
+
+ifc = ccdp.ImageFileCollection(dir_path)
+ifc.summary
+# These flats are dome flats, essentially pictures of a screen in the dome illuminated by a light source, so you would not expect there to be much variable in the typical pixel
+# value between different exposures. There is typically some variation, though, so we graph it below.
+
+median_count = [np.median(data) for data in ifc.data(img_typ='flat')]
+mean_count = [np.mean(data) for data in ifc.data(img_typ='flat')]
+plt.plot(median_count, label='median')
+plt.plot(mean_count, label='mean')
+plt.xlabel('Image number')
+plt.ylabel('Count (ADU)')
+plt.title('Pixel value in calibrated flat frames')
+plt.legend()
+print(median_count)
+# To scale the frames so that they have the same median value, we need to define a function that can calculate the inverse of the median given the data.
+def inv_median(a):
+    return 1 / np.median(a)
+
+# Retrieve all .fit files in the directory
+to_combine = [str(file) for file in dir_path.glob('*.fit')]
+
+# Checking- Print the list of files
+#print(to_combine)
+
+combined_flat = ccdp.combine(to_combine,
+                             method='median', scale=inv_median,
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6)
+
+combined_flat.meta['combined'] = True
+combined_flat.write(combined_path / combined_flat_name)
+#BIG ATTENTION - When making this plot - the current state of the code needs for one single flat frame to be located inside the flatt_files folder
+# This means that I have manually displaced all other flat files into the (files) folder inside (flat_path) and then moved them back afterwards.
+# Obviously this has to change in time
+
+flatt_files = [os.path.join(flat_path, filename) for filename in os.listdir(flat_path) if filename.endswith(".fit")]
+combin_file = os.path.join(combined_path, combined_flat_name )
+combin_data = CCDData.read(combin_file, unit='adu')
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+
+if filter_files:  # Check if the list is not empty
+    show_image(CCDData.read(flatt_files[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+    ax1.set_title('Single_raw flat')
+    show_image(combin_data, cmap='gray', ax=ax2, fig=fig, percl=90)
+    ax2.set_title('Combined Flats with Dark reduced')
+    plt.tight_layout()
+    fig.savefig("raw_vs_combined_flat.png")
+else:
+    print("No flatfield images found")
+#### STEP 7 - Creating Another Master Flat this time NOT reducing Darks individually ####
+# The first thing to do at this stage is to decide which set of flat_minus_combined_dark files you want to add together in order to make a 
+# master flat. Place them in the (dir_path) folder. Some things to conside here:
+#      1- You can only add frames with the same exposure time
+#      2- Merge Frames (for INO340 telescope) are actually themselves high+low frames combined
+
+list = ccdp.ImageFileCollection(dir_path)
+#ifc.summary
+median_count = [np.median(data) for data in list.data(img_typ='flat')]
+mean_count = [np.mean(data) for data in list.data(img_typ='flat')]
+plt.plot(median_count, label='median')
+plt.plot(mean_count, label='mean')
+plt.xlabel('Image number')
+plt.ylabel('Count (ADU)')
+plt.title('Pixel value in calibrated flat frames')
+plt.legend()
+print(median_count)
+
+# To scale the frames so that they have the same median value, we need to define a function that can calculate the inverse of the median given the data.
+def inv_median(a):
+    return 1 / np.median(a)
+
+# Retrieve all .fit files in the directory
+t_combine = [str(file) for file in dir_path.glob('*.fit')]
+
+# Checking- Print the list of files
+#print(to_combine)
+
+comb_flat = ccdp.combine(t_combine,
+                             method='median', scale=inv_median,
+                             sigma_clip=True, sigma_clip_low_thresh=5, sigma_clip_high_thresh=5,
+                             sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                             mem_limit=350e6)
+
+comb_flat.meta['combined'] = True
+comb_flat.write(combined_path / combined_flat_withdark)
+#BIG ATTENTION - When making this plot - the current state of the code needs for one single flat frame to be located inside the flatt_files folder
+# This means that I have manually displaced all other flat files into the (files) folder inside (flat_path) and then moved them back afterwards.
+# Obviously this has to change in time
+
+flatt_files = [os.path.join(flat_path, filename) for filename in os.listdir(flat_path) if filename.endswith(".fit")]
+combi_file = os.path.join(combined_path, combined_flat_withdark )
+combi_data = CCDData.read(combi_file, unit='adu')
+
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(30, 10))
+
+if filter_files:  # Check if the list is not empty
+    show_image(CCDData.read(flatt_files[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+    ax1.set_title('Single_raw flat')
+    show_image(combi_data, cmap='gray', ax=ax2, fig=fig, percl=90)
+    ax2.set_title('Combined Flats NOT Dark reduced')
+    show_image(combin_data, cmap='gray', ax=ax3, fig=fig, percl=90)
+    ax3.set_title('Combined Flats with Dark reduced')
+    plt.tight_layout()
+    fig.savefig("comparison.png")
+else:
+    print("No flatfield images found")
+#### STEP 8 - Subtracting Each of the two flat files from a light Frame ####
+# Before Performing this step make sure of the following things:
+#    1- choose the light frame with the closest exposure time to the dark frames
+#    2- good Flats should have their count to be 1/2 to 1/4 count of light frames - (check this with ds9?? Find the python way)
+
+science_imagetyp = 'object'
+exposure = 'exptime'
+
+# Taking Care of the header separately for the light frame (This should also change later):
+#    if 'IMG_TYP' not in header:  # Check if the keyword already exists
+#        header['IMG_TYP'] = 'object'  # Add the keyword with the value 'adu'
+
+im = ccdp.ImageFileCollection(raw_science_frame_path)
+#im_collection.summary
+science= im.summary
+science['date-obs', 'exptime','img_typ','bunit']
+
+raw_data = CCDData.read(raw_science_frame_path.joinpath(light_frame_name))
+# combined_data = CCDData.read(combined_file, unit='adu')
+# combi_data = CCDData.read(combi_file, unit='adu')
+### Performing the Actual subtraction of dark from light)###
+reduced = ccdp.subtract_dark(raw_data, combined_data,exposure_time=exposure, exposure_unit=u.second)
+
+### Light minus Flat only ###
+reduced = ccdp.flat_correct(reduced, combi_data)
+
+### Light minus Flat and Dark ###
+reduce = ccdp.flat_correct(reduced, combin_data)
+
+
+#Writing the output to a file
+reduced.write(combined_path / ('light_minus_falt_only' + file_name), overwrite=True)
+reduce.write(combined_path / ('light_minus_falt_and_dark' + file_name), overwrite=True)
+
+lightt_file = [os.path.join(raw_science_frame_path, filename) for filename in os.listdir(raw_science_frame_path) if filename.endswith(".fit")]
+
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(30, 10))
+
+if filter_files:  # Check if the list is not empty
+    show_image(CCDData.read(lightt_file[0]).data, cmap='gray', ax=ax1, fig=fig, percl=90)
+    ax1.set_title('raw light frame')
+    show_image(reduced, cmap='gray', ax=ax2, fig=fig, percl=90)
+    ax2.set_title('light minus combined flat only')
+    show_image(reduce, cmap='gray', ax=ax3, fig=fig, percl=90)
+    ax3.set_title('light minus combined flat and dark')
+    plt.tight_layout()
+    fig.savefig("light minus flat only.png")
+else:
+    print("No flatfield images found")
+
+
+
+
+
 # --------------------------------------------------------------------------------------
 #14021125-1
 # Science image calibration
