@@ -1,3 +1,19 @@
+#14021202
+
+# 1. Today I went through the All-in-one code and tried to make it more efficient in terms of reducing manual
+# tasks necessary. I still have some problem with manually placing the flat files to be combined in the corresponding
+# directories. In time this has to solve smoothly.
+
+# 2. Another task ahead is the fact that I need to learn to test the effect of different binnings on the quality of
+# Master dark and master flat frames.
+# 3. Next is to learn if I could use different binnings say 5x5 myself when adding.
+# 4. Next in line is to learn to perform aperture photometry and changle your star's light into flux in time
+# 5. Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been 
+# observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.
+
+# ok guess that's all for today
+
+# --------------------------------------------------------------------------------------
 #14021130
 # Summary: Today I pasted all my image calibration routines together into a file called "All-in-one-calibration"
 
