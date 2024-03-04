@@ -1,11 +1,17 @@
-# 14021214
-# Summary: All about Binning
+# 14021214-2
+# Aim: turn fits file into photometry
+
+# --------------------------------------------------------------------------------------
+
+# 14021214-1
+# Aim: Change fits file Binning
+# Summary: I can do this at the final stage of plotting right now.
 
 # To day I spent a lot of time trying to change the binning of my images. Things I have learned include the following:
 #     -First decide why you want to perform the binning?
 #        1. is it just because you want a better looking and smoother image? Well the path to go there is to perform the new binning step on the final output file you
 #          have after performing all reductions (dark, flat, combination etc.). The code below shows one way of doing this. This code plots two different binnings next to
-#          to each other.
+#          to each other. To be honest I didn't see much of a change in it.
 
 import numpy as np
 from astropy.io import fits
@@ -45,6 +51,7 @@ plt.tight_layout()
 #          are faced with two choices:
 #                o First, make sure that you change the binning of all corresponding bias, dark, flat and light frames that you are working with accordingly in one session.
 #                o Second, the best method to do this is to decide what binning you need at the beginning of the observation process.
+#          I have no working code for this but as right now I have no obvious reasons to do that I guess I am postponing this till later.
 
 # So the question I am currently faced with is to learn how to find out what S/N I need for my observations and also learning about sampling rate which plays an 
 # important role in this issue.
