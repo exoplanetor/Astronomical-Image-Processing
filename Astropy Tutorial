@@ -1,6 +1,27 @@
 # 14021214-2
 # Aim: turn fits file into photometry
 
+# This is where I am studying this from: https://www1.phys.vt.edu/~jhs/phys3154/CCDPhotometryBook.pdf
+# Point Spread Function (PSF) and Size of Star Images:
+#  One fundamental concept we need to proceed is that of the point
+# spread function (PSF). The PSF function is the shape of the CCD image of a point (unresolved) source of light.
+#  For all research telescopes, the dominant determinant of the PSF is smearing caused by the
+# passage of starlight through the Earth’s turbulent atmosphere. This smearing is called seeing.
+# What does a PSF look like? Assuming good optics, proper focusing and tracking, the PSF
+# should be circularly symmetric. Assuming circular symmettry, the PSF can be plotted as the flux
+# vs. radius in a star image, as shown in Figure 17.1. The shape of a real PSF set by seeing is complicated, but can be approximated by a central
+# Gaussian “core” and a large “halo” which is approximated a power law. The angular size of the PSF
+# can be characterized in several ways. One common measure is the full width at half maximum
+# (FWHM) which is the diameter where the flux falls to half its central value.
+# Another important point, related to the above, is that the PSF does not have an edge. The
+# intensity of the star fades smoothly to zero with increasing radius, but there is no place that we could call an “edge”.
+
+# The fact that the PSF does not have an edge raises an important question: If we want to measure
+# all the light from a star, how far out in radius do we have to go? -> aperture correction: How big should the aperture
+# be? FWHM for start?
+
+
+
 # --------------------------------------------------------------------------------------
 
 # 14021214-1
