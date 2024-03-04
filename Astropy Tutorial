@@ -1,3 +1,13 @@
+# 14021216 
+# Continue from here:
+# https://www.astronomy.com/observing/how-to-observe-exoplanets-from-your-backyard/
+
+# TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations
+# TASK AHEAD: Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been 
+# observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.
+
+
+# --------------------------------------------------------------------------------------
 # 14021214-2
 # Aim: turn fits file into photometry
 
@@ -20,7 +30,40 @@
 # all the light from a star, how far out in radius do we have to go? -> aperture correction: How big should the aperture
 # be? FWHM for start?
 
+#-------------#
 
+# Chat GPT: When looking for exoplanet transits, using aperture photometry is generally favored over PSF photometry.
+# Aperture photometry sums up the pixel values within a defined aperture, avoiding some of the complexities 
+# associated with PSF photometry, including variability in the point spread function (PSF) across the field of view. 
+# Additionally, aperture photometry is generally more robust in cases where the target stars are crowded or in the 
+# presence of background contaminants. This method ensures that the recorded flux accurately reflects the light from
+# the target star, making it a suitable choice for detecting exoplanet transits.
+# For performing aperture photometry I have this code so far:
+
+#aperture_photometry_test
+
+from astropy.io import fits
+from photutils import CircularAperture, aperture_photometry
+# choosing a previosly reduced image:
+hdul = fits.open('C:\\Users\\Observatory\\Exo\\tut\\data\\oct-8\\combined\\light_minus_falt_onlyflat-r-2023_10_08-exp00.00.10.000-1x1_Merge_1.fit')
+data = hdul[0].data
+
+# I opened my image in ds9 and placed the cursor on the center of my star. The following are the pixel coordinates on that image
+position = (926, 2968)  # Replace with the actual x and y coordinates of the target star
+aperture_radius = 20.0  # Replace with your preferred aperture radius
+aperture = CircularAperture(position, r=aperture_radius)
+
+photometry_table = aperture_photometry(data, aperture)
+print(photometry_table)
+
+# This gives a table same as below: 
+# id   xcenter ycenter    aperture_sum  
+#      pix     pix                    
+#--- ------- ------- -----------------
+#  1   926.0  2968.0 4443694.623106287
+
+# ????What I don't know yet is what I should report for the unit of aperture sum and how it is related to the flux or
+# magnitude of the star??? There's a youtube video on Photometry with photutils in astropy that I intend to watch next.
 
 # --------------------------------------------------------------------------------------
 
@@ -77,24 +120,24 @@ plt.tight_layout()
 # So the question I am currently faced with is to learn how to find out what S/N I need for my observations and also learning about sampling rate which plays an 
 # important role in this issue.
 
-# TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations
-
 # --------------------------------------------------------------------------------------
 # 14021209
 # Today was the day to work on Fazel project only. Follow up this work from here:
 #https://ui.adsabs.harvard.edu/search/fq=%7B!type%3Daqp%20v%3D%24fq_database%7D&fq_database=(database%3Aastronomy%20OR%20database%3Aphysics)&q=%20abs%3A%22exoplanet%20atmosphere%20Machine%20Learning%22&sort=date%20desc%2C%20bibcode%20desc&p_=0
+# I flooked at the papers listed above and created a list of 5 suggestions for the paper and posted it to Fatemeh
+# Fazel on 14021214
+
 # --------------------------------------------------------------------------------------
 
 #14021202
-
 # 1. Today I went through the All-in-one code and tried to make it more efficient in terms of reducing manual
 # tasks necessary. I still have some problem with manually placing the flat files to be combined in the corresponding
 # directories. In time this has to solve smoothly.
 
-# 2. Another task ahead is the fact that I need to learn to test the effect of different binnings on the quality of
-# Master dark and master flat frames.
-# 3. Next is to learn if I could use different binnings say 5x5 myself when adding.
-# 4. Next in line is to learn to perform aperture photometry and changle your star's light into flux in time
+# 2. (done on 14021214) Another task ahead is the fact that I need to learn to test the effect of different binnings on the quality of
+# Master dark and master flat frames. 
+# 3. (done on 14021214) Next is to learn if I could use different binnings say 5x5 myself when adding.
+# 4. (started on 14021214) Next in line is to learn to perform aperture photometry and changle your star's light into flux in time
 # 5. Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been 
 # observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.
 
