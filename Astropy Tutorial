@@ -1,3 +1,56 @@
+# 14021214
+# Summary: All about Binning
+
+# To day I spent a lot of time trying to change the binning of my images. Things I have learned include the following:
+#     -First decide why you want to perform the binning?
+#        1. is it just because you want a better looking and smoother image? Well the path to go there is to perform the new binning step on the final output file you
+#          have after performing all reductions (dark, flat, combination etc.). The code below shows one way of doing this. This code plots two different binnings next to
+#          to each other.
+
+import numpy as np
+from astropy.io import fits
+import matplotlib.pyplot as plt
+from convenience_functions import show_image
+
+
+# Load the fits file
+image_file = 'C:\\Users\\Observatory\\Exo\\tut\\data\\oct-8\\combined\\light_minus_falt_onlyflat-r-2023_10_08-exp00.00.10.000-1x1_Merge_1.fit'
+image_data = fits.getdata(image_file, ext=0)
+image_file1 = 'C:\\Users\\Observatory\\Exo\\tut\\data\\oct-8\\combined\\light_minus_falt_and_darkflat-r-2023_10_08-exp00.00.10.000-1x1_Merge_1.fit'
+image_data1 = fits.getdata(image_file1, ext=0)
+
+# Define binning factors
+x_binning = 5
+y_binning = 5
+
+# Apply binning
+binned_data = np.repeat(image_data, y_binning, axis=0)
+binned_data = np.repeat(binned_data, x_binning, axis=1)
+binned_data1 = np.repeat(image_data1, y_binning, axis=0)
+binned_data1 = np.repeat(binned_data1, x_binning, axis=1)
+
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+#show_image(binned_data, cmap='gray', percl=90)
+
+show_image(binned_data, cmap='gray', ax=ax1, fig=fig, percl=90)
+ax1.set_title('light minus flat_binning5x5')
+show_image(image_data, cmap='gray', ax=ax2, fig=fig, percl=90)
+ax2.set_title('light minus flat_binning1x1')
+plt.tight_layout()
+#fig.savefig("blkwdow_light_minusflat&dark_binning1x1_vs_5x5.png")
+
+
+#        2. If you ever decide that for some reason (say increasing the S/N ratio) you need a different binning to be performed on directly each one fits file, again you
+#          are faced with two choices:
+#                o First, make sure that you change the binning of all corresponding bias, dark, flat and light frames that you are working with accordingly in one session.
+#                o Second, the best method to do this is to decide what binning you need at the beginning of the observation process.
+
+# So the question I am currently faced with is to learn how to find out what S/N I need for my observations and also learning about sampling rate which plays an 
+# important role in this issue.
+
+# TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations
+
 # --------------------------------------------------------------------------------------
 # 14021209
 # Today was the day to work on Fazel project only. Follow up this work from here:
