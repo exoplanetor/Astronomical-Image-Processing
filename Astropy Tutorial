@@ -1,12 +1,143 @@
-# 14021216 
-# Continue from here:
-# https://www.astronomy.com/observing/how-to-observe-exoplanets-from-your-backyard/
+# 14021216-2
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+| TASK: Performing Photometry:                                                                                                 |
+| Continue from here:                                                                                                          |
+| https://photutils.readthedocs.io/en/stable/detection.html                                                                    |
+| TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations                        |
+| TASK AHEAD: Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been| 
+| observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.                                |
+| TASK AHEAD: HAT-P-32b for later data access
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-# TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations
-# TASK AHEAD: Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been 
-# observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.
+# Photutils Tutorial ()
+ To accurately measure the photometry and morphological properties of astronomical sources, one requires an accurate 
+estimate of the background, which can be from both the sky and the detector. Similarly, having an accurate estimate
+of the background noise is important for determining the significance of source detections and for estimating photometric 
+errors.
 
+if you want to accurately measure the photometry and morphological properties of astronomical sources, then you will need 
+to account for the background. Astronomical images can have a variety of backgrounds, and there is not a single method that
+will work for all images. Photutils provides a variety of tools to help you estimate the background and background noise in
+your data.
 
+# Background Estimation (photutils.background):
+
+import astropy.io.fits as fits
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import median_filter
+data=fits.getdata('C:\\Users\\Observatory\\Exo\\tut\\data\\WASP12b_ctio13m_andicam\\combined\\ctio13_median_combined_flat.fit')
+def sigma_clip(data, sigma=3, n_iter=5):
+    median = np.median(data)
+    std = np.std(data)
+    mask = np.ones(data.shape, dtype=bool)
+    for _ in range(n_iter):
+        mask[(data - median) > sigma * std] = False
+        median = np.median(data[mask])
+        std = np.std(data[mask])
+    return median, mask
+
+background, mask = sigma_clip(data)
+background_subtracted = data - background
+
+plt.figure(figsize=(10, 6))
+
+plt.subplot(121)
+plt.imshow(data, vmin=data.min(), vmax=data.max(), cmap='gray')
+plt.title('Original Image')
+
+plt.subplot(122)
+plt.imshow(background_subtracted, vmin=background_subtracted.min(), vmax=background_subtracted.max(), cmap='gray')
+plt.title('Background Subtracted')
+
+plt.show()
+
+    # Masking sources is a technique used to improve the accuracy of background estimation in astronomical images.
+        It involves identifying and excluding the sources from the image before estimating the background level and noise.
+        Here are the steps involved in masking sources:
+        -Identify the sources in the image.
+        -Create a mask image that has the same dimensions as the data image.
+        -Set the pixels in the mask image to 1 where there is a source, and 0 elsewhere.
+        -Use the mask image to exclude the sources when estimating the background level and noise.
+        -Masking sources is an iterative procedure, meaning that the steps above may need to be repeated several times to achieve the desired level of accuracy.
+
+# Source Detection (photutils.detection)
+One generally needs to identify astronomical sources in their data before they can perform photometry or morphological
+measurements. Photutils provides several tools designed specifically to detect point-like (stellar) sources in an astronomical
+image. Photutils also provides a function to identify local peaks in an image that are above a specified threshold value.
+
+    # Detecting Stars
+    Photutils includes two widely-used tools that are used to detect stars in an image, DAOFIND and IRAF’s starfind, 
+    plus a third tool that allows input of a custom user-defined kernel.
+    Now we will subtract the background and use an instance of DAOStarFinder to find the stars in the image that have FWHMs
+    of around 3 pixels and have peaks approximately 5-sigma above the background. Running this class on the data yields an
+    astropy Table containing the results of the star finder:
+
+daofind = DAOStarFinder(fwhm=3.0, threshold=5.*std)  
+sources = daofind(data - median)  
+for col in sources.colnames:  
+    if col not in ('id', 'npix'):
+        sources[col].info.format = '%.2f'  # for consistent table output
+sources.pprint(max_width=76) 
+
+# Info about Photometry:
+The exoplanet transit method is all about comparing the relative
+change in brightness between the target star and a set of suitable comparison stars. Before this
+comparison can be done, however, the brightness of each star needs to be adjusted for any
+photon counts due to the background sky that might be affecting each particular star. This is
+done using a technique called aperture photometry. The term used after such adjustment is made
+is referred to here as “net integrated counts” (or just “integrated counts” for short). Once this
+adjustment for background sky is done, the relative change in integrated counts between the host
+star and the comparison stars can then be obtained. This process is called differential photometry.
+The best practices associated with aperture and differential photometry are described below.
+
+    # Aperture Photometry:
+Aperture photometry involves defining both the “aperture” of a certain radius around a star, as
+well as an outer “annulus.” The idea of the annulus is to measure the sky background around the
+star. Figure 3 depicts an aperture of radius 9 and an annulus starting at 15 pixels from the
+centroid of the star and ending at 23 pixels from the centroid. 
+In order to compensate for background sky contribution, the ADU counts per pixel in the annulus
+are used to adjust the ADUs in the aperture. Some software such as AIJ also has the ability to
+detect and adjust for any faint stars that might happen to be in the annulus and therefore bias the
+background sky counts. As will be described later, the radii settings initially set for the aperture
+and annulus may be changed after an exoplanet model fit is done to further optimize the fit.
+
+    # Differential Photometry:
+Differential photometry involves applying aperture photometry on the target star and multiple
+comparison stars and then computing the change in the target star’s integrated counts relative to
+the total integrated counts of the comparison stars. The following are the best practices for selecting
+suitable comparison stars:
+1. Ideally, at least 8 comparison stars should be chosen whose magnitudes are as close as
+possible to that of the target star –typically within +/- 50% of the integrated counts of the
+target star. If this is not possible, then an ensemble of comparison stars should be selected
+such that the average of their aperture counts is close to that of the target star. Also, when
+trying to determine if there are any sources causing a false positive, the observer may be
+instructed to test for the occurrence of a transit event for all stars within a specified radius
+of the target star.
+2. The comparison stars should ideally be of similar stellar type to the target star and close in
+distance to the target star in order to minimize the differences in atmospheric extinction.
+However, if the transit modeling software is able to “detrend” the effects of AIRMASS,
+such as is possible with AIJ, then choosing comparison stars of similar brightness to the
+target star is more important than choosing stars of similar stellar type.
+3. The comparison stars should not be inherently variable. This can later be determined by
+viewing the light curve of each comparison star as described in the next section, or by using
+information from the AAVSO’s Variable Star Plotter utility (AAVSO, 2017).
+The results of the differential photometry phase will be a Measurements file that has, as a
+minimum, for each image: the timestamp of the image, the change in integrated counts of the
+target star (relative to the comparison stars), and associated errors. Depending upon the
+differential photometry software, other valuable data could include the change in integrated
+counts of each comparison star relative to the other comparison stars, as well as associated
+errors, and changes in the X,Y pixel coordinates of the target and comparison stars.
+# --------------------------------------------------------------------------------------
+# 14021216-1
+The first thing I did today was to go back to NOIRLab archive and search for WASP_12B data. Four telescopes had observed
+this target only one of which was actual imaging done by CTIO 1.3m telescope in Jan2015 (the rest were spectra). The points worth
+noticing about this data was that only two dark frames of the same exptime (30sec) were obtained by this telescope and that
+was in the following year. 
+
+I went through the whole calibration routine and now I have the calibrated fits files for the object as well as dark and flat frames.
+
+Next Stop.. Learning photometry
 # --------------------------------------------------------------------------------------
 # 14021214-2
 # Aim: turn fits file into photometry
