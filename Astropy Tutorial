@@ -2,7 +2,7 @@
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 | TASK: Performing Photometry:                                                                                                 |
 | Continue from here:                                                                                                          |
-| https://photutils.readthedocs.io/en/stable/detection.html                                                                    |
+| https://notebook.community/Python4AstronomersAndParticlePhysicists/PythonWorkshop-ICE/notebooks/10_03_Astronomy_PhotUtils                                                                    |
 | TASK AHEAD: learn about sampling rate in order to suggest a good enough binning for your observations                        |
 | TASK AHEAD: Meanwhile do go through the accepted research proposals of JWST and check what sorts of planets have already been| 
 | observed or have been chosen to observe by JWST from the outputs of TESS or Kepler telescope.                                |
