@@ -1,3 +1,26 @@
+#14021223-2
+Starting Photometry:
+
+continue form here: (needs vpn)
+https://notebook.community/Python4AstronomersAndParticlePhysicists/PythonWorkshop-ICE/notebooks/10_03_Astronomy_PhotUtils
+
+# --------------------------------------------------------------------------------------
+#14021223-1
+You have no Idea WHAT A HUGE THING HAPPENED TODAY! 
+I solved the ccdproc installation problem ALL BY MYSELF! (and with gemini and chatgpt of course!)
+This means I now have the necessary means to run stuff on my machine from now on. And what a huge priviledge that is! Me having the
+tools necessary for doing this on my own! So can I BE any more thankful!!?? :)
+
+All I have to do is:
+   Do make sure than you are working in the activated environment the same as where ccdproc is installed and working.
+    - How to make sure the environment is activated? There should be the name of the environment in paranthesis at the start of every
+      command line. If you try to activate your environmet (say called nenv) like this: source nenv/bin/activate and get an error of
+      permission or something, try this command: chmod +x bin/activate and then run the activation code.
+    - How to make sure that ccd proc is installed? in notebook type: !pip show ccdproc. If no problem, it should show a bunch of info
+      about the package
+
+So FINALLY, we might be able to move on...
+# --------------------------------------------------------------------------------------
 # 14021216-2
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 | TASK: Performing Photometry:                                                                                                 |
