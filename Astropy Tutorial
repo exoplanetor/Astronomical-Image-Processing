@@ -1,10 +1,14 @@
 # 14030127 - 1: 
 
-AIM: performing 
+AIM: 1. performing 
          Background estimation
          Source detection
          Aperture Photometry with background subtraction
-For your own data files from INO and Another telescope from LABNOIR
+       For your own data files from INO and Another telescope from LABNOIR
+
+     2. Plate solving which means associating stars in an image with their RA and DEC coordinates.
+        Optionally, this information can also be permanently stored back into the image’s FITS header for 
+        possible later use.
 
 # --------------------------------------------------------------------------------------
 #  14030120 - 3: Apperture Photometry
