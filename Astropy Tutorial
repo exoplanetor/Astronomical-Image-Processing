@@ -1,9 +1,174 @@
+# 14030127 - 1: 
+
+AIM: performing 
+         Background estimation
+         Source detection
+         Aperture Photometry with background subtraction
+For your own data files from INO and Another telescope from LABNOIR
+
+# --------------------------------------------------------------------------------------
+#  14030120 - 3: Apperture Photometry
+Following the tutorial located at: https://photutils.readthedocs.io/en/stable/aperture.html
+The aperture_photometry() function and the ApertureStats class are the main tools to perform aperture
+photometry on an astronomical image for a given set of apertures.
+
+   Of course there are two ways to define Apertures for photometry:
+      - Pixel-based apertures are defined in terms of the number of pixels in the aperture. This is 
+         the simplest type of aperture to use, but it can be inaccurate if the pixels are not square.
+      - Sky-based apertures are defined in terms of the angular size of the aperture on the sky. 
+         This is a more accurate way to define an aperture, but it can be more difficult to use, 
+         especially if the image is not well-calibrated.
+
+   1. The first step in performing aperture photometry is to create an aperture object (Define Apertures). 
+   An aperture object is defined by a position (or a list of positions) and parameters that define its size 
+   and possibly, orientation (e.g., an elliptical aperture).
+
+   2. Performing Aperture Photometry: 
+
+   # We then call the aperture_photometry() function with the data and the apertures.
+   Example: phot_table = aperture_photometry(data, aperture)
+
+   3. What if Apertures and Pixels Overlap?
+   Overlap of the aperture with the data pixels can be handled in different ways. 
+   The default method (method='exact') calculates the exact intersection of the aperture with each pixel. 
+   The other options, 'center' and 'subpixel', are faster, but with the expense of less precision. With 
+   'center', a pixel is considered to be entirely in or out of the aperture depending on whether its center 
+   is in or out of the aperture. With 'subpixel', pixels are divided into a number of subpixels, which are 
+   in or out of the aperture based on their centers. For this method, the number of subpixels needs to be 
+   set with the subpixels keyword. 
+
+It is also possible to perform Aperture Photometry with Multiple Apertures at Each Position:
+(located at: https://photutils.readthedocs.io/en/stable/aperture.html)
+
+   4. Aperture Statistics:
+      The ApertureStats class can be used to create a catalog of statistics and properties for pixels
+      within an aperture, including aperture photometry. It can calculate many properties, including 
+      statistics like min, max, mean, median, std, sum_aper_area, and sum. It also can be used to calculate 
+      morphological properties like centroid, fwhm, semimajor_sigma, semiminor_sigma, orientation, and 
+      eccentricity. Please see ApertureStats for the complete list of properties that can be calculated. 
+      The properties can be accessed using ApertureStats attributes or output to an Astropy QTable using 
+      the to_table() method.
+
+   5. Background Subtraction: 
+         Global Background Subtraction
+         Local Background Subtraction
+   6. Aperture Photometry Error Estimation
+   7. Aperture Photometry with Pixel Masking
+   8. Aperture Photometry Using Sky Coordinates
+   9. Aperture Masks
+   10. Defining Your Own Custom Apertures
+
+# --------------------------------------------------------------------------------------
+#  14030120 - 2: Source Detection
+One generally needs to identify astronomical sources in their data before they can perform photometry or
+morphological measurements.
+
+Source detection and image segmentation are two closely related but distinct tasks in image processing.
+Source detection is the process of identifying individual objects or sources in an image.
+The main difference between source detection and image segmentation is that source detection focuses on 
+   identifying individual objects, while image segmentation focuses on dividing the image into homogeneous 
+   regions.
+      - Source detection is typically more computationally expensive than image segmentation
+      - Source detection provides more detailed information about individual objects than image 
+         segmentation. If you need to know the precise location, size, and shape of each object in an
+         image, then source detection is the better choice.
+
+Summing up the above, I think that for now I will only spend time to learn Source detection.
+
+### Detecting Stars:
+1. DAOStarFinder searches images for local density maxima that have a peak amplitude greater than a specified 
+   threshold (the threshold is applied to a convolved image) and have a size and shape similar to a defined 2D
+   Gaussian kernel.
+
+2. Local Peak Detection:
+   There's another method to detect sources called Local Peak Detection
+   Peaks are the local maxima above a specified threshold that are separated by a specified minimum number
+   of pixels, defined by a box size or a local footprint.
+   The way to do this is located here in case you need it: https://photutils.readthedocs.io/en/stable/detection.html
+# --------------------------------------------------------------------------------------
+#  14030120 - 1: Background Estimation (Scalar and 2D)
+I am trying to go through and create a good tutorial for photometry using Photutils from its own documentation
+page. (https://photutils.readthedocs.io/en/stable/#)
+
+Got some baby questions first though:
+
+1. why does photutils user documentation page start with estimating the background? 
+   is this the first logical step to do for performing photometry?
+
+Estimating the background is a crucial first step in photometry, especially for exoplanet transit analysis, 
+for the following reasons:
+   -Background noise can significantly affect the accuracy of photometric measurements.
+   -Background noise varies across the image. Factors such as vignetting, readout noise, and cosmic rays can 
+      introduce spatial variations in the background. These variations need to be estimated and removed to 
+      obtain accurate photometry.
+   -Background estimation helps in identifying and masking bad pixels.
+
+By estimating the background first, you can:
+   Remove the underlying brightness variations from the image.
+   Improve the signal-to-noise ratio of the transit signal.
+   Correct for instrumental effects.
+
+2. why is background estimation not part of the image reduction process done before photometry?
+Background estimation is typically not considered part of the image reduction process for several reasons:
+   -Background estimation, unlike processing steps, is a specialized step that is tailored to the specific
+      task of measuring the brightness of astronomical objects.
+   -Background estimation requires knowledge of the scientific goals. For example, exoplanet transit 
+      photometry requires a different approach to background estimation than galaxy photometry.
+      That is because in Exoplanet Transit Photometry Background is typically smooth and slowly varying,
+      can vary on short timescales, can be affected by stellar variability. This is while in Galaxy Photometry
+      Background can be complex and structured, can vary on large spatial scales and can be affected by nearby
+      objects. Therefore, different Background Estimation Methods are suitable for each of them. (chatGPT
+      suggests) Suitable Background Estimation Methods for exoplanets are: Median filtering & Rolling ball algorithm
+
+Unfortunately, accurate background and background noise estimation is a difficult task. Further, because
+astronomical images can cover a wide variety of scenes, there is not a single background estimation method
+that will always be applicable. Photutils provides tools for estimating the background and background noise
+in your data, but they will likely require some tweaking to optimize the background estimate for your data.
+
+
+**** Scalar Background Noise Estimation *****
+If the background level and noise are relatively constant across an image, the simplest way to estimate 
+these values is to derive scalar quantities using simple approximations.
+The background in an astronomical image can be scalar (uniform) for several reasons and in various situations.
+Here are a few cases where the background may exhibit scalar behavior:
+   -Large-scale variations in sky brightness:
+      In certain situations, the sky brightness may not vary significantly across the entire image frame.
+      This can occur when observing extended or large objects (such as galaxies or nebulae) where the 
+      background is dominated by the combined light from distant stars or diffuse interstellar emission. 
+      In such cases, the overall background level can be approximated as a constant value.
+   -Homogeneous instrumental artifacts: Some telescopes or cameras may introduce artifacts that result 
+      in a relatively uniform background level. For example, stray light or vignetting (a gradual decrease 
+      in brightness from the center to the edges of the image) can contribute to a scalar background. 
+      These artifacts can be caused by optical imperfections or the characteristics of the detector.
+   -Field of interest selection: Astronomers often select regions of interest (ROIs) within an image to 
+      perform specific analysis tasks. If the ROI is carefully chosen to avoid areas with significant background
+      variations, the background can be assumed to be scalar within that region. This approach is commonly 
+      employed when studying point sources or compact objects.
+   -Short exposure times: In images taken with relatively short exposure times, the background may not 
+      accumulate enough counts to exhibit significant variations.
+
+In order to estimate the background we can use different methods:
+   1. Sigma Clipping Sources:Sigma clipping is a technique used to remove sources from an image so that
+      the background and background noise levels can be more accurately estimated.
+   2. Masking Sources: An even better procedure is to exclude the sources in the image by masking them. 
+      This technique requires one to identify the sources in the data, which in turn depends on the 
+      background and background noise. Therefore, this method for estimating the background and background 
+      RMS requires an iterative procedure.
+
+*****2D Background and Noise Estimation*****
+This can be accomplished by applying the above techniques to subregions of the image. (explanations rather too
+complicated)
+
+(end of this tutorial: https://photutils.readthedocs.io/en/stable/background.html#masking-sources)
+
+# --------------------------------------------------------------------------------------
 #14021223-2
 Starting Photometry:
 
 continue form here: (needs vpn)
 https://notebook.community/Python4AstronomersAndParticlePhysicists/PythonWorkshop-ICE/notebooks/10_03_Astronomy_PhotUtils
 
+I went throough it. has a bug at almost initial steps that is not easily solvable.
 # --------------------------------------------------------------------------------------
 #14021223-1
 You have no Idea WHAT A HUGE THING HAPPENED TODAY! 
