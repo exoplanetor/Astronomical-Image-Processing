@@ -11,6 +11,23 @@ AIM: 1. performing
         possible later use.
 
 # --------------------------------------------------------------------------------------
+# 14030126 - 1: Apperture Photometry:
+Today I am continuing the tutorial on this page: https://photutils.readthedocs.io/en/stable/aperture.html
+
+So far I have gone over:
+         - Global and local background estimation and subtraction. 
+         - Aperture Photometry
+         - Error Estimation (# My final on this error estimation right now is that I need to ask for help. I Don't get
+                  it yet).
+         - Aperture Photometry with Pixel Masking: for removing bad pixels from image, the result is very
+                  different if mask is not provided
+         - A few remaining topics that I am not sure I'll use but I have listed in the Photometry3-Aperture-Photometry.ipynab
+
+Next Step performing the Above for a set of data that I have. Since I have moved back to my mac I need to
+Go over the calibration steps once more. And I'll come back to the above.
+
+
+# --------------------------------------------------------------------------------------
 #  14030120 - 3: Apperture Photometry
 Following the tutorial located at: https://photutils.readthedocs.io/en/stable/aperture.html
 The aperture_photometry() function and the ApertureStats class are the main tools to perform aperture
