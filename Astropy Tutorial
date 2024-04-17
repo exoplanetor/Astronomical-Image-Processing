@@ -1,14 +1,57 @@
-# 14030127 - 1: 
+# 14030129-2:
+
+# --------------------------------------------------------------------------------------
+# 14030129-1:
+I am Continuing the tutorial on how to start from raw data and finally draw light curves of transits
+located at (https://hebl.china-vo.org/course/PIA2020/).
+
+In it, I have reached the step of plate solving (=Astrometry). 
+All it says about it is: Do astronometry and photometry!!! (sort of feels like bakeoff :) )
+
+1. So I am looking at this page for instructions: (https://afh.sonoma.edu/astrometry/)
+Thsi is the theory:
+         Transformation From Image to Celestial Coordinates
+
+         The first step is to determine the transformation between image and standard coordinates. 
+         The transformation equations are as follows:
+
+         X = ax + by + c
+         Y = dx + ey + f
+
+         The symbols (X,Y) and (x,y) have the meanings given above. The constant coefficients a, b, c, d, e and f 
+         are to be determined for each image. In principle this can be done using three reference stars of known 
+         position to determine the six unknown quantities. Recall that for each star we have two constraints, 
+         (X,Y), so three reference stars gives us six constraints on our six unknowns.
+         In practice we typically use more than the minimum three reference stars. In fact, we may use many dozens
+         of reference stars spread across our image, and then determine the “best fit” set of coefficients via a 
+         least squares fitting method.
+
+2. I am using Astrometry.net for it: My take on this for now: I can see that the process to find which 
+         portion of the sky is saved in the fits file is sometimes paistaking and at other times rather 
+         simple. When the image is not well cleaned and calibrated, even Astrometry. net takes a long time
+         to process and I guess maybe the result would be unsuccessful in the end!
+
+3. I next tried with my own eyes. Searching compering my fits file to Aladdin. Again for HAT-P-32b it was 
+         very easy but for ic-10 almost impossible.
+
+-----> So for now I am going to move on with the tutorial and see where I'd have to come back to this!
+# --------------------------------------------------------------------------------------
+# 14030127: 
 
 AIM: 1. performing 
          Background estimation
          Source detection
          Aperture Photometry with background subtraction
        For your own data files from INO and Another telescope from LABNOIR
-
-     2. Plate solving which means associating stars in an image with their RA and DEC coordinates.
-        Optionally, this information can also be permanently stored back into the image’s FITS header for 
-        possible later use.
+-----> I did this but since the quiality of the flat images of the INO-ic-10 wehere low, I would get a 
+         gain less than zero which would not let the code go any further.
+-----> Then I spent almost a whole day looking for a clean set of data including all necessary raw image files.
+         As you expect again unseccessful. For example looking thrigh LABNOIR archive I could locate object,
+         flat and dark files but not bias for planet WASP4. I once thought of making an imaginary bias frame,
+         which I am still considering, but after coming across a step by step tutorial on how to start
+         from raw data and finally draw light curves of transits, I switched onto that. This tutorial is called:
+         "Explanation of exoplanet data processing and photometry based on Python examples" located at:
+         (https://hebl.china-vo.org/course/PIA2020/)
 
 # --------------------------------------------------------------------------------------
 # 14030126 - 1: Apperture Photometry:
