@@ -1,4 +1,24 @@
-# 14030129-2:
+# 14030205-2
+What I thing is my No 1. priority is the to find other data samples to repeat the Photometry Process with.
+
+- I know that the 4.2 m SOAR telescope's SOI imager has retired and is not working anymore, but it is an optical imager and it's
+data do exist in NOIRLab. So I am trying to find a set of useful data for an exoplanet with that.
+
+
+
+# --------------------------------------------------------------------------------------
+# 14030205-1:
+Today I started by going through everething I have done since 17 Bahman 1402 till 05 Ordibehesht 1403.
+
+- My Calibrating Routines have been improved, 
+- calculating Gain and Read-out Noise to be used later in photometry error estimation
+- I have found new methods for debiasing and deflatfing,
+- I have learned the basics of astrometry and am able to do it using Astrometry.net if the data is properly calibrated,
+- I have learned and created the codes for Photometry including (background estimation, Source detection, and Aperture photometry
+- Finding the average shift between light frames in a folder and then centering the stars on their counterparts,
+- Choosing target, comparison and validation stars and perform phtometry,
+- Loop ot for all the centered photometry-ed sorces and,
+- Finally Plot a Lightcurve for the source next to the validation start's light curve.
 
 # --------------------------------------------------------------------------------------
 # 14030129-1:
