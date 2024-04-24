@@ -1,10 +1,27 @@
-# 14030205-2
+# 14030210:
+
+These are the tasks to be done later in the project:
+
+- I should convert to using the observatory machine.
+- Also get better images from Mr. Altafi.
+- In the long run I must make my python routines executable to work like a pipeline.
+- Also create a routine for measuring the quality of dark and flat files robotically
+- change your subtraction routine for: data = (data - subbias)/subflat like in HAT-P-32b tutorial
+- Look for python routines for astrometry.
+- Have a good feeling of what an observation night for your project should look like (How many frames, for how long, and how
+         far apart)
+- Also have exact numbers for the percentage of the light that we are trying to measure.
+- Go back to Mr altafi for best flats and dark frames close to ic-10 duration-repeat the whole ic-10 calibration process
+         try to get somewhat close to what has already been produced and reported for it.
+- try performing overscan (maybe circular if possible) or not???
+
+# --------------------------------------------------------------------------------------
+# 14030205-2:
 What I thing is my No 1. priority is the to find other data samples to repeat the Photometry Process with.
 
 - I know that the 4.2 m SOAR telescope's SOI imager has retired and is not working anymore, but it is an optical imager and it's
 data do exist in NOIRLab. So I am trying to find a set of useful data for an exoplanet with that.
-
-
+I am currently working on the data Soar, SOI has for planet GJ 1214 b.
 
 # --------------------------------------------------------------------------------------
 # 14030205-1:
