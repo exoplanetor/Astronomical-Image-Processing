@@ -1,3 +1,17 @@
+#14030226:
+As you can see it's been a good few days that I've been working on this GJ-1214b set of data.
+         - I started reproducing the HAT-P-32b routine on it
+         - Encountered different problems, then stopped at source detect in photometry coz the data contained
+           overscan regions that needed to be trimmed.
+         - It took some good time to go over the overscan and trimming process. Did that for single files and then
+           prepared (and uploaded) the routine to perform it on the files in a directory
+         - Then went over all the processes in the HAT-P-32b routine again. Performed sorce detect again... ->
+           And what happens now is that the output image is horrrible! it detects some ectra numbers of sources!
+           The image quality becomes very low!!!
+So... What happens now...?
+         - I've been thinking of performing my own Calibration and photometry Routines on this data set for a while.
+           I guess now is the time! Let's go on to do that and see what happens.
+# --------------------------------------------------------------------------------------
 #14030219:
 It's been a few days since I have started obtaining some data from NOIRLab Archive, and from the now retired 
 soi instrument on SOAR 4.1m telescope. I am trying to repeat all I have done before in Calibration, Photometry
