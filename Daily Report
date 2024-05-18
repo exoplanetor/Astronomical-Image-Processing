@@ -1,4 +1,18 @@
 #14030226:
+I am stuck at the step of making a master flat out of GJ-1214b flat files. 
+- The problem: everything is fine until before the actual combination step. After that the file containing the combined values
+  turns into nan and inf charachters all along.
+- Things I tried:
+         I have individually looked at all single dark and flat files, no problem
+         I have preformed overscan originally on all my files but only in the horizontal direction. The files contain some bad sections
+           at the bottom which next time I will try to remove them.
+         If even after that things don't work, I will try to move on with a single flat frame instead of the master one. and try to at
+           least go throug my original calibrations steps with the GJ-1214b once!!!
+         Let alone the fact that I should somehow perform everything on it 300 times more.
+
+
+# --------------------------------------------------------------------------------------
+#14030226:
 As you can see it's been a good few days that I've been working on this GJ-1214b set of data.
          - I started reproducing the HAT-P-32b routine on it
          - Encountered different problems, then stopped at source detect in photometry coz the data contained
@@ -6,7 +20,7 @@ As you can see it's been a good few days that I've been working on this GJ-1214b
          - It took some good time to go over the overscan and trimming process. Did that for single files and then
            prepared (and uploaded) the routine to perform it on the files in a directory
          - Then went over all the processes in the HAT-P-32b routine again. Performed sorce detect again... ->
-           And what happens now is that the output image is horrrible! it detects some ectra numbers of sources!
+           And what happens now is that the output image is horrrible! it detects some extra numbers of sources!
            The image quality becomes very low!!!
 So... What happens now...?
          - I've been thinking of performing my own Calibration and photometry Routines on this data set for a while.
