@@ -1,4 +1,43 @@
-#14030226:
+#14030231:
+1. Today I started with performing the overscan and trim step all over again this time omitting the problematic  
+   Region at the bottom of the images too (rows)
+2. Now I will go back to the Calibration steps again see if it makes any difference.
+3. It Worked! Wow in worked!!! I finally have a working master flat file. -> Lesson Learned: OVERSCAN & TRIM are
+   absolutely crucial to be performed thoroughly, leave no bad regions behind!!!
+4. I perfomred the rest of calibration steps for a single light file from my initial calibration steps.
+   Worked fine till the end but then, the resulting pics are not that different from what I got from the 
+   HAT-P-32b Routine ;/
+5. So where does this leave me? 
+    - (Done) Replot raw_light, light minus flat in HAT-P-32b Routine after calibration steps and just before Photometry
+    - Before going any further clean up your routine and add (compare/contrast) its calibration step.
+    - Try actually performing the subflat step with the HAT-P-32b Routine.
+    - Maybe decide not to perform and flat reduction and only perform dark reduction.
+    - Or continue with what I've got to see what happens in photometry (but I have a feeling this wrong already
+      coz source detect won't work properly).
+    - (Done)Another scenario to try: what about another way of combining the flats, apart from sigma clipping?
+        Here's what I learned here so far:
+          * Subtracting or dividing by the master flat: Both methods are used in astronomy image calibration. 
+          Subtracting the master flat from the light frames works well when the master flat's pixel values 
+          are close to the pixel values of the artifacts you want to remove (e.g., bias or dark current). 
+          However, if the pixel values of the artifacts are not close to the master flat values, dividing the 
+          light frame by the master flat can yield better results, as it normalizes the pixel values by the 
+          flat-field response. This method is more effective in correcting pixel-to-pixel variations in sensitivity.
+          In the context of your original code, dividing the light frame by the master flat (data /= mflat) is i
+          ndeed a more meaningful operation, as it corrects for the varying pixel sensitivity of the camera 
+          sensor or telescope optics.
+          * I did test the dividing step for flats in my own routine (difference between the two routines is in
+           their approaches towards calculating the combined flat, one with ccdpro_combine and using sigmaclipping
+           the other by simply stacking the flats. -> Result Still no particular improvement.
+    - I guess a necessary step at this stage would be learning a lot more about flat files. I start this by looking
+      them closely one by one in DS9: The result is actually interesting: 
+          * d-FLATR002_T.fits is actually sort of totally black compared to all other flat files
+          * d-FLATR006_T & d-FLATR016_T & d-FLATR012_T & d-FLATR014_T have some very dark new specs not present in
+            the other, rather smooth ones. So maybe I'll omit all these 5 files and retry with the rest!
+
+      #### START FROM HERE NEXT TIME!
+
+# --------------------------------------------------------------------------------------
+#14030229:
 I am stuck at the step of making a master flat out of GJ-1214b flat files. 
 - The problem: everything is fine until before the actual combination step. After that the file containing the combined values
   turns into nan and inf charachters all along.
@@ -7,10 +46,8 @@ I am stuck at the step of making a master flat out of GJ-1214b flat files.
          I have preformed overscan originally on all my files but only in the horizontal direction. The files contain some bad sections
            at the bottom which next time I will try to remove them.
          If even after that things don't work, I will try to move on with a single flat frame instead of the master one. and try to at
-           least go throug my original calibrations steps with the GJ-1214b once!!!
+           least go through my original calibrations steps with the GJ-1214b once!!!
          Let alone the fact that I should somehow perform everything on it 300 times more.
-
-
 # --------------------------------------------------------------------------------------
 #14030226:
 As you can see it's been a good few days that I've been working on this GJ-1214b set of data.
