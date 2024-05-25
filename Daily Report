@@ -1,3 +1,8 @@
+#14030507:
+Apparently we are starting from here: HIP 65 A b -> obtaining data from ct09m ccd_imager
+Only  the flat files are type of funny.
+
+# --------------------------------------------------------------------------------------
 #14030505:
 The problem at hand:
    1. The output of the calibration steps for GJ-1214b data is very poor (with very many dark and light spots
