@@ -1,3 +1,34 @@
+#14030505:
+The problem at hand:
+   1. The output of the calibration steps for GJ-1214b data is very poor (with very many dark and light spots
+   I believe the quality of the flat images are source of the problem.)
+
+   2. I went on to trying to subtract the subflat and subbias from the light frame and actually learning how to do it
+   While doing that I learned the following:
+
+# Determine the size of the region of interest (ROI) you want to extract: 
+This could be a square region centered on your object, or a rectangular region that encompasses your object and some surrounding area. Let’s say you want to extract a square ROI of size roi_size.
+
+Calculate row_origin and col_origin:
+
+row_origin = center_row - (roi_size / 2)
+col_origin = center_col - (roi_size / 2)
+Where center_row and center_col are the row and column indices of the center of your object of interest.
+
+Crop the domeflat and superbias:
+
+subflat = domeflat[row_origin:row_origin + roi_size, col_origin:col_origin + roi_size]
+subbias = superbias[row_origin:row_origin + roi_size, col_origin:col_origin + roi_size]
+
+   - I was actually trying to find the location of the rough image of my star in the field of view of SOI
+   so that I could later determine row_origin and col_origin and center_row and etc. Look what happened:
+         !!!! The GJ-1214b star is actually not even in the Field of View of the images I've been looking at!!!!
+         It's actually outside of it (according to Aladin online!)
+
+   - Well I guess that would be bye bye to this set of data... ;/
+
+   - Moving on to the next set, Still not going to INO but rather NOIRLAB files.
+# --------------------------------------------------------------------------------------
 #14030231:
 1. Today I started with performing the overscan and trim step all over again this time omitting the problematic  
    Region at the bottom of the images too (rows)
@@ -35,7 +66,6 @@
             the other, rather smooth ones. So maybe I'll omit all these 5 files and retry with the rest!
 
       #### START FROM HERE NEXT TIME!
-
 # --------------------------------------------------------------------------------------
 #14030229:
 I am stuck at the step of making a master flat out of GJ-1214b flat files. 
