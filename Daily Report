@@ -1,5 +1,7 @@
 #14030319-2:
 Starting to change the code to work on windows again as it is where my data is right now.
+- I checked and in my code at the stage of combining flat fields, I am indeed performing flat normalization,
+  specifically where the inv_median is being defined and lated used everytime in ccdp.combine(*, scale=inv_median*)
 # --------------------------------------------------------------------------------------
 #14030319-1:
 In the past two weeks I found out a few thing:
@@ -9,9 +11,9 @@ In the past two weeks I found out a few thing:
      choosing i-band was not exactly a good choice. So my next step is switching to R & U bands.
    - I also learned that for the purposes of my project, dome flats are not used and we have to switch to twilight flats
      (paset the details here from email) 
-   - Next thing in the to-learn list is the concept of normalizing flats (checking if I already do this in the codes)
    - switch to using High resolution images. (Mr. Altafi)
    - Learn how to plot histogram of flat and light frames. light before and after calibration
+   - make histograms of flat files and sort them into groups based on their counts.
 # --------------------------------------------------------------------------------------
 #14030505:
 The problem at hand:
