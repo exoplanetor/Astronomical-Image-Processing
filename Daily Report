@@ -2,6 +2,22 @@
 Starting to change the code to work on windows again as it is where my data is right now.
 - I checked and in my code at the stage of combining flat fields, I am indeed performing flat normalization,
   specifically where the inv_median is being defined and lated used everytime in ccdp.combine(*, scale=inv_median*)
+
+ - Negative Count:
+why are there pixels with a lower than zero count on my calibrated light frame?
+GPT: Possible Reasons for Negative Pixel Values:
+
+Calibration Errors:
+
+Incorrect Bias Subtraction: If your bias frame was not properly aligned with your light frames before subtraction, you might end up with negative values in areas where the bias was significantly brighter than the light frame.
+Incorrect Dark Subtraction: Similarly, if your dark frame is not properly aligned or if the exposure time of the dark frame doesn’t match the light frame, you can introduce negative values.
+Flat Frame Issues: While less likely, a poorly calibrated flat frame can also introduce artifacts, including negative values in some cases.
+Cosmic Rays: These high-energy particles can leave behind spurious signal on your image, potentially leading to negative values after calibration. While the dark frame subtraction usually removes most cosmic rays, some might persist.
+
+# creating histograms
+# experimenting with different sets of flats
+# going on to find sources and test photometry on r-band set
+
 # --------------------------------------------------------------------------------------
 #14030319-1:
 In the past two weeks I found out a few thing:
