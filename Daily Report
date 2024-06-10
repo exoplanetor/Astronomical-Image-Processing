@@ -1,3 +1,30 @@
+#14030321-2:
+Next step:
+Testing photometry on a single frame
+# --------------------------------------------------------------------------------------
+#14030321-1:
+### Testing different Sets of Flat frames and one aditional light frame- 3 sets of lats and 2 lights ###
+### Result: Although flat frames were slightly different from each other ater calibration I could
+    not see much of a change between the final results especially at the center of the images. There were
+    Some changes at the borders expectedly of course. ###
+
+1. My first aim today is try to run the IC-10 test with a different set of flats
+2. In order to make sure that my flats are actually different I started by preparing an Excel file
+    listing the properties of the flat files I want to work with.
+3. Chose a set of 14 flat files which were different in both count and profile (IC-10 data, morning flats
+    r-band, High_res, these (10-24) 14 frames had vertical lines all over with much darker, sharper outer
+    rings compared to flat frames 1-9.
+4. What I saw at the end was that eventhough the flat frames, their combined version and their dark-reduced
+    version was different from the 030319 set, the final calibrated light frame was extremely similar in
+    both cases. I say extremely because I couldn't see any difference in the central parts of the two images
+    in the end.
+5. Next, step, let's try with a yet different set of data this time evening flats. -> RESULT:
+    There were 5 flat field images in this category (flat,r-band,evening,cont~4000) only 3 had an outer
+    and two of those had a bright feauture in their left corner so I didn't use them either. which finally
+    left me with two flat frames only. Do you also feel like it's almost time to start preparing a written
+    report?
+
+# --------------------------------------------------------------------------------------
 #14030319-2:
 Starting to change the code to work on windows again as it is where my data is right now.
 - I checked and in my code at the stage of combining flat fields, I am indeed performing flat normalization,
