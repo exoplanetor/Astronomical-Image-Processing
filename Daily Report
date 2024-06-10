@@ -1,6 +1,10 @@
 #14030321-2:
 Next step:
-Testing photometry on a single frame
+Testing photometry on a single frame - performed daofind on light minus dark only - should
+continue on other frames as well 
+But a persisting problem is the question of Gain and how I still haven't spent enough time on it to 
+to realize why I get a negative gain value. Continue from there and look back at the HAT-32b routine
+
 # --------------------------------------------------------------------------------------
 #14030321-1:
 ### Testing different Sets of Flat frames and one aditional light frame- 3 sets of lats and 2 lights ###
