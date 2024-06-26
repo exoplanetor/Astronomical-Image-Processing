@@ -1,3 +1,13 @@
+#14030406:
+I have continuned IC-10 photometry right until plotting the light curve. What happened was right at that almost
+final step I realized that while trying to write calibrated and background reduced light frames into fits files, I 
+am losing all the header information of the original raw_files which is needed at that very last step.
+
+So I am going all the way back to run the calibration steps again, this time making changes to that step, writing
+the data into those files. After that I should go on to re-run the photometry steps again.
+
+
+# --------------------------------------------------------------------------------------
 #14030321-2:
 Next step:
 Testing photometry on a single frame - performed daofind on light minus dark only - should
