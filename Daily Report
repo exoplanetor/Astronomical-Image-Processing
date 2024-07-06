@@ -1,3 +1,13 @@
+#14030416:
+Here's what's been going on:
+- I've long solved that last issue below and actually finished all calibration and photometry steps on IC-10 data.
+- I did even go through the light curve step but obviously didn't expect anything of a varying nature there.
+- Next I moved on to another data set from WASP12-b and am currently working on that
+- I actually went through my own calibration steps and got problematic results after removing dark/flat from light frames. very
+    similar to what happened with the GJ-1214b set. So I moved on to the HAT-p-32b routine coz I want to affect subflat/subbias instead
+- I have gone through that routine up until this step where I am stuck: (## get the center of FoV and adding parameters to the FITS header)
+- continuing next session
+# --------------------------------------------------------------------------------------
 #14030406:
 I have continuned IC-10 photometry right until plotting the light curve. What happened was right at that almost
 final step I realized that while trying to write calibrated and background reduced light frames into fits files, I 
@@ -5,8 +15,6 @@ am losing all the header information of the original raw_files which is needed a
 
 So I am going all the way back to run the calibration steps again, this time making changes to that step, writing
 the data into those files. After that I should go on to re-run the photometry steps again.
-
-
 # --------------------------------------------------------------------------------------
 #14030321-2:
 Next step:
