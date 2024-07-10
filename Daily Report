@@ -1,3 +1,26 @@
+#14030419:
+I am working on WASP12-b data acquired from LAB-NOIR
+
+PROBLEM: After Calibration, my calibrated light frames included negative count values. and big wave-like structures.
+         In order to investigate why, Mr. Altafi asked me to look at raw calibration files as well as light frames and by looking, it
+         is meant that one should report their, min, max, median and mean values in order to see if the negative values are a result
+         of faulty telescope data or an artifact of the calibration process
+
+TASK1: Only perform trim and not overscan -> Go through with the whole calibration process see what changes
+
+TASK2: Reduce the trim section to the inner most sub region of your files. You will lose objects but at least we will get closer to
+       figuring out where the problem comes from.
+
+TASK3: Another thing that I think is very important and it came up and it was in the way I normalize my flat frames usinng the following:
+       # To scale the frames so that they have the same median value, we need to define a function that can calculate the inverse of the median given the data.
+        def inv_median(a):
+            return 1 / np.median(a)
+       -> The thing is that Mr. Altafi thinks 1/np.min(a) would be a better estimate as it would definitely give 1 for the min value
+            and less than that for higher ones. where as the pixel values after flat correction if the scale is defined using median
+            will be subtracted by either too high or too low values. So test this separately as well.
+
+
+# --------------------------------------------------------------------------------------
 #14030416:
 Here's what's been going on:
 - I've long solved that last issue below and actually finished all calibration and photometry steps on IC-10 data.
