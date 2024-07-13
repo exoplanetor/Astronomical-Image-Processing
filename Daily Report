@@ -7,6 +7,10 @@ But after removing 2d bkgd still some negative regions exist. need to fix that.
 TASK 4: Finish Calibrating all 10 light frames you have
 TASK 5: Start the Photometry Routine on them.
 
+??? Median overscan should be less than readnoise
+??? virtual overscan
+??? wieght map reduces traces of 4 chip ccds
+
 # --------------------------------------------------------------------------------------
 #14030421
 TASK1: Only perform trim and not overscan -> Go through with the whole calibration process see what changes
