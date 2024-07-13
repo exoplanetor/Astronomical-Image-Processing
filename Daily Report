@@ -1,7 +1,29 @@
+#140304??
+PROBLEM: After Calibration, my calibrated light frames included negative count values.
+
+Part of this was solved using trim only and not overscan. 
+But after removing 2d bkgd still some negative regions exist. need to fix that.
+
+TASK 4: Finish Calibrating all 10 light frames you have
+TASK 5: Start the Photometry Routine on them.
+
+# --------------------------------------------------------------------------------------
+#14030421
+TASK1: Only perform trim and not overscan -> Go through with the whole calibration process see what changes
+
+         a. I did perform only trimming on all my calibration files (boundry=[2:1026, 100:1020], for darks=[0:1026, 100:1020])
+         b. Going through with calibration -> Things worked considerably better with different (smaller issues coming up -> Look at the
+                  results of this step in this routine: exoplanetor/WASP-12b/WASP-12b-data-trimmed.ipynb)
+                  Looking at the final calibrated and bkgd removed image I have the feeling that maybe I should trim the y direction too.
+                  Also I have no idea why I am not able to remove the effect of the Dark frame from the images???
+         c. (TASK2) Adding the trim in y direction as well (boundry=[300:750, 300:800]). Continued until the final step of calibration.
+         d. (TASK3) I also performed inv_min it gave all negative values. So discarded that.
+         e. performing calibration steps for all light frames I have to get their calibrated files as well.
+# --------------------------------------------------------------------------------------
 #14030419:
 I am working on WASP12-b data acquired from LAB-NOIR
 
-PROBLEM: After Calibration, my calibrated light frames included negative count values. and big wave-like structures.
+(Partly Solved on 14030421) PROBLEM: After Calibration, my calibrated light frames included negative count values. and big wave-like structures.
          In order to investigate why, Mr. Altafi asked me to look at raw calibration files as well as light frames and by looking, it
          is meant that one should report their, min, max, median and mean values in order to see if the negative values are a result
          of faulty telescope data or an artifact of the calibration process
@@ -18,8 +40,6 @@ TASK3: Another thing that I think is very important and it came up and it was in
        -> The thing is that Mr. Altafi thinks 1/np.min(a) would be a better estimate as it would definitely give 1 for the min value
             and less than that for higher ones. where as the pixel values after flat correction if the scale is defined using median
             will be subtracted by either too high or too low values. So test this separately as well.
-
-
 # --------------------------------------------------------------------------------------
 #14030416:
 Here's what's been going on:
