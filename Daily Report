@@ -11,6 +11,21 @@ TASK 5: Start the Photometry Routine on them.
 ??? virtual overscan
 ??? wieght map reduces traces of 4 chip ccds
 
+3. Is a Small Deviation Between Median and RMS Median Always Good?
+
+Ideally, you want a background estimate that’s smooth and consistent. A small deviation between the median and RMS median suggests 
+a more uniform background.
+But, it’s not always a guarantee. It depends on the nature of your data. If your data has inherent variability, you might not be 
+able to achieve a very small deviation.
+Prioritize Accuracy: The primary goal is to get an accurate representation of the background, even if it means some variability
+is present. The choice of sigma clipping and other parameters should be driven by achieving accurate results, not just minimizing
+the deviation between median and RMS.
+
+!!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
+It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+
+
+
 # --------------------------------------------------------------------------------------
 #14030421
 TASK1: Only perform trim and not overscan -> Go through with the whole calibration process see what changes
