@@ -23,6 +23,53 @@ the deviation between median and RMS.
 
 !!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
 It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+# --------------------------------------------------------------------------------------
+#14030513
+!!!! Today I did a productive thing! I changed the calibration routine in a way that it checks if the calibration files are already
+present or not. and if not, then perform the recalculation of them. 
+
+github -> WASP-12b -> WASP-12b-data-trimmed_v3.ipynb
+
+Now I can perform calibration of various light frames much fatser.
+Today's next task is to perform calibration on all 10 light frames of WASP12b I've got. All I am doing right now is
+to change the "light_frame_name" at the beginning of the routine.
+
+!!!! Also another thing that I realized was the errors which were creating the negative values in calibrated light images (meaning
+flat and/or dark corrected). It was happening in <<STEP 8>> of the calibration process. (Make sure to correct this in previous calibration
+routines, ALL OF THEM!!!) it now looks like this: 
+
+#### STEP 8 - Subtracting Each of the two flat files from a light Frame ####
+# Before Performing this step make sure of the following things:
+#    1- choose the light frame with the closest exposure time to the dark frames
+#    2- good Flats should have their count to be 1/2 to 1/4 count of light frames - (check this with ds9?? Find the python way)
+
+raw_data = CCDData.read(path.joinpath(light_frame_name), unit='adu')
+### Performing subtraction of dark from light)###
+reducedark = ccdp.subtract_dark(raw_data, combined_dark,exposure_time='EXPTIME', exposure_unit=u.second)
+### Light minus Flat only ###
+reduceflat = ccdp.flat_correct(raw_data, comb_flat)
+### Light minus Flat and Dark ###
+reducefd = ccdp.flat_correct(raw_data, combined_flat)
+----------------------------------------------
+# Check if output files already exist
+output_files = [
+    combined_path / ('light_minus_dark_only' + file_name),
+    combined_path / ('light_div_falt_only' + file_name),
+    combined_path / ('light_div_falt_minus_dark' + file_name)
+]
+
+for output_file in output_files:
+    if output_file.exists():
+        print(f"File already exists: {output_file}")
+    else:
+        # Write the output to a file
+        if output_file.name == ('light_minus_dark_only' + file_name):
+            reducedark.write(output_file, overwrite=True)
+        elif output_file.name == ('light_div_falt_only' + file_name):
+            reduceflat.write(output_file, overwrite=True)
+        elif output_file.name == ('light_div_falt_minus_dark' + file_name):
+            reducefd.write(output_file, overwrite=True)
+----------------------------------------------
 
 
 
