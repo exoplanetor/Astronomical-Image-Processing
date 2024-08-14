@@ -1,9 +1,17 @@
 #14030527
 
+TASK -> go to the 2D calibration step and focus on a small secton of the image which has no considerable sources. 
+    Don't perform the masking step and then see what happens if you use the median value of that background for the whole image.
+    Will it improve matters or make it worse?
 
+TASK -> Change binning (before or after calibration?) 
 
+TASK -> Test to see if stacking makes any difference
 
-PROBLEM: After Calibration, my calibrated light frames included negative count values.
+TASK -> find out what role does the choice of aperture in image with three apertures plays as opposed to the ones defined by 
+        radii=[3,4,5,6,8,10,12,15,20,25] ## aperture radii in pixels -> and used for plotting the light curves???
+
+TASK -> PROBLEM: After Calibration, my calibrated light frames included negative count values.
 
 Part of this was solved using trim only and not overscan. 
 But after removing 2d bkgd still some negative regions exist. need to fix that.
