@@ -12,9 +12,9 @@ TASK -> find out what role does the choice of aperture in image with three apert
         radii=[3,4,5,6,8,10,12,15,20,25] ## aperture radii in pixels -> and used for plotting the light curves???
 
 TASK -> PROBLEM: After Calibration, my calibrated light frames included negative count values.
-
-Part of this was solved using trim only and not overscan. 
-But after removing 2d bkgd still some negative regions exist. need to fix that.
+        Part of this was solved using trim only and not overscan. 
+        But after removing 2d bkgd still some negative regions exist. need to fix that.
+        DON'T TELL ANYONE! I am defining masks but not using them :O
 
 
 3. Is a Small Deviation Between Median and RMS Median Always Good?
