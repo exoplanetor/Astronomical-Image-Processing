@@ -1,15 +1,13 @@
-#140304??
+#14030527
+
+
+
+
 PROBLEM: After Calibration, my calibrated light frames included negative count values.
 
 Part of this was solved using trim only and not overscan. 
 But after removing 2d bkgd still some negative regions exist. need to fix that.
 
-TASK 4: Finish Calibrating all 10 light frames you have
-TASK 5: Start the Photometry Routine on them.
-
-??? Median overscan should be less than readnoise
-??? virtual overscan
-??? wieght map reduces traces of 4 chip ccds
 
 3. Is a Small Deviation Between Median and RMS Median Always Good?
 
@@ -23,6 +21,11 @@ the deviation between median and RMS.
 
 !!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
 It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+# --------------------------------------------------------------------------------------
+#14030524
+
+Today I finished going over all the calibration and photometry steps in the roughest way possible. There are all sorts of needs
+for tyding up stuff which I will start from next working day. But for now, I think a little thumbs up is in orders :)
 # --------------------------------------------------------------------------------------
 #14030513
 !!!! Today I did a productive thing! I changed the calibration routine in a way that it checks if the calibration files are already
