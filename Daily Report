@@ -1,4 +1,4 @@
-#14030527
+REMAINING TASKS!!!
 
 TASK -> go to the 2D calibration step and focus on a small secton of the image which has no considerable sources. 
     Don't perform the masking step and then see what happens if you use the median value of that background for the whole image.
@@ -29,6 +29,16 @@ the deviation between median and RMS.
 
 !!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
 It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+# --------------------------------------------------------------------------------------
+#14030527
+
+Today I started creating an overleaf project trying to create tables of images and parameters that should be altered in order to
+find the ones that play significat roles in making the final light curves better.
+
+While looking for the parameters I finally actuallu followed the light curve calculation process and I now know that many of
+photometry and source fidning steps are only for show. So the code needs another set of grooming, going for version 5.
+
+Then of course in the utmost importance is the step of finding out why light - bkgd gives negative values?
 # --------------------------------------------------------------------------------------
 #14030524
 
