@@ -1,34 +1,48 @@
-REMAINING TASKS!!!
+#14030531
 
-TASK -> go to the 2D calibration step and focus on a small secton of the image which has no considerable sources. 
-    Don't perform the masking step and then see what happens if you use the median value of that background for the whole image.
-    Will it improve matters or make it worse?
+I am still working with the WASP12b data and on why the light minus dark divided by flat frame which has no negative values
+    still produces some negative pixels after 2DBkgd correction.
 
-TASK -> Change binning (before or after calibration?) 
+??? Could the Masking process be the reason:
 
-TASK -> Test to see if stacking makes any difference
+    1. I performed the following tests to figure out if that is the case:
+        - When defining masks I tried SigmaClip(sigma=3.0) and SigmaClip(sigma=20.0) cases. While these two sigma values
+            produced very different Mask profiles, they had no effect whatsoever on the final limits to the pixel values and
+            the negatives were still there.
+        - Anoter thing that I tried was to remove using masks completely and it still nade no difference.
+        - I also tried chaning n_sigma in threshold, 
+    so I think one thing that I thing is established here is that masks and parameteres used in it are not causing that.
 
-TASK -> find out what role does the choice of aperture in image with three apertures plays as opposed to the ones defined by 
-        radii=[3,4,5,6,8,10,12,15,20,25] ## aperture radii in pixels -> and used for plotting the light curves???
+    2. So next I moved on to checking the Background estimation step (step 10)
+        - changing the size of the block used for calculating the background i.e. (50, 50) changed the 2Dbkg profile a lot
+            but not the final pixel rate again.
+        - Next I tried changing filter_size=(3, 3). Still no luck
+    And these were all that were in my power to cotrol for now. Unless we decide that it is absolutely necessary to go through
+        with the bkgs = Background2D(... function that does the actual background estimation process.
 
-TASK -> PROBLEM: After Calibration, my calibrated light frames included negative count values.
-        Part of this was solved using trim only and not overscan. 
-        But after removing 2d bkgd still some negative regions exist. need to fix that.
-        DON'T TELL ANYONE! I am defining masks but not using them :O
+###############################
+# FINAL RESULT ON THIS SO FAR #
+#   Well I don't know at all  #
+###############################
 
 
-3. Is a Small Deviation Between Median and RMS Median Always Good?
+???? Moving on to Relative Photometry and the question of the choice of Comparison star Reading from (https://commons.erau.edu/cgi/viewcontent.cgi?article=1020&context=mcnair)
+Such effects alter the stellar measurements
+gathered by the telescope. To counteract such an interference, relative photometry is performed.
+This effectively distinguishes the astrophysical information of the star-planet system from the
+measurements affected by the Earth’s atmosphere. To do this, relative photometry requires the
+observation of
+1. several other stars that are similar in brightness and color to the primary target of
+interest—i.e. a star with a transiting exoplanet orbiting it. 
+2. Furthermore, these stars must not be variable stars. Such variable stars include eclipsing binaries, Cepheid variables, other stars with
+transiting planets, etc. 
+Stars meeting these criteria are satisfactory comparison stars. 
 
-Ideally, you want a background estimate that’s smooth and consistent. A small deviation between the median and RMS median suggests 
-a more uniform background.
-But, it’s not always a guarantee. It depends on the nature of your data. If your data has inherent variability, you might not be 
-able to achieve a very small deviation.
-Prioritize Accuracy: The primary goal is to get an accurate representation of the background, even if it means some variability
-is present. The choice of sigma clipping and other parameters should be driven by achieving accurate results, not just minimizing
-the deviation between median and RMS.
+Well one thing that I now totally understand is the problem with my work is that the comparison star is not at all 
+similar in brightness to my target star. Frequently a problem specifically when the primary target is a bright star.
 
-!!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
-It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+
+:O :O :O So it appears that a new set of trimming is in order!!!!
 # --------------------------------------------------------------------------------------
 #14030527
 
