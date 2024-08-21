@@ -1,0 +1,32 @@
+REMAINING TASKS!!!
+
+TASK -> go to the 2D calibration step and focus on a small secton of the image which has no considerable sources. 
+    Don't perform the masking step and then see what happens if you use the median value of that background for the whole image.
+    Will it improve matters or make it worse?
+
+TASK -> Change binning (before or after calibration?) 
+
+TASK -> Test to see if stacking makes any difference
+
+TASK -> find out what role does the choice of aperture in image with three apertures plays as opposed to the ones defined by 
+        radii=[3,4,5,6,8,10,12,15,20,25] ## aperture radii in pixels -> and used for plotting the light curves???
+
+TASK -> PROBLEM: After Calibration, my calibrated light frames included negative count values.
+        Part of this was solved using trim only and not overscan. 
+        But after removing 2d bkgd still some negative regions exist. need to fix that.
+        DON'T TELL ANYONE! I am defining masks but not using them :O
+
+
+3. Is a Small Deviation Between Median and RMS Median Always Good?
+
+Ideally, you want a background estimate that’s smooth and consistent. A small deviation between the median and RMS median suggests 
+a more uniform background.
+But, it’s not always a guarantee. It depends on the nature of your data. If your data has inherent variability, you might not be 
+able to achieve a very small deviation.
+Prioritize Accuracy: The primary goal is to get an accurate representation of the background, even if it means some variability
+is present. The choice of sigma clipping and other parameters should be driven by achieving accurate results, not just minimizing
+the deviation between median and RMS.
+
+!!!! I examined by hand in DS9 Negative Values of 2d bkgd come from the outputs of step 8 -> light minus master dark or flat. 
+It seems that maybe it is not a problem of the choice of sigma in Sigmaclipping in 2d bkgd estimation. -> more investigation necessary
+# --------------------------------------------------------------------------------
