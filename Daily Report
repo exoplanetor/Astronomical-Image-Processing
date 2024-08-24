@@ -1,3 +1,9 @@
+#14030603
+Today I started going over the whole process again starting from new trimming and producing new calibration files and then
+went throgh until the final step plotting the light curve. I need to work on iaper in the very last step. I am confused 
+about why we define iaper while we have radii before hand.
+
+# --------------------------------------------------------------------------------------
 #14030531
 
 I am still working with the WASP12b data and on why the light minus dark divided by flat frame which has no negative values
