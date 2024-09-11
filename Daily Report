@@ -1,8 +1,31 @@
+#14030621
+Uptil now I have been working on the data for WASP-12b from LABNOIR. I have successfully gone through all the trimming, calibrating, masking and 
+background estimation and reduction, source detection, calculating shifts and solving for them and finally plotting light curves for 
+that set of data steps. The resulting light curves are not as good lookinh as I'd like them to be though.
+
+So this time I am trying something new. I am constantly hearing the great effect that having a high number of calibration files has on 
+the quality of the calibration process and outputs. So this time I went back to LABNOIR, again for WASP-12b and the same instrument again
+and downloaded 100 darks and 100 flats after going through each frame individually and omitting a good number of them (which obviously
+took a lot of time)
+I have 95 darks,
+43 flats and still only 10 light frames as that instrument only has packs of 10 frames for this object in each night. A few more specifications
+of data are:
+
+Telescope: ct13m - andicam - 2015.02.9 - Exp_time_30s
+Flats: 2015.02.11 (There are two types of flats I am using one set each time)
+Darks: 2012.10 _ Exp_time_40s
+
+TASKS:
+    - I am planniong to change the comparison star this time 
+    - And also test the 2 sets of flats to compare the difference
+    - In addition check if overscan would help as well or not
+
+Let's begin!
+# --------------------------------------------------------------------------------------
 #14030603
 Today I started going over the whole process again starting from new trimming and producing new calibration files and then
 went throgh until the final step plotting the light curve. I need to work on iaper in the very last step. I am confused 
 about why we define iaper while we have radii before hand.
-
 # --------------------------------------------------------------------------------------
 #14030531
 
