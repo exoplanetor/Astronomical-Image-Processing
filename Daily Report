@@ -1,3 +1,18 @@
+#14030624
+Today I started by using a different set of flats for the whole process. I went through all the steps. I can't say I see much of a
+difference between the results obtained by these flats and the one before that.
+
+My issue in my final results is that well I don't see a dip in he light curve. One thing that caught my eye was the duration on the time
+axis in the light curve. Looking at the light curve obtained for this source from this article (https://www.aanda.org/articles/aa/full_html/2011/04/aa16268-10/F1.html)
+I can see that the duration of the transit is of the order of 2 and a half hours while the 10 frames I am using to plot my light curve
+only cover a range of about 12 minutes!!!! no wonder I am not seeing any dips! 
+
+So there you go: It's obvious why I am not seeing the dip. It all goes back to data again!
+
+-----> Next step: find better data!
+-----> Another next step; automize calibration for all light frames in a directory
+
+# --------------------------------------------------------------------------------------
 #14030621
 Uptil now I have been working on the data for WASP-12b from LABNOIR. I have successfully gone through all the trimming, calibrating, masking and 
 background estimation and reduction, source detection, calculating shifts and solving for them and finally plotting light curves for 
@@ -17,7 +32,7 @@ Darks: 2012.10 _ Exp_time_40s
 
 TASKS:
     - Done- I am planniong to change the comparison star this time 
-    - And also test the 2 sets of flats to compare the difference <------ continue from here: trim the 2nd flat files
+    - Done- And also test the 2 sets of flats to compare the difference 
     - In addition check if overscan would help as well or not
 
 Let's begin!
