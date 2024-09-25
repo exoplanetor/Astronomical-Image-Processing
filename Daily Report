@@ -1,4 +1,16 @@
 #14030624
+today I did another productive thing, I created version 6 of my code. I deleted much o the unnecessary plots and calculations including most importantly all related to
+dark_only cases. Next important thing that I did also was to change the code so that it would automatically run calibration steps for all light frames in a directory.
+
+After uploading the new codes to github again, I lastly moved back to using data on the IPM network and also get new data from there. So this means going back through all
+previous and necessary steps including changes in header, manual choice of flats, darks, etc. trimming them most likely, and then starting the calibration process again.
+
+I have chosen to work on two targets in order to have some reference for comparison: IC 10 and J2215 both obtained on Sep09, 2024.
+# --------------------------------------------------------------------------------------
+#14030624
+I spent the whole last week preparing the new observation proposal for exoplanet targets.
+# --------------------------------------------------------------------------------------
+#14030624
 Today I started by using a different set of flats for the whole process. I went through all the steps. I can't say I see much of a
 difference between the results obtained by these flats and the one before that.
 
@@ -11,7 +23,6 @@ So there you go: It's obvious why I am not seeing the dip. It all goes back to d
 
 -----> Next step: find better data!
 -----> Another next step; automize calibration for all light frames in a directory
-
 # --------------------------------------------------------------------------------------
 #14030621
 Uptil now I have been working on the data for WASP-12b from LABNOIR. I have successfully gone through all the trimming, calibrating, masking and 
