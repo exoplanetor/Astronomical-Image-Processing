@@ -1,4 +1,11 @@
-#14030624
+#14030707
+Today I start working on a new set of data from INO -> the IC-10-Sep2024 set
+- what's most important to point out right now is that I am using old calibration frames for this because apparently the new ones have had systematic issues
+- also the exp-time of the new light frames is: 10 minutes BUT the darks that I have at hand are at most 3 min darks. this needs to change
+
+I decided not to perform any trimming for now. Let's just go
+# --------------------------------------------------------------------------------------
+#14030703
 today I did another productive thing, I created version 6 of my code. I deleted much o the unnecessary plots and calculations including most importantly all related to
 dark_only cases. Next important thing that I did also was to change the code so that it would automatically run calibration steps for all light frames in a directory.
 
@@ -7,7 +14,7 @@ previous and necessary steps including changes in header, manual choice of flats
 
 I have chosen to work on two targets in order to have some reference for comparison: IC 10 and J2215 both obtained on Sep09, 2024.
 # --------------------------------------------------------------------------------------
-#14030624
+#14030628
 I spent the whole last week preparing the new observation proposal for exoplanet targets.
 # --------------------------------------------------------------------------------------
 #14030624
