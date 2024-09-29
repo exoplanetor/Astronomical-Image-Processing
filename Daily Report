@@ -1,9 +1,12 @@
 #14030707
 Today I start working on a new set of data from INO -> the IC-10-Sep2024 set
 - what's most important to point out right now is that I am using old calibration frames for this because apparently the new ones have had systematic issues
-- also the exp-time of the new light frames is: 10 minutes BUT the darks that I have at hand are at most 3 min darks. this needs to change
 
-I decided not to perform any trimming for now. Let's just go
+I decided not to perform any trimming for now. Let's just go -->  well I went on with this and as expected the results aren't good at all.
+
+Since my priority at this stage was to test the quality of the code I guess I'll use another set of images from LAB NOIR instead because what I currently have in the trimmed
+and not trimmed version of this code is really not better than the original.
+So next task.. perform calibration on a diferent set of data to show it works!
 # --------------------------------------------------------------------------------------
 #14030703
 today I did another productive thing, I created version 6 of my code. I deleted much o the unnecessary plots and calculations including most importantly all related to
