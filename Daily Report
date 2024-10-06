@@ -4,6 +4,13 @@ the results so far are put here:
 https://github.com/exoplanetor/shared
 
 it is now time to think about and plan for what's next be omid khoda
+
+Today I went through researches undergoing for exoplanets to see what is new and what's being done/planned.
+
+During this I came across the KELT program (soon to ne finished or maybe it has already). and they have a commissioning paper located
+here: (https://arxiv.org/pdf/0709.2728) that I sort of like and am going through step by step. I have reached to its chapter 4. Astrometry
+and since it was a necessary requirement for the next stage of my project I am focusing on this in more detail. Continue this from the 
+test.ipynb next time.
 # --------------------------------------------------------------------------------------
 #14030707
 Today I start working on a new set of data from INO -> the IC-10-Sep2024 set
