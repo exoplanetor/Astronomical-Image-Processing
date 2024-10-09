@@ -4,6 +4,8 @@ Today was all about reading and I learned:
 - one way of choice for astrometry might be Astrometry.net plate solutions (astroquery.astrometry_net) which obviously uses astrometry.net
 - But then there is th epossibility of using Gaia data (still not sure if astrometry.net does not do that itself.)
 - Still going through this: (https://arxiv.org/pdf/0709.2728) up to section 5.4
+- Also this tutorial? https://pypi.org/project/astrometry/#astrometry
+
 # --------------------------------------------------------------------------------------
 #14030715
 I wrote and sent my last report on project 1 today:
