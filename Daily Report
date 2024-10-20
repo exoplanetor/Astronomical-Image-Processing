@@ -1,3 +1,30 @@
+#14030729
+Today I am starting with 
+https://pypi.org/project/astrometry/#astrometry and trying to run one such astrometry on one of my images.
+
+The page mentions that (Unlike Astrometry.net, Astrometry does not include FITS parsing or image 
+    pre-processing algorithms. Stars must be provided as a list of pixel positions.) So I first need to figure out how to create that stars
+    list. In their initial example the list looks something like this:
+
+stars = [
+    [388.9140568247906, 656.5003281719216],
+    [732.9210858972549, 473.66395545775106],
+    [401.03459504299843, 253.788113189415],
+    [312.6591868096163, 624.7527729425295],
+    [694.6844564647456, 606.8371776658344],
+    [741.7233477959561, 344.41284826261443],
+    [867.3574610200455, 672.014835980283],
+    [1063.546651153479, 593.7844603550848],
+    [286.69070190952704, 422.170016812049],
+    [401.12779619355155, 16.13543616977013],
+    [205.12103484692776, 698.1847350789413],
+    [202.88444768690894, 111.24830187635557],
+    [339.1627757703069, 86.60739435924549],
+]
+
+I wonder if I can get something out of daofind which resembles this... [Processing...]
+
+# --------------------------------------------------------------------------------------
 #14030718
 Today was all about reading and I learned:
 - I need to add WCS flags to my headers before Astrometry,
@@ -5,7 +32,6 @@ Today was all about reading and I learned:
 - But then there is th epossibility of using Gaia data (still not sure if astrometry.net does not do that itself.)
 - Still going through this: (https://arxiv.org/pdf/0709.2728) up to section 5.4
 - Also this tutorial? https://pypi.org/project/astrometry/#astrometry
-
 # --------------------------------------------------------------------------------------
 #14030715
 I wrote and sent my last report on project 1 today:
