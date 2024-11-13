@@ -4,6 +4,25 @@ So let's start again from today.
 
 One of the most important things having happened since, was that a set of data by INO340 was observed for target HAT-P-32b from my
 target suggestions. So now I have about 280 frames (supposedly) spanning throughout the whole transit and one hour before and after it
+
+I have been trrrryyyyyiiiinnnnngggg to perform all calibration and photometry steps on this data. Various issues exist and remain:
+
+1 - I still am not sure of the exact FOV I am looking at. Contacted Mr. Altafi, waiting for reply
+2 - the distance between target and calibration and validation starts in the original code (the data for which had been obtained using
+    a 60/90 cm telescope - BATC group at NAOC) was of order 2-3 pixels. Mine are about 115 to 130 pixels! so in order to get any points
+    on the light curve plot, I increased them drastically (idx<130). I very probably think that this is wrong and I shouldn't have done
+    that but this was the only way I could get any points to appear on my diagram. Needs to change for sure.
+3- third problem is with the actual points on the light curve diagram... the calibration points vary much more than the exoplanet ones.
+    and the change for that one even.. is that it increases in magnitude and not decrease to create any dip!!
+    Anny how... what i first must make sure of is that the stars i have chosen as calibration and stuff is not perhaps a variable itself.
+    I remember from previous tests that changing these stars in the photometry step make a huge amount of difference.
+4- the process takes sooooo long for all 280 light frames. Almost 20 something hours.
+
+NEXT STEPS:
+1. Finish the current photometry step to finally have one (dirty and not good looking light curve)
+2. After Choosing different comparison stars etc. choose a much smaller data sample, say one in every 20 frames, run everything with them
+    and if you can see any promising behaviors, then add the other very many large points.
+3. Find out all about your field of view!!!
 ________________________________________________________________________
 #14030729
 Today I am starting with 
