@@ -1,3 +1,10 @@
+#14030823
+As you know it has been some time between my last report and this one. I don't feel like writing about what's been up in this gap, 
+So let's start again from today.
+
+One of the most important things having happened since, was that a set of data by INO340 was observed for target HAT-P-32b from my
+target suggestions. So now I have about 280 frames (supposedly) spanning throughout the whole transit and one hour before and after it
+________________________________________________________________________
 #14030729
 Today I am starting with 
 https://pypi.org/project/astrometry/#astrometry and trying to run one such astrometry on one of my images.
