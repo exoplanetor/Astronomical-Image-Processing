@@ -23,6 +23,12 @@ NEXT STEPS:
 2. After Choosing different comparison stars etc. choose a much smaller data sample, say one in every 20 frames, run everything with them
     and if you can see any promising behaviors, then add the other very many large points.
 3. Find out all about your field of view!!!
+
+Another thing (finding) I did today was that I realized one of the contributing factors as to why it takes sooooo long to calculate my,
+-cat files (a few days). The reason was that I had (or some unknown reason) once chosen to use 10 diferent aperture or the photometry step.
+so the Code had to perform all tasks for 278*10 times. Well that's a number I can feel to be big in calculation times. 
+
+So I am making the change here to use maybe 3 aperture from now on.
 ________________________________________________________________________
 #14030729
 Today I am starting with 
