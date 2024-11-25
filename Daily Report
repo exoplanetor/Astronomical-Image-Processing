@@ -1,3 +1,18 @@
+#14030905
+Meeting with Dr. Javadi,
+- Focus on low frames and check if not being close to saturation limit makes a difference
+- FWHM should not change much for stars in one image. It only depends on the sky itself and airmass. So a very important task... 
+    calculate FWHM using code!! not just your eyes! Another very important thing: Don't expect WHM to be more than 20. if that happens it
+    means that the image is satudated. the brightest and darkest stars should have at most 2-5 pixels difference in fwhm.
+- Ask for sky twilight from Mr Altafi
+- Make time for the airmass determination task if you ind the time.
+- Look at Sep observations of black widow and there's a pulsar in there for which people have detected 0.5 magnitude variation. Reproduce that
+    with your code. 
+- Ask Mr. Altafi what is the actual mechanism between taking high-low frames
+- Calculate Signal to Noise Ratio for your image
+- Reduce Bias too
+----------------------------------------------------------------------------------------------------------------------------------------
+
 NEXT time start from changing to low frames thus testing the effect that saturation might have on my plots and diagrams. But I guess I
 should start everything from scratch. I'd very much like to test reducing bias frames once and for all as well.
 
