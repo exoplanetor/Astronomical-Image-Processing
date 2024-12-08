@@ -1,3 +1,130 @@
+#14030918
+در آخرین گزارش پروژه وضعیت منحنی نوری خصوصاً برای ستاره مقایسه (comparison) دور از انتظار بود؛ از آن جهت که انتظار می رفت تغییرات مشاهده شده در منحنی نوری آن می بایست بسیار ناچیز باشد اما نمودار منحنی نوری این را نشان نمی داد. عوامل مختلفی به عنوان خطاهای احتمالی تأثیرگذار مطرح شدند که یکی از آن ها مقدار انتخاب شده برای پارامتر fwhm در کد به هنگام اجرای مراحل پیداکردن منبع (source detect) و در نتیجه آن کیفیت نورسنجی بود. در این راستا پیشنهاد شد که برای فریم های مختلف مورد استفاده (از روی داده های موجود در هر فریم) تخمینی از مقدار fwhm بدست آید و بدین ترتیب نه تنها مقدار این پارامتر بلکه وضعیت کیفیت تصویر در ساعات مختلف رصد نیز بررسی شود. برای گزارش fwhm هر تصویر دو روش مورد استفاده قرار گرفت که به جزئیات آن ‎ها در زیر اشاره می‎کنیم.
+>> روش اول اندازه‎گیری fwhm : استفاده از Photutils
+ابتدا استفاده از بسته‎ی از پیش آماده‎ی Photutils>ApertureStats که پس از گرفتن مکان یک ستاره در تصویر و شعاع دایره‎ای که باید psf را به مرکزیت آن در نظر بگیرد، تخمینی از مقدار fwhm  اندازه‎گیری شده در این محدوده بدست می‎دهد. روش کار آن به شکل زیر است:
+from photutils.aperture import CircularAperture, ApertureStats
+#Specify the location of a star in the "light_frame_name" image and place a circle with the specified radius around it
+aper = CircularAperture((2153,1969), 100)
+aperstats = ApertureStats(flatanddark, aper)
+print(f"FWHM in pixels: {aperstats.fwhm}")  
+pixel_scale = 0.0439  # arcseconds/pixel - found from 3 arcminutes divided by 4096
+fwhm_arcsec = aperstats.fwhm * pixel_scale
+print(f"FWHM in arcseconds: {fwhm_arcsec}")
+این کد در نتیجه مقدار fwhm را در دو واحد پیکسل و ثانیه قوس گزارش می‎کند. روش پیدا کردن fwhm در این کد به شکل زیر است:
+fwhm
+The circularized full width at half maximum (FWHM) of the 2D Gaussian function that has the same second-order central moments as the source.
+\begin{split}\mathrm{FWHM} & = 2 \sqrt{2 \ln(2)} \sqrt{0.5 (a^2 + b^2)}
+\\
+               & = 2 \sqrt{\ln(2) \ (a^2 + b^2)}\end{split} 
+
+■(FWHM&=2√(2ln⁡(2)) √(0.5(a^2+b^2))@&=2√(ln⁡(2)" " (a^2+b^2)))
+
+where a and b are the 1-sigma lengths of the semimajor (semimajor_sigma) and semiminor (semiminor_sigma) axes, respectively.
+
+(source: https://photutils.readthedocs.io/en/stable/api/photutils.aperture.ApertureStats.html#photutils.aperture.ApertureStats.fwhm)
+
+>> روش دوم اندازه‎گیری fwhm: فیت کردن تابع گوسی
+در مرتبه دوم برای مقایسه نتیجه بدست آمده از Photutils تلاش شد تا با فیت کردن تابع گوسی بر روی پروفایل یک ستاره، مقدار fwhm اندازه‎گیری شود. در این روش ابتدا سه تابع تعریف می کنیم: gaussian  تابعی برای ایجاد یک تابع گاوسی دو بعدی؛ moments با استفاده از گشتاورهای تصویر، تقریبی از مرکز و ابعاد شیء را محاسبه می‌کند و در نهایت fitgaussian با استفاده از روش حداقل مربعات، برازش دقیق‌تری از تابع گاوسی روی شیء انجام می‌دهد و پارامترهای دقیق‌تر آن را تخمین می‌زند. سپس بخشی از تصویر انتخاب می‌شود و با استفاده از توابع بالا، FWHM شیء در واحد پیکسل و ثانیه قوسی به همراه Seeing محاسبه و نمایش داده می‌شود. جزئیات روش انجام این کار را در زیر مشاهده می‎کنید:
+import numpy as np
+import math
+from scipy import optimize
+from astropy.io import fits
+import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
+
+# This creates and returns a 2D Gaussian function.The returned lambda function is a “callable” 
+# object; you can use it later to evaluate the Gaussian at various (x, y) points.
+def gaussian(height, center_x, center_y, width_x, width_y):
+	"""Returns a gaussian function with the given parameters"""
+	width_x = float(width_x)
+	width_y = float(width_y)
+	return lambda x,y: height*np.exp(-(((center_x-x)/width_x)**2+((center_y-y)/width_y)**2)/2)
+# This function provides a simple way to estimate the key properties (centroid and size) of a
+# 2D object in an image based on its pixel intensities.
+def moments(kata):
+    try:
+        total = kata.sum()
+        X, Y = np.indices(kata.shape)
+        x = (X * kata).sum() / total
+        y = (Y * kata).sum() / total
+        col = kata[:, int(y)]
+        width_x = np.sqrt(np.abs((np.arange(col.size) - y) ** 2 * col).sum() / col.sum())
+        row = kata[int(x), :]
+        width_y = np.sqrt(np.abs((np.arange(row.size) - x) ** 2 * row).sum() / row.sum())
+        height = kata.max()
+        return height, x, y, width_x, width_y
+    except (ValueError, TypeError, ZeroDivisionError) as e:
+        print(f"Error in moments function: {e}")
+        return None
+        
+# this function improves the accuracy of the Gaussian parameter estimation by using a non-linear least-squares method 
+# to fit a 2D Gaussian to the input data, using the moment-based estimates as a starting point. The result is a more 
+# precise determination of the Gaussian’s parameters than what moments alone could provide. 
+def fitgaussian(kata):
+	"""Returns (height, x, y, width_x, width_y)
+	the gaussian parameters of a 2D distribution found by a fit"""
+	params = moments(kata)
+	errorfunction = lambda p: np.ravel(gaussian(*p)(*np.indices(kata.shape)) -kata)
+	p, success = optimize.leastsq(errorfunction, params)
+	return p
+
+kata = flatanddark
+try:
+    image = np.array(flatanddark)
+#Specify the location of a star in the "light_frame_name" image
+    psf = image[2100:2200, 1900:2000]
+    print(np.shape(psf))
+    result = moments(psf)
+
+    if result:
+        width_x, width_y = result[3], result[4]
+        fwhm_x = 2 * np.sqrt(2 * np.log(2)) * width_x
+        fwhm_y = 2 * np.sqrt(2 * np.log(2)) * width_y
+        avg_fwhm_pixels = (fwhm_x + fwhm_y) / 2.0
+        pixel_scale = 0.0439  # arcseconds/pixel - found from 3 arcminutes divided by 4096
+        avg_fwhm_arcsec = avg_fwhm_pixels * pixel_scale
+
+        print(f"avg_fwhm_pixels: {avg_fwhm_pixels}") # Added debugging line
+        print(f"pixel_scale: {pixel_scale}")       # Added debugging line
+        seeing_arcsec = avg_fwhm_pixels * pixel_scale
+        print(f"FWHM x: {fwhm_x:.2f} pixels, FWHM y: {fwhm_y:.2f} pixels")
+        print(f"Average FWHM: {avg_fwhm_pixels:.2f} pixels")
+        print(f"Average FWHM: {avg_fwhm_arcsec:.2f} arcseconds") # Added line to print in arcseconds
+        print(f"Seeing: {seeing_arcsec:.2f} arcseconds")
+
+    else:
+        print("Moments calculation failed.")
+except FileNotFoundError:
+    print("Error: FITS file not found.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+fig = plt.figure()
+plt.plot(psf)
+plt.title('PSF Intensity Profile') 
+plt.xlabel('Pixel Index') 
+plt.ylabel('Intensity') 
+plt.show()
+برای این بررسی تعداد 14 فریم از low resolution  که با فاصله زمانی حدودا 15 دقیقه از هم گرفته شده بودند انتخاب شد. مقادیر Fwhm و Seeing بدست آمده با استفاده از هر دو روش را برای هر کدام از آن ها در جدول شماره یک مشاهده می‎کنید. اعداد مربوط به fwhm در واحد پیکسل به بالا گرد شده‎اند.
+Frame_name / X / Y / fwhm_Photutils_pix / fwhm_Gaussian_pix / seeing_ Photutils _arcsec/ seeing_Gaussian_arcsec
+1 / 2145 / 1997 / 66 / 68 / 2.88 / 2.98
+20 / 2135 / 1989 / 65 / 68 / 2.88 / 2.98
+40 / 2149 / 1977 / 65 / 68 / 2.84 / 2.98
+60 / 2153 / 1969 / 65 / 69/ 2.84 / 3.03
+80 / 2149 / 1959 / 65 / 68 / 2.84 / 2.98
+100 / 2160 / 1950 / 65 / 69 / 2.87 / 3.03
+120 / 2092 / 1929 / 72 / 70 / 3.15 / 3.03
+140 / 2120 / 1859 / 71 / 69 / 3.15 / 3.04
+160 / 2208 / 1821 / 119 / 68 / 5.22 / 2.98
+180 / 2031 / 2035 / 120 / 69 / 5.28 / 3.04
+200 / 2034 / 2004 / 113 / 69  / 4.96 / 3.04
+220 / 2059 / 1970 / 80 / 67 / 3.55 / 2.97
+240 / 2066 / 1967 / 76 / 68 / 3.30 / 2.98
+240 / 2099 / 1923 / 71 / 68 / 3.13 / 3.00
+
+مرحله بعدی رسم نمودار برای اینهاست.
+Continue from here...
+----------------------------------------------------------------------------------------------------------------------------------------
+
 #14030910
 Today I sent out my 5th project. I also started working on the FWHM part of the project today hopefully I'll do the following:
 - draw fwhm diagram
