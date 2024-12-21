@@ -1,4 +1,9 @@
 #14031001
+What I am currently stuck on is the fact that the FWHM reported by MaxImDL software is 12-14 and mine is 54-90 and in both methods I use. 
+I am trying to figure out why. But first I would very much like to understand how to turn the proile o my star into a gaussian and then 
+calculate fwhm from it by hand.
+
+
 To Read:
 1. AAVSO's complete guide to ccd photometry:
 https://www.aavso.org/sites/default/files/publications_files/ccd_photometry_guide/CCDPhotometryGuide.pdf
