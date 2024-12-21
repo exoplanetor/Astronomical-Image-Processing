@@ -1,3 +1,10 @@
+#14031001
+To Read:
+1. AAVSO's complete guide to ccd photometry:
+https://www.aavso.org/sites/default/files/publications_files/ccd_photometry_guide/CCDPhotometryGuide.pdf
+2. Aperture Photometry with MaximDL:
+https://sites.soka.edu/suo/resources/maximdl/
+----------------------------------------------------------------------------------------------------------------------------------------
 #14030918
 
 Today I finished the work and my first draft on FWHM. I am waiting for a meeting in that
@@ -9,13 +16,26 @@ https://www.researchgate.net/profile/Muhammad-Yusuf-44
 https://indico.narit.or.th/event/128/contributions/260/attachments/140/295/exoplanet_data_reduction.pdf
 
 ------------------------------------------------------------------------------------------------------------------------
-|                            | The image scale (i.e., arc-seconds per pixel) of the imaging system, after              |
-|                            | any binning of the CCD camera is considered, should be such that the full width at half |
-|         Image Scale        | maximum (FWHM) of the host star spans three (3) or more pixels.                         |
-|                            | Defocusing may also help increase the chance of finding suitable comp stars. A          |
-|                            |point-spread-function (PSF) resulting from defocusing of 10-20 pixels is acceptable,     |
-|                            |unless the sky background is high.                                                       |
+|                            | The image scale (i.e., arc-seconds per pixel) of the imaging system, after              
+|                            | any binning of the CCD camera is considered, should be such that the full width at half 
+|         Image Scale        | maximum (FWHM) of the host star spans three (3) or more pixels.                         
+|                            | Defocusing may also help increase the chance of finding suitable comp stars. A          
+|                            |point-spread-function (PSF) resulting from defocusing of 10-20 pixels is acceptable,     
+|                            |unless the sky background is high.                                                       
 ------------------------------------------------------------------------------------------------------------------------
+|                            | The comp stars used should be as close in magnitude as possible
+|       Selection of         |to the exoplanet’s host star. Ideally the ensemble of comp stars should be a mix of ones
+|     comparison Stars       |that are 0.5-1.5 times the brightness (flux) of the host star, which translates to 0.75
+|                            |greater in magnitude (i.e., dimmer) than the host star to 0.44 less in magnitude (i.e.,
+|                            |brighter) than the host star.
+------------------------------------------------------------------------------------------------------------------------
+|                            |Also, because full exoplanet transits will typically take place
+|       Selection of         |over a range of altitudes, the brightness of stars of different stellar type will increase
+|     comparison Stars       ||(decrease) differently as AIRMASS decreases (increases). Therefore, it is also best to
+|                            |choose comp stars of similar stellar type
+------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
