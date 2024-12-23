@@ -1,4 +1,9 @@
 #14031001
+I am so badly stuck at two points;
+1. FWHM calculation from scratch and by fitting a gaussian to the star's 1D profile in python, by myself.
+2. The one before the last step of the main code trying to plot something on the light curve for low frames. This second one is what I intend to continue from tommorrow
+----------------------------------------------------------------------------------------------------------------------------------------
+#14031001
 What I am currently stuck on is the fact that the FWHM reported by MaxImDL software is 12-14 and mine is 54-90 and in both methods I use. 
 I am trying to figure out why. But first I would very much like to understand how to turn the proile o my star into a gaussian and then 
 calculate fwhm from it by hand.
