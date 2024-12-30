@@ -1,3 +1,15 @@
+#14031010
+
+- The FWHM problem is solved. I was originally neglecting the fact that I should consider reducting local background from around the star
+ixed that and ixed the problem and as a matter of fact my personal code seems to be working better than the photutils>aperturestats bundle
+
+- next slightly good news is that I finally could go through all the steps and see points on the final light curve. As previously expected,
+the resuling light curve is still completely problematic. Something that I am observing is that the delta m I am seeing on both high res
+and low res light curves are of the same order (about 1 magnitude) but something else, not necessarily obvious is that the two light curves
+are somehow mirror reflections of one another. I've gotta find out why.
+
+- And finally aparently from next time, I should start working on black widow netron star and try to get a light curve for that! 
+----------------------------------------------------------------------------------------------------------------------------------------
 #14031001
 I am so badly stuck at two points;
 1. FWHM calculation from scratch and by fitting a gaussian to the star's 1D profile in python, by myself.
@@ -5,7 +17,7 @@ I am so badly stuck at two points;
 ----------------------------------------------------------------------------------------------------------------------------------------
 #14031001
 What I am currently stuck on is the fact that the FWHM reported by MaxImDL software is 12-14 and mine is 54-90 and in both methods I use. 
-I am trying to figure out why. But first I would very much like to understand how to turn the proile o my star into a gaussian and then 
+I am trying to figure out why. But first I would very much like to understand how to turn the proile of my star into a gaussian and then 
 calculate fwhm from it by hand.
 
 
