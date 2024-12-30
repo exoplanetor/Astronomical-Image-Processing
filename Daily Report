@@ -5,8 +5,13 @@ ixed that and ixed the problem and as a matter of fact my personal code seems to
 
 - next slightly good news is that I finally could go through all the steps and see points on the final light curve. As previously expected,
 the resuling light curve is still completely problematic. Something that I am observing is that the delta m I am seeing on both high res
-and low res light curves are of the same order (about 1 magnitude) but something else, not necessarily obvious is that the two light curves
+and low res light curves are of the same order (about 1 magnitude) 
+
+- but something else, not necessarily obvious is that the two light curves
 are somehow mirror reflections of one another. I've gotta find out why.
+
+- Another thing that I should spend time to explore is that I still get the error 'invalid 0 or nan values in input file' here or there
+in the code, this needs to be checked closely as well.
 
 - And finally aparently from next time, I should start working on black widow netron star and try to get a light curve for that! 
 ----------------------------------------------------------------------------------------------------------------------------------------
