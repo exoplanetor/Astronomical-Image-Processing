@@ -1,4 +1,7 @@
-#14031010
+#14031016
+- Continuing the steps listed in 1403101
+----------------------------------------------------------------------------------------------------------------------------------------
+#14031015
 - Today I started working with the PSR B1957+20 (black-widow-neutron-star)
 - I'll list the initial tasks done below:
 1. checking high vs low frames to check for saturation. 
@@ -7,15 +10,26 @@
 Source Name : PSR J2215+5135
 Magnitude : 18 - 20
 Orbital period (hr) : 4.14
-RA (hh mm ss): 22 15 32.69
-DEC (hh mm ss): +51 35 36.40
-
+RA (hh mm ss) DEC (hh mm ss) : 22 15 32.69 +51 35 36.40
+ 
 3. checking for the position of the neutron star in the image using aladin and comparing to DS9
 	DS9 -> Zoom -> Pan Zoom Rotate Parameters -> rotate 270 deg -> Zoom -> Invert X
 	Max count in brightest stars -> 3700 but all other stars are about 1000 counts lower
 
 4. Checking header: Exptime -> 96 seconds
 
+5. Choosing flats:
+I haven't received flat files for the period of the target files observations. The target is observed from 2023-10-01 to 2023-10-16.
+The closest flats I have to this right now are from 2023-10-10, but I currently only have high frames. Therefore, although high target frames 
+have saturated stars, since my flats are high gain and the star I am working with is considerably faint I choose to work with high gains
+from now on.
+
+6. Looking at light frames one by one:
+Going through the original data I have been given I found 3 sets of high frames with exptime 100 sec and went through them one by one.
+In the end I abandoned two out o three sets. One whole set was out o focus (r-2023_10_16-exp00.01.40.000-1x1_High_1 to 30). The other set 
+which had 9 files had a very different pointing region which I am sure would cause problems in my routine at the difference calculation step.
+Thus now I have 10 light frames in all of which the target is almost placed at the center. I might later decide to include those 9 additional
+light frames
 ----------------------------------------------------------------------------------------------------------------------------------------
 #14031010
 - The FWHM problem is solved. I was originally neglecting the fact that I should consider reducting local background from around the star
