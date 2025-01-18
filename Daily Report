@@ -1,4 +1,21 @@
 #14031022
+still trying to create better results out of the cleaning process.
+Considering the fact that IC10 was observed during the same nights as the BWpsr and also the problem I was facing (the quality of the darks
+obtained for BWpsr observations-having high counts around 700-800) I decided to use flats and darks from IC-10 observations. The ones I had
+already got good results out of. So the following tests were created:
+
+test1: I used different darks:
+	Result: The result of flat and dark correction looks somehow fuzzy and the stars have some speciic black dots near their outer edge
+test2: I tried not removing darks from flats individually but making light minus master dark and then the resulting dark div master flat
+	Result: Doing this did not make any noticable change to the result
+test3: looking for even better smoother darks and replacing them
+	Result: things actually look slightly better now. Using better darks did actually help!
+
+So from now on I will continue working with test3-psr directory and files withing.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+#14031022
 I am still working on the data from last year's fall black widow pulsar. 
 I am stuck at the cleaning process, and the thing is that the quality of flat frames are extremely bad.
 As I mentioned before I am using flats from my original ic-10 curve 
