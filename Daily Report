@@ -1,3 +1,18 @@
+#14031101
+Today I created a shared directory in my github which is public and in which I shared my calibration routines with Dr. Javadi's team.
+This took some time as the codes needed tidying up. but it's done.
+
+So I went back to the pulsar project. As you recall I was working on test3 from below.
+I have sent a number of images to my bale account ready to be put in a report about why my current code is no good for working with this data
+
+Apart from that I also very fastly tested if I could perform photometry on the psr manually using Maxim Dl. apprently it does have the photometry
+tools but unfortunately won't open calibrated/cleaned files. 
+
+I have decided to end this for now, writing the report saying that my code won't do it but we definitely are in need of a ready made code
+for our community that does perorm regular stellar aperture photometry and I am ready to start learning and working on that.
+Meanwhile I am also readay to create a better proposal for another exoplanetary target in the coming months, if at all there is an observing opportunity
+
+-----------------------------------------------------------------------------------------------------------------------------------------_
 #14031022
 still trying to create better results out of the cleaning process.
 Considering the fact that IC10 was observed during the same nights as the BWpsr and also the problem I was facing (the quality of the darks
