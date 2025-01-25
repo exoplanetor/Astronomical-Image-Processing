@@ -1,3 +1,10 @@
+#14031106
+Next time start 2 things:
+
+1. try HAT-P-32b smaller aperture than 40. see what happens to the light curve
+2. give another target to observe
+3. start going through a tutorial for aperture photometry
+-----------------------------------------------------------------------------------------------------------------------------------------_
 #14031101
 Today I created a shared directory in my github which is public and in which I shared my calibration routines with Dr. Javadi's team.
 This took some time as the codes needed tidying up. but it's done.
