@@ -24,7 +24,33 @@ I chose solve-field commandline tool because:
 	No Web Upload: Solves images locally, which can be faster and more suitable for large datasets or sensitive data.
 	Precise: Can often achieve very accurate astrometric solutions.
 
-So right now I am Installing astrometry.net command-line tools
+So right now I am Installing astrometry.net command-line tools. But According to GPT, installing astrometry.net command-line
+tools on Windows is the trickiest of the operating systems. 
+
+	* Apprently in order for that to work I had to install a virtual ubuntu environment. which took some good time but I finally did it.
+
+	* Next step was  the prerequisite packages for astrometry.net -> sudo apt install astrometry.net
+
+	* Next Step: Download Index Files (http://data.astrometry.net/4100/)
+>>> What are Index Files?
+Imagine you have a HUGE map of the entire sky, showing the positions of millions of stars. But this map isn’t like a paper map;
+it’s stored inside your computer as a big list of numbers. Now, imagine you take a picture of a small part of the sky with your telescope.
+Your picture shows some stars, but you don’t know exactly where on the big map your picture is located. That’s where index files come in. 
+An index file is like a cheat sheet that helps astrometry.net quickly find the matching area on the BIG map.
+
+What’s Inside an Index File?
+Instead of storing the positions of every star, an index file stores patterns of stars. It looks for small groups of stars (usually 3 or 4)
+and calculates the angles and distances between them. It then stores these patterns, along with the exact location of that pattern on the
+big sky map. Think of it as constellations with precise coordinates.
+	*Pattern Matching: When you give astrometry.net your image, it also looks for star patterns in your image.
+	* Finding a Match: astrometry.net compares the star patterns in your image to the patterns stored in the index files. If it finds a match,
+		it knows approximately where your image is located on the big sky map.
+	* Calculating WCS: Once astrometry.net has a good match, it can precisely calculate the World Coordinate System (WCS) for your image. 
+		The WCS is the link between the pixels in your image and the real coordinates (Right Ascension and Declination) on the sky. It allows 
+		you to say, “This pixel in my image corresponds to this specific location in the sky.”
+
+It seems that downloading the index iles will take too long. Think I'll get to next steps tomorrow.
+
 -----------------------------------------------------------------------------------------------------------------------------------------_
 #14031106
 Next time start 2 things:
