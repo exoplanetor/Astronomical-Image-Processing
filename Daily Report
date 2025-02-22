@@ -7,7 +7,24 @@ from Zahra to perform photometry by jwst.
 - Then i display all images I want to perorm photometry on
 - Later we move on to aperture photometry starting by defining a function or finding sources and then another one for photometry
 - Then calling them to perform the task - I chose to print the whole table o photometry at this step
-- Next step that I am currently working on is: Table with magnitudes and positions. or this step I need 
+- Next step that I am currently working on is: Table with magnitudes and positions:
+
+	The main problem is that INO340 fits headers lack any valuable information for WCS tasks. Apparently there are 3 ways to solve this:
+	- Fix Image Acquisition/Processing Pipeline: Configure your imaging software to automatically write WCS keywords during image capture
+		or initial processing. (Best, but requires modifying your workflow).
+	- Manual WCS Calculation/Addition: If you know approximate RA/Dec, scale, and orientation, manually calculate WCS parameters and add 
+		them to the header using astropy.io.fits. (Tedious, error-prone, requires knowledge of WCS).
+	- Use a Different Astrometry Tool: Explore other astrometry tools like Astrometrica (Windows only, commercial), or command-line tools
+		like solve-field from the astrometry.net package (requires installation and command-line proficiency).
+
+I chose solve-field commandline tool because: 
+	Automation: Once set up, it can automatically solve images without manual intervention.
+	Flexibility: Offers many options to fine-tune the solving process.
+	Batch Processing: Can be used to solve multiple images at once.
+	No Web Upload: Solves images locally, which can be faster and more suitable for large datasets or sensitive data.
+	Precise: Can often achieve very accurate astrometric solutions.
+
+So right now I am Installing astrometry.net command-line tools
 -----------------------------------------------------------------------------------------------------------------------------------------_
 #14031106
 Next time start 2 things:
