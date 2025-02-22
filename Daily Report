@@ -49,8 +49,12 @@ big sky map. Think of it as constellations with precise coordinates.
 		The WCS is the link between the pixels in your image and the real coordinates (Right Ascension and Declination) on the sky. It allows 
 		you to say, “This pixel in my image corresponds to this specific location in the sky.”
 
-It seems that downloading the index iles will take too long. Think I'll get to next steps tomorrow.
+There were some other problems along the way and the finally the answer that GPT gave was to use A PPA, or Personal Package Archive, is essentially a 
+	software repository for Ubuntu. Think of it like an app store, but for command-line software. I am not trusting PPAs right now
+	So I thought tomorrow I will start going back to the basics: Trying to ollow the steps that were given in the (https://astrometry.net/use.html)
+	website itself.
 
+See you tommorrow
 -----------------------------------------------------------------------------------------------------------------------------------------_
 #14031106
 Next time start 2 things:
