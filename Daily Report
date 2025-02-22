@@ -1,6 +1,13 @@
 #14031204
 I haven't written here for so long so the main thing that has been happening is that I am working on a photometry code I have received
-from Zahra to perform photometry by jwst. I'll tell you later 
+from Zahra to perform photometry by jwst.
+
+- started the photometry routine called: NIRCam_Aperture_Photometry_Example.ipynb
+- it starts with defining filters and detectors (needs to be looked at by help rom Mr. Altafi)
+- Then i display all images I want to perorm photometry on
+- Later we move on to aperture photometry starting by defining a function or finding sources and then another one for photometry
+- Then calling them to perform the task - I chose to print the whole table o photometry at this step
+- Next step that I am currently working on is: Table with magnitudes and positions. or this step I need 
 -----------------------------------------------------------------------------------------------------------------------------------------_
 #14031106
 Next time start 2 things:
