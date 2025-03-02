@@ -4,6 +4,8 @@ Apart from downloading index and jwst fits which is taking for ever the things I
 2. Explore the third suggestion or plate solving which was error prune but maybe more accessible at the moment: 
 	Manual WCS Calculation/Addition: If you know approximate RA/Dec, scale, and orientation, manually calculate WCS parameters and add 
 		them to the header using astropy.io.fits. (Tedious, error-prone, requires knowledge of WCS).
+3. Well Well Well... Something good finally happened! I solved this plate of HAT-P-32b (not obtained by our telescope)
+	But tries with out images -> not solved 
 
 
 Tasks done since last week:
