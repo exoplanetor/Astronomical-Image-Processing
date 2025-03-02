@@ -1,3 +1,19 @@
+#14031211
+Tasks done since last week:
+1. Downloaded another version of Ubuntu via Windows Poershell (Admin). Unlike all the other times that I had tried to download it via 
+	Microsot store, this time took more than two hours and then afterwards when I tried to upgrade ubuntu I didn't encounter the
+	'dpkg' error i used to see every other time. So astrometry.net code finally installed and working.
+2. The next thing to mention here is that I also tried downloading it on mac, went through the steps successfully until actual plate solving
+	This is where I am also standing right now on the windows machine. It can't solve the plates.
+	I tried with 3 different fits image files and none of them worked. I am mostly thinking that the issue is coming from, me not choosing
+	the correct index files for astrometry So...
+		a) I am downloading dierent index files for larger fields of view (https://portal.nersc.gov/project/cosmo/temp/dstn/index-5200/LITE/)
+		which containes 8 sets o 47 index files each having an average size of 300-400 MB -> Obviously this is taking a long time
+		b) Another thing I am trying today is to download a 3.5 GB fits image from JWST, the one that has originally been used in the
+		code I have got from Zahra Abbasi. And trying to go through the routine once from beginning to the end.
+3. In the mean time, I think since astrometry code needs to be run in ubuntu or mac, I need to access jupyter-lab from whithin WSL and that's
+	actually what I am doing while waiting for those files to be downloaded.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14031209
 INO340 limitations
 Dec 30 - 70
