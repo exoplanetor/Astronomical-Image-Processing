@@ -8,7 +8,8 @@ Tasks done since last week:
 	I tried with 3 different fits image files and none of them worked. I am mostly thinking that the issue is coming from, me not choosing
 	the correct index files for astrometry So...
 		a) I am downloading dierent index files for larger fields of view (https://portal.nersc.gov/project/cosmo/temp/dstn/index-5200/LITE/)
-		which containes 8 sets o 47 index files each having an average size of 300-400 MB -> Obviously this is taking a long time
+		which containes 8 sets o 47 index files each having an average size of 300-400 MB -> I am only downloading one-47 set but 
+		Obviously this is taking a long time
 		b) Another thing I am trying today is to download a 3.5 GB fits image from JWST, the one that has originally been used in the
 		code I have got from Zahra Abbasi. And trying to go through the routine once from beginning to the end.
 3. In the mean time, I think since astrometry code needs to be run in ubuntu or mac, I need to access jupyter-lab from whithin WSL and that's
