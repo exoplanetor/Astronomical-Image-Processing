@@ -1,4 +1,11 @@
 #14031211
+Apart from downloading index and jwst fits which is taking for ever the things I should make immediate decision about include:
+1. Whether or not to switch to ubuntu completely?
+2. Explore the third suggestion or plate solving which was error prune but maybe more accessible at the moment: 
+	Manual WCS Calculation/Addition: If you know approximate RA/Dec, scale, and orientation, manually calculate WCS parameters and add 
+		them to the header using astropy.io.fits. (Tedious, error-prone, requires knowledge of WCS).
+
+
 Tasks done since last week:
 1. Downloaded another version of Ubuntu via Windows Poershell (Admin). Unlike all the other times that I had tried to download it via 
 	Microsot store, this time took more than two hours and then afterwards when I tried to upgrade ubuntu I didn't encounter the
@@ -14,6 +21,14 @@ Tasks done since last week:
 		code I have got from Zahra Abbasi. And trying to go through the routine once from beginning to the end.
 3. In the mean time, I think since astrometry code needs to be run in ubuntu or mac, I need to access jupyter-lab from whithin WSL and that's
 	actually what I am doing while waiting for those files to be downloaded.
+
+	TASKS Done here:
+		- Install JupyterLab in WSL: For this I needed to create a virtual environment to isolate the JupyterLab installation:
+			python3 -m venv myenv
+			source myenv/bin/activate
+			then type jupyter-lab (I have added this command to bashrc)
+			then copy and paste the address it gives: (http://localhost:8888/lab?token=29a794....) into a windows browser and work from there.
+			This method needs all python, astropy, etc. libraries to be installed again. The main question Now is is it worth it?
 
 4. Understanding Index Files
 	Astrometry.net uses index files to match star patterns in your image to known star positions from catalogs (e.g., Tycho-2, Gaia).
