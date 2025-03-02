@@ -14,6 +14,33 @@ Tasks done since last week:
 		code I have got from Zahra Abbasi. And trying to go through the routine once from beginning to the end.
 3. In the mean time, I think since astrometry code needs to be run in ubuntu or mac, I need to access jupyter-lab from whithin WSL and that's
 	actually what I am doing while waiting for those files to be downloaded.
+
+4. Understanding Index Files
+	Astrometry.net uses index files to match star patterns in your image to known star positions from catalogs (e.g., Tycho-2, Gaia).
+	Selecting appropriate index files is crucial for successful astrometric solving. Index files are pre-built for various field sizes 
+	and sky regions.
+   Choosing the Right Index Files
+	Field of View (FOV) is Key: The most important factor in index file selection is the angular size of your image’s field of view
+	(e.g., 4x4 arcminutes).
+
+   The 20% Rule (Guideline): A general recommendation is to select index files with “skymark” diameters roughly equal to 20% of the 
+	narrowest dimension of your FOV. This guideline balances sufficient landmark coverage with avoiding crowding or sparsity. For a 4x4 
+	arcminute FOV, this suggests skymarks around 0.8 arcminutes.
+
+   5200-Series Files (Narrow Fields): The 5200-series is designed for fields of view smaller than 1 degree (60 arcminutes). These are built 
+	from the Tycho-2 and Gaia catalogs.
+
+   Skymark Diameters for 5200 series: Files with the tag ‘index-5200’ have skymark diameters in the range of 2.0-2.8 arcminutes 1.
+
+   5200 Series is a close choice: Since it is designed for images narrower than 1 degree and contain skymark diameters that is close
+	to the 0.8 arcminutes recommendation, the 5200-series is a good one to start with.
+
+   Individual Sky Tiles: Each file in the range index-5200-00.fits to index-5200-47.fits represents a different “tile” covering a
+	specific region of the sky. To ensure coverage no matter where your image is pointed, download all the files in this range. This is achieved by using the hpsplit program with the -n 2 option 5. This configuration divides the sky into 48 distinct regions.
+
+If Standard Files Don’t Work
+	Consider Custom Index Files: For very small fields of view or unusual setups, you might need to create custom index files tailored
+to your specific image parameters. This involves using specialized software and star catalogs.
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14031209
 INO340 limitations
