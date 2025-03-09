@@ -1,6 +1,6 @@
 #14031219
 Working on standard stars:
-Today I created a code made up of two very useul parts:
+Today I created a code made up of two very useul parts: (it is called exposure report uploaded in code-rep)
 part 1: makes a csv report of all fits files in a directory with the following columns:
 	Frame   Name   Filter   Mode     ExposureTime      Start        UTC
 part 2: Plots Modes Vs Local Time to see how requent the observation frames have been during one night.
