@@ -1,6 +1,16 @@
+#14031219
+Working on standard stars:
+Today I created a code made up of two very useul parts:
+part 1: makes a csv report of all fits files in a directory with the following columns:
+	Frame   Name   Filter   Mode     ExposureTime      Start        UTC
+part 2: Plots Modes Vs Local Time to see how requent the observation frames have been during one night.
+	which filters have been used and with what exposure times.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14031218
 Today I successfully tested Dr. NoorMohammadi's Code for plotting star profile made a few small changes. works very fine.
 Added it to code repository here today.
+It worked for HATP32b sample data from the tutorial
+It did not work for INO data
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14031211
 Apart from downloading index and jwst fits which is taking for ever the things I should make immediate decision about include:
