@@ -3,6 +3,15 @@ I finished the job from last session. Also cleaned up the code for plotting 2D a
 to the code repository in github.
 
 Next task should be going back to photometry routine
+This is where I leave the photometry routine for now before norouz:
+I am working on the 'current_ApPh...' routine and I am trying to make it work for my HATP32b observations;
+I see these probable reasons for it not showing the initial plots let alone doing the next steps:
+- there are too many fit files, I need to place only a samply in the directory
+- for later steps where the code doesn't work well for source detection steps there may be the problem of hot pixels or not but maybe a wise move would be to 
+	use a standard star field and try to work with that.
+- Another path to take was to manually enter ra and dec in the header of a file This is what Dr. Javadi says she does
+- Learn photometry with IRAF from start to finish and create a workshop on that
+- 
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14031219
 next time start from SA26-60_std_star directroy in observatory folder. continue this report
