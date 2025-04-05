@@ -12,7 +12,22 @@ Apparently this is the road map to do that (if we initially have an estimate of 
 6. Update FITS Header: Update the original FITS header with the new/modified WCS information.
 7. Save the Modified FITS File: Save the FITS file with the updated header.
 
-So this is what I'm trying to do now.
+So the above is what I'm trying to do now.
+
+Short report:
+1. Photometry steps on HATP-32b data from tutorial>solved the problem with plotting all images in the working directory so that faulty ones could simplt be omitted >found 
+	instrumental magnitudes> started exploring the new method to define special WCS objects based on rough estimates of 
+	the image positions > since the headers of the files used at this stage were important, chose to repeat the whole process for INO data
+2. Photometry steps for HAT-P32b_15Oct2024_low frames > the finding_stars step find way too much sources as it uses doa_starfinder like this to detect stars:
+	th = [10, 10] in this context means that a pixel’s intensity (after background subtraction) must be at least 10 times the standard deviation of the background 
+	noise to be considered a potential star by the DAOStarFinder algorithm. (of course i can change the threshold but that wouldn't solve the problem because:
+		it’s highly likely that find_stars is detecting many hot pixels as stars, given that it’s finding 700+ sources when you expect only 10 or fewer genuine stars. 
+		The high sensitivity to noise (threshold of 10x the standard deviation) combined with the sharp, point-like nature of hot pixels makes them easily mistaken for 
+		faint stars.
+	So what is to be done? I remembered this from one of my discussions with the team from before: " I once heard some one talking about a method in which if the code found a 
+		pixel to belong to a star it would also look at the pixels around it (immediate neghibors or with 2 to 3 pixels around) and it would only report that to be a star
+		if those pixels around the source weren't immediately zero or close to it. do you think we could redefine find_stars to include this feature?"
+	An that's what I am trying to do right now and will continue to work on tomorrow
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14031225
 The rest of the work done for standard stars plus plots as well are in a folder with this name in imp pc under Exo>Data>Standard Stars
