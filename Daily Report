@@ -1,5 +1,6 @@
 #14040116
-Focused on the photometry routine completely. 
+A. Started plotting standard star profiles of folder BD+210607_10_08
+B. Focused on the photometry routine completely. 
 The most important step I have reached to at the moment is astrometry calibration and this option that I hadn't explored previously:
 	Manual WCS Calculation/Addition: If you know approximate RA/Dec, scale, and orientation, manually calculate WCS parameters and add 
 		them to the header using astropy.io.fits. (Tedious, error-prone, requires knowledge of WCS).
@@ -30,7 +31,7 @@ Short report:
 	An that's what I am trying to do right now and will continue to work on tomorrow
 
 
-start from here tomowwor:
+start from here tommorrow:
 
 import numpy as np
 from astropy.io import fits
