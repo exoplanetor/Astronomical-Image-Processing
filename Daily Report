@@ -1,4 +1,8 @@
 #14040116
+Today i focused on creating a new star_find_filtered function so that it works well with the faulty data of our telescope. Still not very successful as
+it detects one or two bright ones and then noises from the surroundings. I am working on that. the idea i have is to omit sources which have a sharp cut-off profile. 
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040116
 A. Started plotting standard star profiles of folder BD+210607_10_08
 B. Focused on the photometry routine completely. 
 The most important step I have reached to at the moment is astrometry calibration and this option that I hadn't explored previously:
@@ -30,105 +34,6 @@ Short report:
 		if those pixels around the source weren't immediately zero or close to it. do you think we could redefine find_stars to include this feature?"
 	An that's what I am trying to do right now and will continue to work on tomorrow
 
-
-start from here tommorrow:
-
-import numpy as np
-from astropy.io import fits
-from astropy.stats import MADStdBackgroundRMS, SigmaClip, sigma_clipped_stats
-from photutils import DAOStarFinder, Background2D, MMMBackground
-from scipy.ndimage import maximum_filter
-
-def find_stars(det='MULTIPLE', filt='F335M', var_bkg=False, neighbor_check_radius=3, neighbor_threshold_factor=0.5):
-    """
-    Finds stars in an image, incorporating a neighbor pixel check to reduce hot pixel detections.
-
-    Args:
-        det (str): Detector name.
-        filt (str): Filter name.
-        var_bkg (bool): Use 2D background estimation.
-        neighbor_check_radius (int): Radius in pixels around a potential star to check neighbors.
-        neighbor_threshold_factor (float): Fraction of the central pixel's intensity that neighboring pixels must exceed.
-    """
-
-    bkgrms = MADStdBackgroundRMS()
-    mmm_bkg = MMMBackground()
-
-    image = fits.open(dict_images[det][filt]['images'][i])
-    data_sb = image[0].data
-    imh = image[0].header
-
-    print(f"Finding sources on image {i + 1}, filter {filt}, detector {det}:")
-
-    data = data_sb
-
-    sigma_psf = dict_utils[filt]['psf fwhm']
-    print(f"FWHM for the filter {filt}: {sigma_psf} px")
-
-    if var_bkg:
-        print("Using 2D Background")
-        sigma_clip = SigmaClip(sigma=3.)
-        coverage_mask = (data == 0)
-
-        bkg = Background2D(data, (25, 25), filter_size=(3, 3), sigma_clip=sigma_clip, bkg_estimator=mmm_bkg,
-                           coverage_mask=coverage_mask, fill_value=0.0)
-
-        data_bkgsub = data.copy()
-        data_bkgsub = data_bkgsub - bkg.background
-
-        _, _, std = sigma_clipped_stats(data_bkgsub)
-
-    else:
-        std = bkgrms(data)
-        bkg = mmm_bkg(data)
-
-        data_bkgsub = data.copy()
-        data_bkgsub -= bkg
-
-    daofind = DAOStarFinder(threshold=th[j] * std, fwhm=sigma_psf, roundhi=1.0,
-                            roundlo=-1.0, sharplo=0.30, sharphi=1.40)
-
-    found_stars = daofind(data_bkgsub)
-
-    if found_stars is not None:  # Handle case where no stars are initially found
-        # Filter stars based on neighbor pixel values
-        x = found_stars['x']
-        y = found_stars['y']
-        good_stars = []
-        for star_x, star_y in zip(x, y):
-            star_x = int(star_x) #must convert to integer before using it as indice
-            star_y = int(star_y)
-
-            # Extract a region around the potential star.  Handle boundary conditions.
-            y_slice = slice(max(0, star_y - neighbor_check_radius), min(data_bkgsub.shape[0], star_y + neighbor_check_radius + 1))
-            x_slice = slice(max(0, star_x - neighbor_check_radius), min(data_bkgsub.shape[1], star_x + neighbor_check_radius + 1))
-
-            neighbor_region = data_bkgsub[y_slice, x_slice]
-
-            # Check if *any* neighbor exceeds the threshold
-            central_pixel_value = data_bkgsub[star_y, star_x] # Get the intensity of the center pixel
-
-            #Ensure neighbor region is a 2D array
-            if neighbor_region.ndim == 2:
-                neighbor_criterion = np.any(neighbor_region > (central_pixel_value * neighbor_threshold_factor))
-            else:
-                neighbor_criterion = False
-
-            if neighbor_criterion:
-                good_stars.append([star_x, star_y])
-
-        # Create a new astropy Table with the filtered stars
-        if good_stars:  # Check if good_stars is not empty
-            good_stars = np.array(good_stars)
-            filtered_stars = Table(names=['x', 'y'], dtype=['f8', 'f8']) # float64
-            filtered_stars['x'] = good_stars[:, 0]
-            filtered_stars['y'] = good_stars[:, 1]
-        else:
-            filtered_stars = None  # No good stars found
-
-        dict_aper[det][filt]['sources found'] = filtered_stars
-    else:
-        dict_aper[det][filt]['sources found'] = None # if no sources found initially.
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14031225
 The rest of the work done for standard stars plus plots as well are in a folder with this name in imp pc under Exo>Data>Standard Stars
