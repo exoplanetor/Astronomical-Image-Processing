@@ -1,6 +1,30 @@
 #14040116
 Today i focused on creating a new star_find_filtered function so that it works well with the faulty data of our telescope. Still not very successful as
 it detects one or two bright ones and then noises from the surroundings. I am working on that. the idea i have is to omit sources which have a sharp cut-off profile. 
+
+checked sharpness, roundness, none worked now focusing of npix. no there is a problem:
+​You're correct that the npix parameter in DAOStarFinder reflects the fixed size of the detection kernel, typically resulting in a constant value (e.g., 25 pixels)
+for all detected sources. This makes npix ineffective for distinguishing between real stars and hot pixels.
+
+so the next step is:
+Apply a Median Filter to the Image:
+
+A median filter can suppress isolated bright pixels (hot pixels) by replacing each pixel's value with the median of the neighboring pixel values. This reduces the prominence of hot pixels before star detection.​
+
+Implementation:
+
+from scipy.ndimage import median_filter
+
+# Apply a median filter with a kernel size of 3x3
+filtered_image = median_filter(image_data, size=3)
+
+# Use the filtered image for star detection
+sources_found = daofind(filtered_image)
+
+let's try this next time. 
+
+but the more bizzare thing is that those other stars are not even detected yet. I think the normal thing would have been the code detecting all stars plus
+a lot on non-stars then i would have simply tried to omit those additional sources. but in the current situation i should also try to maybe lower the threshold or something. Dunno! Till next time
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040116
 A. Started plotting standard star profiles of folder BD+210607_10_08
