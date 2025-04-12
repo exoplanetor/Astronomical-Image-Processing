@@ -1,3 +1,29 @@
+#14040123
+Today I went through the photometry code. Last time I was stuck at the section in which DAOstarfinder was trying to detect a number of sources. but it would
+detect far more random pixels rather than actual stars. I tried many different things, actually changing parameters of DAOstarfinder to get better results:
+- sharpness: didn't work as the noises were pretty sharp too
+- roundness: didn't help cos my stars wheren't that round from frame to frame.
+- npix: wouldn't help coz in order to use it i needed to say if a soource takes up higher than say 40 pixels consider that to be a star. but the DAOstarfinder
+routine wouldn't allow a higher value for npix more than 25
+- applying a median filter: this would change pixel count values and thus would disrupt photometry values.
+
+SO in SHort the quality of the reduced images makes all the difference in the source finding step.
+
+I finally have decided to keep the threshold low and have the code detect many fake sources but as it also give their x_centeroid and y_centeroid I would later
+seperate my desired sources from the list and in the same way I would continue the later photometry steps just with them. Now that I am thinking about that it
+i think I should make this separation now so that the later codes wouldn't have to give additional info about non-existing sources. (so this is a task for tommorrow)
+
+Then  I had a discussion with Mr. Altafi. Looking at the problem it by default and by all means it seems that the first task to focus at this stage should be to utilize
+the time of the team to study the quality of calibration frames.
+
+So 3 tasks seem to be necessary:
+	1. creating 10, 40 and 100 master bias frames. printeing the masters' basic statistical data and looking at the master frames to look for possible large scale deteils.
+	2. Looking at a collection of Dark frames with different exposure times and again printing basic statistical data and plotting one of those parameters (perhaps
+	rms vs exposure time) to see is the CCD response linear or not or what. These two give us feelings about what exposure time to use in future.
+	3. looking at different dark frames in different times during one night as well as in different exposure times looking for bad pixels and trying to create a mask
+	   to mask them from images. (apparently photutils can tell us how to create that mask.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040116
 Today i focused on creating a new star_find_filtered function so that it works well with the faulty data of our telescope. Still not very successful as
 it detects one or two bright ones and then noises from the surroundings. I am working on that. the idea i have is to omit sources which have a sharp cut-off profile. 
