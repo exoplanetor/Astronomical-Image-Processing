@@ -6,6 +6,7 @@ Recap from yesterday:
 	instrumental fluxes i need to have a precise source detection > source detection will always be very faulty if the noise level of our images
 	stay as high as they are > in order to reduce noise there's no way but to study current calibration files available for the telescope and 
 	specify the errors there and perform corrections on those.
+	(start studying from here again: https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/03-01-Dark-current-The-ideal-case.html)
 
 2. I can continue the photometry tasks just as they are under the current conditions, lowring the threshold and thus detecting all real sources in an image
 	as well as much more fake ones. Then try to create a small catalog only from those that have meaning and continue later tasks on them. (I think I'd
