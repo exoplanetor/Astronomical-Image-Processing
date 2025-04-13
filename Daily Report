@@ -12,6 +12,7 @@ Recap from yesterday:
 	as well as much more fake ones. Then try to create a small catalog only from those that have meaning and continue later tasks on them. (I think I'd
 	like to work on this today)
 
+3. by the way we have now established that the exposure times for almost all of our standard stars are too high!
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040123
 Today I went through the photometry code. Last time I was stuck at the section in which DAOstarfinder was trying to detect a number of sources. but it would
