@@ -1,5 +1,22 @@
-#14040124
+#14040205
+today i spent some time and checked that if I am adding BUNIT=adu in headers at the beginning of all my calibration steps, is this adu unit true for
+	our FLI Kepler KL4040 camera or not. The short answer is yes. The long one below:
 
+Appropriate BUNIT for FLI Kepler KL4040 Raw FITS
+Raw data are in ADC counts. The FLI Kepler KL4040 delivers digitized pixel values from its A/D converter – i.e. counts or Analog-to-Digital Units (ADU), not physical electrons​
+astroguide.starlust.de
+. In astronomy software (e.g. Astropy/ccdproc) uncalibrated CCD/CMOS data are normally treated as having units of ADU​
+docs.astropy.org
+. For example, a header GAIN=16.5 usually means “16.5 electrons per ADU”​
+astroguide.starlust.de
+, implying that the stored numbers are still raw ADU values. In short, the FITS frames from this camera are in ADU (counts).
+
+
+I am doing this today:
+	1. creating 10, 40 and 100 master bias frames. printeing the masters' basic statistical data and looking at the master frames to look for possible large scale deteils.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040124
 Recap from yesterday:
 
 1. i need to perform photometry > in order to do that I need wcs data for frames > in order to create wcs objects and even measure 
