@@ -15,6 +15,7 @@ astroguide.starlust.de
 I am doing this today:
 	1. creating 10, 40 and 100 master bias frames. printeing the masters' basic statistical data and looking at the master frames to look for possible large scale deteils.
 
+continue with test-new-code -> currently it is taking way too much time to make a bias out of 93 files. 
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040124
 Recap from yesterday:
