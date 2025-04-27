@@ -1,3 +1,30 @@
+#14040207
+1. Today I finished my report on looking at bias files as a whole. The routine containing the steps is called: "bias_collection_report.ipynb"
+And this is what I did for this study:
+
+- exracted all available BIAS files through the INO data repository.
+- divided them based on observation night and observation mode (low/high/merge)
+- created combined bias files
+- found their statistics (min|max|mean|median|stdev)
+- plotted all combined files in one figure
+- created 10 - 40 and 120 master bias files
+- found their statistics (min|max|mean|median|stdev)
+- plotted all combined files in one figure
+
+The above data is stored here: C:\\Users\\Observatory\\Exo\\Data\\bias\\masters
+
+2. Next I am going to do the same thing for dark frames,
+Later perform another study on dark frames statistics during one night
+
+3. Another thing that happened was that in my meeting with Dr. NoorMohammadi i realized that maybe his code for detecting brightest source could be used for our 
+highly noisy images. instead of detecting sources higher than a threshold we could look for brightest from top down. Then calculate their flux from there 
+and later continue steps from there. I should try this approach too.
+
+4. yet another thing that I should very much focus on is continuing normal photometry steps using the JWST code. This is where  I am at right now:
+# Next time continue from here. Open the above image in ds9 check for the 3 stars locations you want to stick to. make a list out of them and then
+	input that list for the next piece of code.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040205
 today i spent some time and checked that if I am adding BUNIT=adu in headers at the beginning of all my calibration steps, is this adu unit true for
 	our FLI Kepler KL4040 camera or not. The short answer is yes. The long one below:
