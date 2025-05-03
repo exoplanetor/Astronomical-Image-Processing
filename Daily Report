@@ -5,6 +5,13 @@
 11:50 am: Done - moving on to next task
 
 I think I wanna try Dr. NoorMohammadi's suggestion
+
+Next Task:
+	- Eat up the parameters of this bit. Have a feeling on how they affect the result of the star_find process.
+	            sources_found = find_stars_filtered(det=det, filt=filt, image_index=i, var_bkg=False,
+                                    neighbor_check_radius=10,
+                                    neighbor_threshold_factor=0.3,
+                                    gaussian_smoothing_sigma=0.3)
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040207
 1. Today I finished my report on looking at bias files as a whole. The routine containing the steps is called: "bias_collection_report.ipynb"
