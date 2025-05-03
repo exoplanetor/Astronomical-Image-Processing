@@ -1,3 +1,8 @@
+#14040213
+My first task today is to clean IC-10 images for Dr.Javadi.
+* Mention this to Mr. Altafi: While looking for that data in ftp I realized that the folder ic10_l contains the same frames in these two directories: Rezaei_09_11_2024 and sep11_2024_rezaei_shakeri_danesh
+	maybe it is the same for other folders too.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040207
 1. Today I finished my report on looking at bias files as a whole. The routine containing the steps is called: "bias_collection_report.ipynb"
 And this is what I did for this study:
