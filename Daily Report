@@ -4,9 +4,10 @@
 	maybe it is the same for other folders too.
 11:50 am: Done - moving on to next task
 
-I think I wanna try Dr. NoorMohammadi's suggestion
+I think I wanna try Dr. NoorMohammadi's suggestion:
+2:25 pm: finished creating the code for this. It is called: find_brightest_sources.ipynb | include this in tomorrow's report.
 
-Next Task:
+Next Task: (really wanna do this before tomorrow)
 	- Eat up the parameters of this bit. Have a feeling on how they affect the result of the star_find process.
 	            sources_found = find_stars_filtered(det=det, filt=filt, image_index=i, var_bkg=False,
                                     neighbor_check_radius=10,
