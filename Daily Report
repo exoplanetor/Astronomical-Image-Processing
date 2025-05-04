@@ -1,3 +1,22 @@
+#14040214
+1. Today I had a meeting with Dr. Javadi about my progress.
+About source detect problems that I have in photometry she beleives that choosing stars by hand or the brightest stars disturbs the completeness of
+the data and is not allowed certainly for a pipeline that I am creating.
+What i should learn to do is to change the binning of the image from 1x1 to say 3x3 or more and see if that improves things with noise (which according to
+Dr. Javadi should) So this is my next task here.
+
+2. I worked some more on standard stars. Here is the email:
+امروز بقیه زمانم را اختصاص دادم به رسم پروفایل برای ستاره های استاندارد و به خصوص به دنبال این گشتم که ببینم سقف نمودار پروفایل سه بعدی صاف هست یا خیر. 
+برای هر ستاره که رصد شده بود یک فریم از هر کدام از exposure time های موجود و فیلترهای جداگانه را رسم کردم. گزارش کلی در فایل اکسل ضمیمه است. و برای هر کدام از ستاره هایی که پیشنهاد رصد دوباره دارم نمودارهای که رسم کردم را در یک فایل zip هم ضمیمه کرده ام. 
+در نهایت پیشنهاد من ستاره های زیر هستند:
+BD+210607_10_01 
+hilt404_2024_10_12
+SA26-60_2024_10_22
+
+3. I should sent an email to our scientific community announcing myself and the calibration code (ask gpt)
+
+4. Today I sent an email to Dr. Sareh Ataiee asking for a recommendation letter.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040213
 8 am: My first task today is to clean IC-10 images for Dr.Javadi.
 * Mention this to Mr. Altafi: While looking for that data in ftp I realized that the folder ic10_l contains the same frames in these two directories: Rezaei_09_11_2024 and sep11_2024_rezaei_shakeri_danesh
