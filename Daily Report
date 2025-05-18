@@ -1,7 +1,17 @@
+
+#14040228
+I am continuing NGC2419 data cleaning, now concentrating on hot pixels.
+Today I learned something about the Gain of our camera KEPLER KL4040 FLI
+
+Mode	What it captures	Gain (e⁻/ADU)	Pros	Cons
+High	Dim/faint details (shadows)	Low (e.g. 0.5–2.5)	More sensitive (fainter stars visible)	Easy to saturate (blows out bright stars)
+Low	Bright areas (highlights)	High (e.g. 4.5–35.7)	Handles bright stars, preserves detail	Fainter stars may disappear
+Merge	Combines High + Low	Mixed	Best of both worlds (wide dynamic range)	Slightly slower to capture; may need calibration
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040227
 Today I started cleaning NGC2419 data in g filter, continued the steps until after 2Dbkgd removal for one frame. The started reading
 about bad pixels and how to map them from astropy tutorials. start from here tomorrow:
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040218 + 19
 These two days i spent the majority of my time on cleaning IC10 in other filters as well as looking for another acceptable galaxy that has enough calibration
