@@ -1,13 +1,65 @@
-14040303
-check email or today you'll see what I've done I ll copy it here
+#14040304
+Today I started with trying to calibrate one of the light frames from last week observations of a standard star located here in the INO repository:
+/Rep/1404/Danesh_05_21_2025/BD302428B
+created master dark and flats. Started reducing from the light frame -> Realized that the binning of dark and flats was 1x1 and the light frames was 3x3
+####################
+# Progress Report: #
+####################
+
+Progress Report: Mitigating Hot Pixel Contamination in Science Frames
+Due to known technical issues with our CCD system—specifically, the lack of a cooling mechanism—our dark frames are introducing a noticeable amount of pixel-level noise into the calibration process. This has been especially clear in the large number of single-pixel anomalies, often near saturation, which remain even after dark subtraction and affect the final calibrated science frames.
+
+These pixels are a significant source of error and make both the visual inspection and the scientific analysis more difficult, particularly during source detection and aperture photometry. I was asked to work on a method to remove or mask these bad pixels before running any analysis.
+
+Approaches and Tests Conducted So Far
+Changing Binning at the Telescope
+During observations, I switched from 1×1 to 3×3 binning to see if hardware binning would help reduce the number of noisy pixels. This did reduce the brightness of the anomalies somewhat, but the high-value pixels were still clearly visible in the binned images. (See attached: binning1vs3comparison.png)
+
+Rebinning After Calibration
+I also tried binning the frames after completing the calibration steps. This improved the overall signal-to-noise ratio, but didn’t help much with the saturated single-pixel artifacts, which remained present.
+
+Flat-Based Pixel Masking
+One method I tested was comparing each science frame with a normalized flat field. The idea was that pixels showing unexpected values after dividing by the flat—either too high or too low—could be flagged as unreliable. This relies on the assumption that bad pixels won't respond to the flat field the same way normal pixels do. This worked reasonably well in some areas but required careful thresholding to avoid flagging too many pixels.
+
+Dark Frame-Based Hot Pixel Masking
+I also created a median-combined dark frame and flagged any pixels above a certain threshold as "hot". These pixels were then masked in the science frames by setting their values to NaN. This method was more effective than the flat comparison and removed many of the persistent high-value pixels likely caused by thermal noise.
+
+Visual Quality of Masked Frames
+At first, and to my non-experienced eye, the masked frames looked visually worse than the raw ones. The missing bright spots and the NaN gaps made the images feel incomplete or lower in quality. But I understand that this is just a visual effect caused by removing bad data. These bright pixels, while visually striking, are not reliable, and taking them out improves the scientific usefulness of the data.
+
+The final images may appear flatter or less detailed, but they are cleaner and more consistent for photometric analysis.
+
+Next Steps
+Combine Masks and Evaluate Photometry
+My next step is to combine the flat-based and dark-based masks and apply them together to the science frames. I’ll then check whether this improves source detection and photometry results using standard aperture methods.
+
+Explore Alternative Tools for Pixel Rejection and Interpolation
+In addition to ccdproc, which I’ve used so far, I plan to test a few other packages that might help clean up the remaining hot or white pixels more effectively:
+
+astroscrappy – A Python implementation of the L.A.Cosmic algorithm for identifying and removing cosmic rays, which can also be tuned to detect isolated hot pixels.
+
+photutils.detection.COSMIC_RAY_LACOSMIC – A built-in Astropy-based version of the L.A.Cosmic method, which integrates well with existing pipelines and may offer better control for our use case.
+
+These tools might offer more advanced cleaning or interpolation methods that could improve the image quality further.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040303
+من امروز تمام وقتم را بر روی تهیه یک ساختار اولیه برای گزارش پس از یک شب رصدی گذاشتم و نتیجه را برای دوشب Mousavi-Sadr_05_13_2025 و  Mousavi-Sadr_05_14_2025 که این ایمیل در پاسخ به آن است ضمیمه کرده ام.
+
+لطف می کنید اگر برای مرور آن کمی وقت بگذارید و هر نکته ای که لازم به اصلاح بود بفرمایید.
+
+با توجه به اینکه تهیه این گزارش خیلی زمان بر بود و بعلاوه پیدا کردن راهی برای کم کردن نقاط سفید حاصل از دارک فریم ها جزو اولویت های مهم در حال حاضر است، اگر نیاز باشد این گزارش برای شب های دیگر هم تهیه شود، من اولین فرصتی که برای انجامش خواهم داشت شنبه هفته آینده است.
+
+از توجه تان ممنونم
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040228
 I am continuing NGC2419 data cleaning, now concentrating on hot pixels.
 Today I learned something about the Gain of our camera KEPLER KL4040 FLI
 
-Mode	What it captures	Gain (e⁻/ADU)	Pros	Cons
+Mode	What it captures        	Gain (e⁻/ADU)   	Pros	                                Cons
 High	Dim/faint details (shadows)	Low (e.g. 0.5–2.5)	More sensitive (fainter stars visible)	Easy to saturate (blows out bright stars)
 Low	Bright areas (highlights)	High (e.g. 4.5–35.7)	Handles bright stars, preserves detail	Fainter stars may disappear
-Merge	Combines High + Low	Mixed	Best of both worlds (wide dynamic range)	Slightly slower to capture; may need calibration
+Merge	Combines High + Low	        Mixed	               Best of both worlds (wide dynamic range)	Slightly slower to capture; may need calibration
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040227
