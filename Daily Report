@@ -1,4 +1,12 @@
 #14040310
+Today I learned something very good about proposing new standard stars for observations.
+- For studying the atmospheric extinction, observing a few standard stars of the same magnitude is good and enough. then later for other observations,
+	what we do is to use those extinction coefficients for photometry and stuff.
+- But when you have an exoplanet transit like observation, in the best scenario, and instead of proposing flats and darks observations for a night
+	you could find a standard star BOTH closeby (so that extinction is not playing a big role) AND of a similar brightness to your target star. 
+	Then you could use this additional observation for later measurements. (I like this!)
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040310
 Tomorrow start from SA110340 ... post production file. include some 3d profiles. add high frames. fill table for overall report of frames.
 
 repeat for the last standard star
