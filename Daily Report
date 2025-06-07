@@ -3,15 +3,28 @@ These are from 4 Khordad and today I have time to go back to these:
 Next Steps
 Combine Masks and Evaluate Photometry
 My next step is to combine the flat-based and dark-based masks and apply them together to the science frames. I’ll then check whether this improves source detection and photometry results using standard aperture methods.
-
 Explore Alternative Tools for Pixel Rejection and Interpolation
 In addition to ccdproc, which I’ve used so far, I plan to test a few other packages that might help clean up the remaining hot or white pixels more effectively:
-
 astroscrappy – A Python implementation of the L.A.Cosmic algorithm for identifying and removing cosmic rays, which can also be tuned to detect isolated hot pixels.
-
 photutils.detection.COSMIC_RAY_LACOSMIC – A built-in Astropy-based version of the L.A.Cosmic method, which integrates well with existing pipelines and may offer better control for our use case.
-
 These tools might offer more advanced cleaning or interpolation methods that could improve the image quality further.
+
+Image masking 
+There are several reasons a particular pixel in a specific image might not be useful:
+
+The pixel could be "hot," meaning it isn't possible to remove the dark current from the pixel.
+The pixel could be bad in the sense that it does not respond to light the way the other pixels do.
+A cosmic ray can hit the pixel during the image.
+The following notebooks walk through identifying each of those types of bad pixels and how to create a mask for them.
+
+Continue from your last discussion with gemini from today
+############################
+# PERFORMING IMAGE MASKING #
+############################
+1. Data Preparation: Master Dark Frames
+To begin, you'll need to create master dark frames for at least two different, long exposure times. Let's say you have several dark frames for t1 seconds
+and several for t2 seconds (where t2 is significantly longer than t1, ideally twice as long or more).
+Action for you: Choose two distinct, long exposure times for your dark frames. For each exposure time, identify the FITS files corresponding to those darks.
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
