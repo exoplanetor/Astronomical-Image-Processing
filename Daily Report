@@ -1,3 +1,20 @@
+#14040317
+These are from 4 Khordad and today I have time to go back to these:
+Next Steps
+Combine Masks and Evaluate Photometry
+My next step is to combine the flat-based and dark-based masks and apply them together to the science frames. I’ll then check whether this improves source detection and photometry results using standard aperture methods.
+
+Explore Alternative Tools for Pixel Rejection and Interpolation
+In addition to ccdproc, which I’ve used so far, I plan to test a few other packages that might help clean up the remaining hot or white pixels more effectively:
+
+astroscrappy – A Python implementation of the L.A.Cosmic algorithm for identifying and removing cosmic rays, which can also be tuned to detect isolated hot pixels.
+
+photutils.detection.COSMIC_RAY_LACOSMIC – A built-in Astropy-based version of the L.A.Cosmic method, which integrates well with existing pipelines and may offer better control for our use case.
+
+These tools might offer more advanced cleaning or interpolation methods that could improve the image quality further.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040310
 Today I am preparing the post-obs-night reports for all my 3 starndard stars which have been observed in the past few weeks:
 (BD+30 2428B, BD+35 3659, SA 110 340)
