@@ -1,4 +1,5 @@
 #14040701
+
 Initial Plan for the 1st month of the project:
 Week 1-2:
 Deep dive into calibration fixes and pixel masking completion
@@ -11,6 +12,87 @@ Automate calibration file handling and improve data saving routines
 Week 4:
 Pipeline testing on full datasets with multiple calibration and binning settings
 Final validation, documentation, and preparing reports
+
+>>>> To-Do List for Image Masking and Cleaning
+Combine Flat-Based and Dark-Based Masks
+
+Develop or finalize the code to combine these masks.
+
+Implement adjustable threshold parameters for pixel flagging.
+
+Validate combined mask coverage to ensure comprehensive bad pixel detection without excessive masking.
+
+Apply Combined Masks to Science Frames
+
+Integrate the combined mask application into the processing pipeline.
+
+Test the effect on a representative set of science frames.
+
+Document impact on pixel removal and data integrity.
+
+Tune Median Filtering for Bad Pixel Correction
+
+Implement median filtering post-mask application.
+
+Experiment with varying kernel sizes to balance smoothing and sharpness.
+
+Evaluate the filter effect on image quality and noise suppression.
+
+Optimize Binning Strategy
+
+Test binning at different scales (e.g., 2x2, 3x3) on cleaned images.
+
+Assess improvements in noise reduction versus loss in resolution.
+
+Choose binning parameters aligned with your scientific goals.
+
+Integrate Advanced Cosmic Ray Removal Tools
+
+Fully implement astroscrappy and/or photutils COSMICRAYLACOSMIC into the pipeline.
+
+Tune tool parameters based on your sensor characteristics and data.
+
+Validate the cosmic ray removal efficiency and absence of impact on real objects.
+
+Visual and Statistical Quality Checks
+
+Produce visual comparisons between raw, masked, and cleaned frames.
+
+Generate histograms or statistical summaries of pixel values after each step.
+
+Identify any new artifacts introduced by masking or filtering and adjust accordingly.
+
+Manage Mask Metadata
+
+Create a system to log masked pixels with reasons and thresholds.
+
+Develop visualization tools to inspect mask coverage spatially.
+
+Ensure traceability and reproducibility of masks per dataset.
+
+Explore Pixel Interpolation Techniques
+
+Investigate methods to fill masked pixel gaps for improved visual appearance.
+
+Test interpolation algorithms on masked regions to avoid scientific data bias.
+
+Evaluate Impact on Source Detection and Photometry
+
+Assess how masking affects star counts and photometric accuracy.
+
+Compare photometry results on masked vs. unmasked data.
+
+Adjust masking strategy based on findings to optimize scientific output.
+
+Documentation and Reporting
+
+Document all mask creation parameters and pipeline changes.
+
+Prepare sample reports demonstrating masking improvements and any trade-offs.
+
+Maintain detailed notes for future development and publications.
+
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 خیلی ممنونم بابت این جدول، بنظرم چون این جدول در اختیار
