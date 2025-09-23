@@ -1,12 +1,21 @@
+#14040701
+Initial Plan for the 1st month of the project:
+Week 1-2:
+Deep dive into calibration fixes and pixel masking completion
+Implement cosmic ray removal and hot pixel cleaning
 
+Week 3:
+Fix source detection and WCS calibration issues
+Automate calibration file handling and improve data saving routines
 
+Week 4:
+Pipeline testing on full datasets with multiple calibration and binning settings
+Final validation, documentation, and preparing reports
 
+-----------------------------------------------------------------------------------------------------------------------------------------
 خیلی ممنونم بابت این جدول، بنظرم چون این جدول در اختیار
 رصدگرها قرار می گیره، بخش استراتژی رصد دقیق تر نوشته بشه بهتره. مثلا در موود این ستاره که قرار هست چند ساعت مداوم و
 با تعویض مداوم فیلترها رصد بشه و بازه کل رصدی خوبه ذکر بشه. در مورد سایر تارگت ها تعداد تکرار فریم ها هم ذکر بشه. 
-
-
-
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
