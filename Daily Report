@@ -1,5 +1,16 @@
-#14040701
+#14040705 & 6
+Tasks Ahead:
+Perform Calibration/report of observing night/saturation test/ and photometry AND IF I CAN bad pixel masks for a single standard star. 
+Take control of the observing proposal to the data production routine.
+Create a list of stuff you are in charge of doing for performing quality check of data (saturation/focus/Is the object actually detected, and what else?)
 
+I spent most of my time creating the comprehensive dataset of: <<Targets Observed Report>>
+-It containg a detailed list of the frames obtained each observing night (science/dark/flat/bias)
+- Also contains notes worth mentioning for each night plus possible issues for improvement. 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040701
 Initial Plan for the 1st month of the project:
 Week 1-2:
 Deep dive into calibration fixes and pixel masking completion
