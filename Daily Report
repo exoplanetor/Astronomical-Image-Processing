@@ -1,8 +1,31 @@
 #14040705 & 6
-Tasks Ahead:
-Perform Calibration/report of observing night/saturation test/ and photometry AND IF I CAN bad pixel masks for a single standard star. 
-Take control of the observing proposal to the data production routine.
-Create a list of stuff you are in charge of doing for performing quality check of data (saturation/focus/Is the object actually detected, and what else?)
+Tasks Ahead for Pipeline:
+1. Perform Calibration/report of observing night/saturation test/ and photometry AND IF I CAN bad pixel masks for a single standard star. 
+2. Take control of the observing proposal to the data production routine.
+3. Create a list of stuff you are in charge of doing for performing quality check of data (saturation/focus/Is the object actually detected, and what else?)
+
+Tasks Ahead regarding observations:
+1. اولویت رصد ستاره‌های استاندارد
+هدف: رسیدن به کیفیت مطلوب برای حداقل ۵ ستاره استاندارد جهت نهایی‌سازی و استفاده در مقاله علمی.
+مشکل فعلی: هنوز در برخی ستاره‌ها درجاتی از اشباع وجود دارد.
+
+2. برنامه رصد مساحی کهکشان‌های نزدیک
+هدف: رصد منظم کهکشان‌های نزدیک حداقل هر ۲-۴ هفته و در تمام سال (در صورت قابلیت رصد).
+وضعیت تارگت‌ها:
+UGC 4879: کهکشانی ایزوله در گروه محلی با نیاز به نوردهی طولانی و رصد در تمام فیلترها به جز U.
+Leo A و Leo P: نیاز به ۱۰ فریم با نوردهی طولانی.
+Pegasus: ۱۰ فریم ۱۰ دقیقه‌ای.
+خوشه‌های ستاره‌ای:
+Segue III و Palomar 4 با شرایط رصدی خاص (seeing عالی) و نیاز به نوردهی‌های متفاوت بر اساس بازه قدر ستاره‌ها.
+وضعیت: فقط دو تارگت Pegasus و Segue III در فصل فعلی قابل رصد هستند و در برنامه قرار گرفته‌اند. سایر تارگت‌ها فعلاً شرایط رصدی مناسبی ندارند.
+
+3. برنامه رصد متغیرهای قیفاووسی در کهکشان M33
+هدف: بدست آوردن منحنی نوری متغیرهای قیفاووسی.
+مختصات مرکز فیلد و فیلترهای مورد استفاده (g, r, i) مشخص شده است.
+نوردهی پیشنهادی: ۵۰۰ ثانیه در هر فریم، ادامه چند ساعته در یک شب، با امکان تمرکز روی یک فیلتر برای شب اول.
+
+4. فرم گزارش شب رصد ارسالی آقای الطافی را با خودشان مرور کن و دنبال نمونه های تکمیل شده بگرد.
+
 
 I spent most of my time creating the comprehensive dataset of: <<Targets Observed Report>>
 -It containg a detailed list of the frames obtained each observing night (science/dark/flat/bias)
