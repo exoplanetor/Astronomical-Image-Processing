@@ -2,7 +2,8 @@
 Today I spent ALL MY TIME going through the calibration steps for a set of data obtained for standard star: SA110430 on 2025-05-21
 
 After Master Dark and Flat and Bias are calculated, I have packed everything in the code into one block and it outputs 6 different types of files for each
-science frame (also plots the first set for that first science frame in the folder). The routine is called Calibration_SA110340.ipynb
+science frame (also plots the first set for that first science frame in the folder). The routine is called Calibration_SA110340.ipynb I have put it in the
+code-rep repository.
 _________________________________________________________________________________________________________________________
 #14040708
 دارم روی کالیبراسیون یک نمونه ستاره استاندارد تا انتها کار می کنم
