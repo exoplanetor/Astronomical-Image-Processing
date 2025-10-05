@@ -1,10 +1,36 @@
-#14040708
+#14040714
+Today I learn about calculating zeropoint for different filters.
+Since you're in the commissioning phase, you're in the perfect position to define your system’s zero points. Here's how you can approach it:
+
+🔧 What you need to do now (as the observatory team):
+1. Observe a standard star
+
+Choose a star with a known magnitude in u′, g′, r′, i′ filters.
+
+Use stars from SDSS or Landolt standard fields.
+
+2. Measure its flux from your image
+
+Extract the star's flux in your image (e.g., total counts or electrons per second).
+
+This could be from your photometry pipeline (like SExtractor or similar).
+
+3. Calculate the zero point using:
+ZP=𝑚_catalog+2.5*log_10(𝐹_measured)
+Where:
+𝑚_catalog: the known magnitude of the standard star
+𝐹_measured: the flux you measured (in counts/sec or electrons/sec)
+
+4. Repeat for several stars to get an average ZP per filter.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040713
 Today I spent ALL MY TIME going through the calibration steps for a set of data obtained for standard star: SA110430 on 2025-05-21
 
 After Master Dark and Flat and Bias are calculated, I have packed everything in the code into one block and it outputs 6 different types of files for each
 science frame (also plots the first set for that first science frame in the folder). The routine is called Calibration_SA110340.ipynb I have put it in the
 code-rep repository.
-_________________________________________________________________________________________________________________________
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040708
 دارم روی کالیبراسیون یک نمونه ستاره استاندارد تا انتها کار می کنم
 دارم از خودم می پرسم فرایند طی شده ام برای کم کردن پس زمینه دو بعدی چقدر دقیقه؟
@@ -60,7 +86,7 @@ background_median دقیقاً نماینده‌ی مقدار مرکزی پس‌
 این روش کامل اتوماتیک و پایدار هست.
 
 اگر دوست داری، برات یه کد پایتون کوچک برای این کار بنویسم که بتونی تو پایپلاین بذاری؟
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040705 & 6
 Tasks Ahead for Pipeline:
 1. Perform Calibration/report of observing night/saturation test/ and photometry AND IF I CAN bad pixel masks for a single standard star. 
