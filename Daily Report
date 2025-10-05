@@ -1,28 +1,39 @@
 #14040714
+To Dos:
+1. ReCheck the Methods of Calculation Master Bias, Dark and Flat Files. Check where they become much more in value than the Science frames therefore,
+	resulting in those annoying negative values.
+2. Check if adding a basic level value to all counts would meddle with measuring the real brightnesses or if they are relative anyways and the zeropoints 
+	would infact solve for these in Photometry. Also check what value to add to each Frame in order to make sure there are NONE nagatice pixel values.
+3. Continue with the Photometry Routine. Understand, eat, drink and breathe every step so that when you wanna answer something to people you'll know exactly
+	how something is calculated. 
+4. Finish the Targets report for 1403 as well or at least the ones that are important to us.
+5. Create a documentation for the Process of Checking the Quality of Observation Files, Check that with Dr. Javadi via email. 
+6. Perform that Quality Checking routine on the observed targets and report if the quality of observations are good enough or do they need to be repeated.
+
+Today I had a meeting with Dr. Javadi. I let her know that My Calibration Code works fine for a standard star till the end but the dark Frames seem to creating
+negative value problems again. I then showed how I am changing the Photometry code from what used to be for JWST to a version that is more suited to our telescope.
+
+
+
+
+
+
 Today I learn about calculating zeropoint for different filters.
 Since you're in the commissioning phase, you're in the perfect position to define your system’s zero points. Here's how you can approach it:
 
-🔧 What you need to do now (as the observatory team):
+Finding Zero Points of Our Filters:
 1. Observe a standard star
-
 Choose a star with a known magnitude in u′, g′, r′, i′ filters.
-
 Use stars from SDSS or Landolt standard fields.
-
 2. Measure its flux from your image
-
 Extract the star's flux in your image (e.g., total counts or electrons per second).
-
 This could be from your photometry pipeline (like SExtractor or similar).
-
 3. Calculate the zero point using:
 ZP=𝑚_catalog+2.5*log_10(𝐹_measured)
 Where:
 𝑚_catalog: the known magnitude of the standard star
 𝐹_measured: the flux you measured (in counts/sec or electrons/sec)
-
 4. Repeat for several stars to get an average ZP per filter.
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040713
 Today I spent ALL MY TIME going through the calibration steps for a set of data obtained for standard star: SA110430 on 2025-05-21
