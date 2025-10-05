@@ -10,15 +10,14 @@ To Dos:
 5. Create a documentation for the Process of Checking the Quality of Observation Files, Check that with Dr. Javadi via email. 
 6. Perform that Quality Checking routine on the observed targets and report if the quality of observations are good enough or do they need to be repeated.
 
+
+
+
 Today I had a meeting with Dr. Javadi. I let her know that My Calibration Code works fine for a standard star till the end but the dark Frames seem to creating
 negative value problems again. I then showed how I am changing the Photometry code from what used to be for JWST to a version that is more suited to our telescope.
 
 
-
-
-
-
-Today I learn about calculating zeropoint for different filters.
+Also today I learn about calculating zeropoint for different filters.
 Since you're in the commissioning phase, you're in the perfect position to define your system’s zero points. Here's how you can approach it:
 
 Finding Zero Points of Our Filters:
