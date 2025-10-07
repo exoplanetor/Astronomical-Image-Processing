@@ -1,3 +1,8 @@
+#14040715
+Today I spent my whole time on developing the photometry routine. Understanding it better, defining the parameters much more meaningfully and the final result I got
+especially for the number of fake sources detected right before performing photometry on them is actually hear warming to me.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040714
 To Dos:
 1. ReCheck the Methods of Calculation Master Bias, Dark and Flat Files. Check where they become much more in value than the Science frames therefore,
@@ -9,8 +14,6 @@ To Dos:
 4. Finish the Targets report for 1403 as well or at least the ones that are important to us.
 5. Create a documentation for the Process of Checking the Quality of Observation Files, Check that with Dr. Javadi via email. 
 6. Perform that Quality Checking routine on the observed targets and report if the quality of observations are good enough or do they need to be repeated.
-
-
 
 
 Today I had a meeting with Dr. Javadi. I let her know that My Calibration Code works fine for a standard star till the end but the dark Frames seem to creating
