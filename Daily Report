@@ -1,7 +1,24 @@
 #14040715
 Today I spent my whole time on developing the photometry routine. Understanding it better, defining the parameters much more meaningfully and the final result I got
 especially for the number of fake sources detected right before performing photometry on them is actually hear warming to me.
+Where am I standing now?
 
+	I am much happier now but let me tell you what I see so that maybe we could even make that better. What I see in the final image is that my field has 2 
+	stars one brighter and the other slightly less bright. the code has detected for my first frame: Number of sources found: 138 Number of sources after
+	footprint filtering: 88 and when I look at the final plot we have drawn i see that 20 of these 88 are noise detected and not sources (which is great 
+	compared to the state of the code before where it would detect more than 200 sources and more than 60% of them where just noise). And the remaining ones
+	are the same two stars that are actally present but the code has detected their pixels as difference sources and considering the fact that the star circle 
+	covers a 40-50 pixel circle in the image i actually don't blame it! but how can we make this better? how can we combine or rdeuce the number of those
+	repeated source detections?
+		Ah! Now I understand exactly what’s happening. You’re in the classic situation where DAOStarFinder (or any peak-based detection) is detecting multiple
+		“local maxima” within a single large star, especially when the star covers dozens of pixels. That’s why you see multiple sources around your two 
+		real stars. Here’s a concise, astronomer-friendly way to think about it and improve it:
+		??? Why it happens
+			DAOStarFinder looks for local maxima above the threshold in the background-subtracted image.
+			Large, bright stars have internal pixel-to-pixel variations, so the algorithm sometimes interprets multiple peaks inside a single PSF as separate sources.
+			Footprint filtering only removes very small or hot-pixel-like detections, but doesn’t merge clusters of nearby peaks.
+			
+			Ways to improve / reduce repeated detections -> is what I am actually working on right now.
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040714
 To Dos:
