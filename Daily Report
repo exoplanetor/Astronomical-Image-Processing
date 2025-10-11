@@ -11,6 +11,46 @@ I have gone through the photometric code so far; It currently measures star flux
 	or I should focus on making the pipeline work better and more precisely from the initial calibration steps again.
 
 2. Another thing to check with Dr. Javadi is the values I get for our FWHM and thus radius for performing Aperture Photometry.
+	These are the steps that I take for estimating FWHM:		
+		*Star Selection:
+		Identify the target star within the image dataset using its catalog ID. Extract its centroid coordinates (x, y) from the source detection results.
+		*Image Cutout Extraction:
+		Define a square cutout region centered on the star to isolate it from the surrounding field. The cutout size is chosen to fully encompass the star’s flux while minimizing background contamination.
+		*Visualization:
+		Display the cutout image to verify the star’s location and inspect the local background. Overlay a crosshair at the centroid position for reference.
+		*Initial Gaussian Model Definition:
+		Assume the star’s intensity profile can be approximated by a two-dimensional Gaussian. Use the peak intensity and estimated centroid coordinates to initialize the Gaussian model parameters, including initial guesses for the standard deviations along x and y.
+		*Model Fitting:
+		Fit the 2D Gaussian model to the cutout data using a Levenberg-Marquardt least-squares fitter. This optimizes the model parameters to best match the observed stellar profile.
+		*FWHM Calculation:
+		Compute the Full Width at Half Maximum (FWHM) along the x and y axes from the fitted Gaussian standard deviations using the relation:
+		FWHM=2.3548×σ
+		Calculate the average FWHM as the mean of fwhm_x and fwhm_y to account for any slight ellipticity in the stellar profile.
+		*Photometric Aperture and Sky Annulus Determination:
+		Define the aperture radius and sky annulus radii based on the measured FWHM to optimize signal-to-noise ratio for aperture photometry:
+		Aperture radius ≈ 1.5 × FWHM
+		Inner sky annulus ≈ 2.5 × FWHM
+		Outer sky annulus = inner radius + offset (e.g., 5 pixels)
+		*Result Reporting:
+		Report the fitted FWHM values, average FWHM, and recommended aperture and sky annulus sizes.
+
+3. Check the processes that I perform in order to limit detected sources from DAOStarFinder results to sources after footprint filtering:
+		*Initial Detection:
+		Detect sources using DAOStarFinder on background-subtracted images.
+		*Image Smoothing:
+		Optionally apply a Gaussian filter to reduce single-pixel noise.
+		*Thresholding & Footprint Labeling:
+		Identify contiguous regions (footprints) above a defined sigma threshold relative to the background.
+		Label connected pixels using 4- or 8-connectivity.
+		*Reject Small/Spurious Footprints:
+		Remove footprints that are too small or dominated by a single hot pixel (based on minimum area, peak-to-total flux fraction, and extreme pixel brightness).
+		*Filter Detected Sources:
+		Remove DAOStarFinder sources that fall inside rejected footprints or outside image bounds.
+		*Merge Nearby Sources (Optional):
+		Group sources closer than a specified radius (e.g., 0.5–1 × FWHM) and retain the brightest or flux-weighted position to avoid multiple detections of the same star.
+		*Store Filtered Sources:
+		Return the cleaned source list for further photometry or analysis.
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040715
 Today I spent my whole time on developing the photometry routine. Understanding it better, defining the parameters much more meaningfully and the final result I got
