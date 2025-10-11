@@ -1,4 +1,6 @@
 #14040719
+Tomorrow I should start by creating a complete set of single night report for data on this star I am working on. I wanna present that to Dr. Javadi as well. 
+
 I have gone through the photometric code so far; It currently measures star fluxes, subtracts sky background, computes flux errors, 
 	converts to instrumental magnitudes, and stores/prints the results.
 
