@@ -1,4 +1,16 @@
 #14040719
+Today I finished Photometry Routine Until (Matched sources Table) step. I need to ask Dr. Javadi the questions below before continuing.
+
+As for reporting on standard stars, I just finished the report on SA110340. Moving on to next set.
+
+I also learned something new:
+	>>> What does it mean for flat frames to be saturated and why is that bad?
+		If while hovering on top of flat frames most frames have near saturation values then the frame is said to be saturated.
+		The problem with this is that all we need from a flat frame is a hidden pattern inside it and when the frame becomes saturated, then it will of course be of no use.
+	>>> What to do for observing Nights when this has happened?
+		Look for similar flats very close to the date of the observation so that the other parameters have not changed a lot.
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040719
 Tomorrow I should start by creating a complete set of single night report for data on this star I am working on. I wanna present that to Dr. Javadi as well. 
 
 I have gone through the photometric code so far; It currently measures star fluxes, subtracts sky background, computes flux errors, 
