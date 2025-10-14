@@ -1,4 +1,6 @@
 #14040722
+Next time start with this routine: Plotting_LightProfile_single_star.ipynb and get the 3d profiles for the 2nd brightest star in 3 filters and 3 exp times.
+
 The following address contains the list of standard stars I am choosing from
 https://classic.sdss.org/dr5/algorithms/standardstars/tab08.dat.txt
 
