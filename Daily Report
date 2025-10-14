@@ -1,5 +1,8 @@
 #14040722
-Next time start with this routine: Plotting_LightProfile_single_star.ipynb and get the 3d profiles for the 2nd brightest star in 3 filters and 3 exp times.
+- Next time start with this routine: Plotting_LightProfile_single_star.ipynb and get the 3d profiles for the 2nd brightest star in 3 filters and 3 exp times.
+
+- Today I talked to Mr Mahdi .. about their code for creating a mask. He said he doesn't have his codes but he'll talk to his collegue and let me know. I said I will share my creating Mask routine with him
+	as soon as i finish it. (hopefully next Saturday)
 
 The following address contains the list of standard stars I am choosing from
 https://classic.sdss.org/dr5/algorithms/standardstars/tab08.dat.txt
