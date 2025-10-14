@@ -22,7 +22,8 @@ Tomorrow I should start by creating a complete set of single night report for da
 I have gone through the photometric code so far; It currently measures star fluxes, subtracts sky background, computes flux errors, 
 	converts to instrumental magnitudes, and stores/prints the results.
 
-1. I will ask for how to continue the pipepline after this, whether it is a necessary step to append ra & dec manually to the table below and continue with the
+1. [SOLVED] - Go on with adding it by hand. 
+	I will ask for how to continue the pipepline after this, whether it is a necessary step to append ra & dec manually to the table below and continue with the
 	next steps from there:
 	Full photometry table for image index 0:
         x                  y                inst_mag            e_inst_mag      
@@ -30,7 +31,8 @@ I have gone through the photometric code so far; It currently measures star flux
 
 	or I should focus on making the pipeline work better and more precisely from the initial calibration steps again.
 
-2. Another thing to check with Dr. Javadi is the values I get for our FWHM and thus radius for performing Aperture Photometry.
+2. [SOLVED] - Never Check FWHM with bright stars like standards. Always use images including faint small stars and go with them.
+	Another thing to check with Dr. Javadi is the values I get for our FWHM and thus radius for performing Aperture Photometry.
 	These are the steps that I take for estimating FWHM:		
 		*Star Selection:
 		Identify the target star within the image dataset using its catalog ID. Extract its centroid coordinates (x, y) from the source detection results.
