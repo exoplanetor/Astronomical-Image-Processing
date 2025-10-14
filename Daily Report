@@ -1,3 +1,9 @@
+#14040722
+The following address contains the list of standard stars I am choosing from
+https://classic.sdss.org/dr5/algorithms/standardstars/tab08.dat.txt
+
+The server is busy with receiving data from the telescope right now so I am going to work on creating hot/bad pixels masks for the rest of today.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040719
 Today I finished Photometry Routine Until (Matched sources Table) step. I need to ask Dr. Javadi the questions below before continuing.
 
