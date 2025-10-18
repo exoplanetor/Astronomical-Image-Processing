@@ -1,4 +1,15 @@
 #14040726
+Next time start from "INO Obsering Report" in Google sheets and add previous entries of Mr altafi to that
+
+Today I had a meeting with Dr. Javadi and Dr. Farhang together:
+	- They are supposed to talk to Dr. Khosroshahi about the process of allocating observation times.
+	- Dr. Farhang gave me an observing report template in Google sheets. I am putting all that I have from Mr. Altafi in it from before, when complete
+		I will share it with everyone, asking them to keep it shared and updated.
+	- Another thing discussed was about the pipeline, he is supposed to share it with me so that I can clean it up and create a UI for it. I intend to 
+		make different comparisons along the way.
+	- had a short meeting with Sarina today. next time she should have finished running my calibration routine and she must compare the steps in mine to anything
+		she may find in the documentation of GNU astro. It might be in the address we looked together or it might not. Plz look for aditional resources in case needed.
+
 New Lesson about flats:
 	1. Just the same way as we have saturated flats, there are a number of low brightness flats too, for our setup, anything less than almsot 1000 count
 		could be considered low. 
