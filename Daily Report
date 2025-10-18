@@ -1,3 +1,10 @@
+#14040726
+New Lesson about flats:
+	1. Just the same way as we have saturated flats, there are a number of low brightness flats too, for our setup, anything less than almsot 1000 count
+		could be considered low. 
+	2. Another important sort of rule of thumb is that The telescope optics has changed in Mehr 1404 thus no calibration frames after that date, should
+		technically be used for aims before then.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040722
 - Next time start with this routine: Plotting_LightProfile_single_star.ipynb and get the 3d profiles for the 2nd brightest star in 3 filters and 3 exp times.
 
