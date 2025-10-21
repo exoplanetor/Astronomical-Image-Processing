@@ -1,8 +1,32 @@
+#14040729
+-I don't have access to ftp again today.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040728
 -I don't have access to ftp again today.
--I entered all previous entries of Mr. Altafi's reports into "INO Obsering Report" located at:
+-I finished entering all previous data from Mr. Altafi's reports into "INO Obsering Report" located at:
 	https://docs.google.com/spreadsheets/d/1Ek0AnQrsWie854p2kCQAvR7O2nBfAKSeMJRbXFUzqD8/edit?gid=0#gid=0
 -The rest of the time I helped Dr. Shomali with accessing the quality of two images he sent me.
+This part is done on 29th but I paste the report here:
+
+The FWHM that you read is very much dependant on Binning. This is why:
+	Binning combines multiple camera pixels into one larger “super-pixel,” so with 3×3 binning, each pixel covers nine times more sky area. This makes stars appear smaller in pixel units — the measured FWHM in pixels decreases roughly in proportion to the binning factor (e.g., 6 px at 1×1 becomes about 2 px at 3×3). However, because each binned pixel covers a larger angular size, the true FWHM in arcseconds (seeing) remains the same once the pixel scale is adjusted for binning. In practice, 1×1 binning gives the most precise FWHM measurements since the star is sampled by more pixels, while higher binning trades some spatial resolution for improved signal-to-noise.
+
+جناب آقای دکتر شمالی سلام و عرض ادب.
+
+من تصاویر را با هم مقایسه کردم و موارد زیر به نظرم می آید که خدمتتان اعلام می کنم:
+
+- اول اینکه تصویری که مال تلسکوپ خودمان نبود و فرموده بودید مربوط به رصدخانه Cerro tololo است را احتمال می دهم اصلا مال آن جا نباشد چون در مرحله اول در هدر این فایل نوشته شده که با تلسکوپ 2/5 متری تهیه شده و در این رصدخانه تلسکوپی با این ابعاد وجود ندارد:
+https://en.wikipedia.org/wiki/Cerro_Tololo_Inter-American_Observatory
+با مقایسه ای که هدر فایل را کردم به نظر می رسد این عکس مربوط به مجموعه تصاویر SDSS باشد که این یعنی تصویر خانم نیست و رویش کالیبراسیون انجام شده است و بخش قابل توجهی از خطاها کم شده اند. از این رو نمی دانم مقایسه تصویر خام تلسکوپ ما با آن چقدر کار دقیقی باشد؟
+
+- مورد بعدی بررسی 2D & 3D پروفایل ستاره های داخل تصویر بود که انجام دادم و از روی نمودارها به نظر می رسد بیشتر ستاره ها Saturated  یا خیلی نزدیک به آن باشند. از این رو پیشنهاد می شود که آزمایشات خود را با زمان نورهی کمتر (شاید نزدیک تر به همانم 30 ثانیه که فرمودید) تکرار کنید.
+
+-  به غیر از vignetting اطراف تصویر و اثرات ناشی ار آن، من با چشم تفاوت معناداری در ellipticity ستارگان در اطراف مشاهده نمی کنم اما خوب مسلما این مورد نیاز دارد با کد و نمودار دقیقتر چک شود.
+
+- نکته آخر هم درمورد استفاده از binning 3x3  در عکسی بود که فرستادید که عملا دارد flux را در 9 تا پیکسل با هم جمع می کند و جای یک پیکسل می گذارد. شاید این عامل روی saturate شدن پیکسل ها هم تاثیرگذار باشد. پیشنهاد می کنم binning متفاوت خصوصا 1x1 را هم امتحان بفرمایید.
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040726
 I don't have access to ftp again today.
@@ -50,6 +74,7 @@ I also learned something new:
 		Look for similar flats very close to the date of the observation so that the other parameters have not changed a lot.
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040719
+-I don't have access to ftp again today.
 Tomorrow I should start by creating a complete set of single night report for data on this star I am working on. I wanna present that to Dr. Javadi as well. 
 
 I have gone through the photometric code so far; It currently measures star fluxes, subtracts sky background, computes flux errors, 
