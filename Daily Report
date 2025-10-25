@@ -4,7 +4,8 @@ Today i met Dr. Javadi with the aim of how to identify is S/N is enough for M33 
 		DS9 -> Zoom -> Pan Zoom Rotate Parameters -> rotate 270 deg -> Zoom -> Invert X
 	2. Then give the RA and Dec of one of the targets in your list or if it is just one, the target, in Aladin. After that, compare your ds9 image to that
 		and look to see if you can find that target by eye or not. If you do S/N is enough. If not, then it isn't.
-	3. Dr. Javadi aksed me to have some sort of measurement on S/N of an image. Today I spent some good time about how to do this.
+	3. Dr. Javadi aksed me to have some sort of measurement on S/N of an image. Today I spent some good time about how to do this in DS9. Some parts did not work at all.
+		So I am moving on to another way. Continuing this using python tomorrow
 
 I also have to finish quality checking of M33 observations. I am checking 10_13_2025 right now located at: /Observations 2/Altafi_10_13_2025/M33 
 -----------------------------------------------------------------------------------------------------------------------------------------
