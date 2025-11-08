@@ -1,4 +1,43 @@
 #14040817
+
+!!! I started doing tests, important tests today in the "Calculating Extinction Coefficients" project
+1. Running the calibration code for 4 standard stars -> Choosing low mode bacause our ~g_mag=10 stars saturate in more than 1 second and that 1sec is too
+	short to get the effect of most of the calibration frames; everything resembles bias!
+2. The whole purpose of this project is to calculate the "instrumental magnitudes" of our stars for different airmasses. I already have the part for calculating
+	airmasses for each frame ready in this routine: calc_AltAz_from_RADec.ipynb
+3. The next two steps are calibrating each light frame and in each filter separately and then performing aperture photometry.
+4. I am in the calibration stage. Checked the code again. it looks like I had a grave mistake at the stage of reducing dark and flat. my plots were showing that
+	dark reduction was not happening. I looked into it and understood that originally I had thought that when I remove darks from flats, it is enough and
+	I don't need the remove darks from light frames again. THIS WAS WRONG. because:
+			Let 
+			R = \text{raw science image, which contains signal } S, \text{ dark } D, \text{ and pixel sensitivity } g(x, y): \quad R = g (S + D) \quad \text{(simplified)}
+			Flats were dark-subtracted before combining, so the master flat is approximately
+			F \approx g \quad \text{(normalized to ~1)}.
+			If you divide the raw frame by the master flat:
+			\frac{R}{F} \approx \frac{g (S + D)}{g} = S + D
+			The dark term \(D\) remains — division cancels the gain pattern but does **not** subtract the additive dark term.
+			To remove the dark, you must subtract it first:
+			\frac{R - D}{F} \approx \frac{g S}{g} = S
+			That is why the background near ~60 ADU persists in `raw / combined_flat` even when the flats themselves had their dark removed.
+	So I changed tha calibration code and removed the version I had from the shared repository in github. soon to replace that with a new version.
+
+5. Now as for the tests:
+	- Today I realized and talked to Mr altafi about the negative values that are created in the light minus dark (whether div by flat or not) frames and
+	  as you recall he firmly beleives that calibrated frames should not have negative values! Today we discussed how (at least in the case I am currently 
+	  working on (BD353659-06_01_2025) this is normal and is to be expected. He beleives this is for the exposure time of this observation only. so he suggested
+	  a few tests which I am going to work on from now on:
+		1. calibrate with just reducing Bias
+		2. compare to calibration with reducing dark only
+		3. Then both bias and dark
+		4. find the smallest negative value in the image and have the whole image come up by that value before saving the calibrated fits files.
+		5. create a routine that somehow gets a feeling of the values of flat images counts and then divides them in 3 groups manually to be used/chosen
+			later by the user. (This is as the result of the comparison images I made between masters made out of saturated flats and those which are not)
+
+
+		?. after finishing calibration steps I'd have to come to Aperture photometry.
+
+
+
 Today I learned a big important lesson about combining Flats!
 ALWAYS open every single flat and look through them, check their counts.
 	- if they have count higher than 3600-3700 they are saturated don't use them.
