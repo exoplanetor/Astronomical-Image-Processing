@@ -118,7 +118,7 @@ New Lesson about flats:
 		technically be used for aims before then.
 	3. For as long as we are not completely sure about the final parameters of the telescope and while we are still in comissioning phase, make sure to have
 		a good number of darks and flats obtained each night for an observing session.
-	4. 
+	4. Any flats with counts higher than 3600 or 3700 are too bright/saturated and are nor good flats
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040722
 - Next time start with this routine: Plotting_LightProfile_single_star.ipynb and get the 3d profiles for the 2nd brightest star in 3 filters and 3 exp times.
