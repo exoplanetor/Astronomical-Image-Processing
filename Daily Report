@@ -1,5 +1,36 @@
-#14040817
+#14040818
+New Lesson about Evaluating Background Quality in CCD Reductions
 
+After performing image reductions (bias, dark, flat-field corrections) and masking sources, it is crucial to assess the quality of the background in your CCD images. This is typically done using 2D background maps and background RMS maps, which together provide a comprehensive view of both the level and stability of the background.
+1. Background Map (bkg.background)
+	Purpose:
+		The background map shows the estimated sky level across the entire CCD after masking detected sources.
+	What to look for:
+		- Uniformity: The map should have a smooth and even color distribution, indicating consistent illumination and proper flat-field correction.
+		- Absence of artifacts: There should be no bright or dark spots from unmasked stars, hot pixels, or CCD defects.
+		- Minimal gradients: Any large-scale gradients should be small, suggesting that residual instrumental effects are negligible.
+	Interpretation:
+		A smooth and even background indicates a well-calibrated image.
+	Patchy regions or visible stars suggest incomplete masking or calibration errors that may require revisiting the reduction steps.
+2. Background RMS Map (bkg.background_rms)
+	Purpose:
+		The background RMS map visualizes the per-pixel noise or uncertainty in the background estimation. It highlights areas with higher residual noise that may not be visible in the background map itself.
+	What to look for:
+		- Low RMS values: Indicates minimal residual noise and clean calibration.
+		- Uniformity across the CCD: High uniformity suggests that the background estimate is stable across the image.
+		- No hot spots: Bright areas in the RMS map can indicate unmasked stars, cosmic rays, or other defects.
+	Interpretation:
+		- Low and uniform RMS confirms that the background estimation is reliable for photometric analysis or further processing.
+		- Local spikes or uneven regions may require additional masking or refinement of reduction parameters.
+
+Summary: How to Judge a Clean Image
+Map Type	Cleaner Image Characteristics
+Background Map	Smooth, even levels; minimal gradients; no leftover sources or artifacts.
+Background RMS Map	Low, uniform noise; no hot spots; stable background across the CCD.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040817
 !!! I started doing tests, important tests today in the "Calculating Extinction Coefficients" project
 1. Running the calibration code for 4 standard stars -> Choosing low mode bacause our ~g_mag=10 stars saturate in more than 1 second and that 1sec is too
 	short to get the effect of most of the calibration frames; everything resembles bias!
