@@ -1,3 +1,22 @@
+#14040901
+I spent all my time today going through this:
+https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/08-01-Identifying-hot-pixels.html
+i created a hot pixel mask and applied it to all darks in a directory, next time:
+1. first make sure that the threshold you have chosen for hot pixels is good enough ( i can still see some white pixels I'd like to see way many fewer ones)
+2. Next do the same for a set of flat files.
+3. and then the next steps.
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040827
+I went to the INO Observatory and gained some good experience on how to actually perform the observations and also what things to pay attention to in order to
+	make sure that the data you need has the quality you actually want. Also some real valuable onfo about the sort and number of calibratio files to gather every session:
+	*** In short we need:
+		- check the focus of the image everyframe.
+		- take darks with the same exxposure time as the light frames. 
+		- take another set of darks with the exact same exposure as flat frames and use them for another step.
+
+I also learned his steps for calibration and according to him this was the exact same data that he shared with Dr. Shakeri I am supposed to create 2 plots
+	and show it to him
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040818
 New Lesson about Evaluating Background Quality in CCD Reductions
 
