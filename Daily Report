@@ -1,3 +1,11 @@
+#14040902
+Lesson about Flats:
+	1. If there are stars in a flat filed but the view has been shifted from frame to frame, it is ok coz the master would take a median and would cancel those points
+	2. You should create 3 classes of flats:
+		A. Counts Lower than 1500 (low Signal)
+		B. Counts Between 1500 and 2500 (acceptable)
+		C. Counts higher than 2500 (too bright)
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040901
 I spent all my time today going through this:
 https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/08-01-Identifying-hot-pixels.html
