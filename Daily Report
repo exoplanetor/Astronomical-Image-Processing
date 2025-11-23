@@ -1,4 +1,7 @@
 #14040902
+Important Dates aboy Focal Reducer
+It has been put on the telescope on 09_13_2025 Until 11_23_2025 So the data in this duration should not be mixed and used in masters with data before and after that.
+
 Lesson about Flats:
 	1. If there are stars in a flat filed but the view has been shifted from frame to frame, it is ok coz the master would take a median and would cancel those points
 	2. You should create 3 classes of flats:
