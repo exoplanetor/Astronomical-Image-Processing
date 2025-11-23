@@ -3,6 +3,7 @@ I spent all my time today going through this:
 https://www.astropy.org/ccd-reduction-and-photometry-guide/v/dev/notebooks/08-01-Identifying-hot-pixels.html
 i created a hot pixel mask and applied it to all darks in a directory, next time:
 1. first make sure that the threshold you have chosen for hot pixels is good enough ( i can still see some white pixels I'd like to see way many fewer ones)
+		040902: I changed the threshold from 8 to 5 but can't seem to distinguish between the results by eye!
 2. Next do the same for a set of flat files.
 3. and then the next steps.
 -----------------------------------------------------------------------------------------------------------------------------------------
