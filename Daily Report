@@ -1,3 +1,7 @@
+# Next time:
+download raw lightframes for BD353659 in low mode and apply the hot pixels mask and see what you get. I used calibrated versions (since I had no access to 
+	ftp today) and I couldn't see the difference really. So next time try with raws.
+
 #14040904
 !!!Today I learned a very important Lesson: Checking the Quality of Any image I produce using SNR
 
