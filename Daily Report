@@ -1,4 +1,29 @@
 #14040904
+Today I learned a very important Lesson: Checking the Quality of Any image I produce using SNR
+
+###Calculating the Flat-Field SNR -> Use SNR to grade the quality of the images you produce!
+#Once the master flat has been normalized to produce the gain table, we can quantify how uniform the flat is using the signal-to-noise ratio (SNR). The SNR is defined as the 
+# ratio of the typical signal level (here normalized to ~1) to the pixel-to-pixel variation in the gain table. This variation is measured by the standard deviation (STD) of the 
+# gain table values. Therefore, the flat-field SNR can be computed simply as:
+################################
+# Flat SNR ≈ 1 /STD(gaintable) #
+################################
+#A higher SNR indicates a smoother and more uniform flat, while a lower SNR indicates more noise or pixel-to-pixel variation.
+
+Now one thing that I originally had heard and written down from my observing night with Dr Rezaei was that he defined:
+
+Flat_SNR = 1 / rms(gaintable) -> Now according to gpt this is wrong because the rms of the flat gaintable is ~1 and thus it would bot be a good estimate of the 
+	noise in the image. we need to look for fluctuations, wiggle => noise and that's what std(gaintable) gives.
+
+Now at this date I have used 14 hot-pixel mased and master dark reduced flat images to combine into 1 master flat and the results I get for it at the moment are:
+Standard deviation of gaintable: 0.06994095175993027
+Flat SNR: 14.297775120825678
+
+!!! Future medium Goal!!! ~> increase this SNR to be higher than 20 (this is for acheiving the precision I need for detecting exoplanets in the future)
+
+
+
+####################
 Just for reminder:
 Alternative names	INO Edit this at Wikidata
 Location	Qamsar District, Kashan County, Isfahan Province, Iran
@@ -8,7 +33,7 @@ Established	28 June 2021
 Website	ino.org.ir Edit this at Wikidata
 Telescopes	
 INO340 
-
+##################
 I am still working on checking my calibration routine with that of Dr. Rezaeii
 -----------------------------------------------------------------------------------------------------------------------------------------
 
