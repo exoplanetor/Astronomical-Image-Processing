@@ -1,5 +1,5 @@
 #14040904
-Today I learned a very important Lesson: Checking the Quality of Any image I produce using SNR
+!!!Today I learned a very important Lesson: Checking the Quality of Any image I produce using SNR
 
 ###Calculating the Flat-Field SNR -> Use SNR to grade the quality of the images you produce!
 #Once the master flat has been normalized to produce the gain table, we can quantify how uniform the flat is using the signal-to-noise ratio (SNR). The SNR is defined as the 
@@ -21,8 +21,6 @@ Flat SNR: 14.297775120825678
 
 !!! Future medium Goal!!! ~> increase this SNR to be higher than 20 (this is for acheiving the precision I need for detecting exoplanets in the future)
 
-
-
 ####################
 Just for reminder:
 Alternative names	INO Edit this at Wikidata
@@ -35,6 +33,9 @@ Telescopes
 INO340 
 ##################
 I am still working on checking my calibration routine with that of Dr. Rezaeii
+
+Something else I learned from Dr. Rezaei for which I am really appreciative is that if you apply the Hot_pixel (warm pixel) masks on your frames the
+	very many white dots on them will go away!!! and I still dunno about light frames but that certainly worked on my master flats!!!!
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 #14040902
