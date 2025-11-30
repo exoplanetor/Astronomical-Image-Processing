@@ -2,7 +2,9 @@
 download raw lightframes for BD353659 in low mode and apply the hot pixels mask and see what you get. I used calibrated versions (since I had no access to 
 	ftp today) and I couldn't see the difference really. So next time try with raws.
 
-
+#14040909
+Today I updated the two Google sheets data logs: Targets observed Report & INO Observing Report up to 11_22_2025
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040908
 Today I spent all my time updating Targets observed and INO observing report. The latest date added to ftp today is Rezaei_Amiri_2025_11_18
 	and I am totally up to date with them all. what is remaining here is that I need to check the quality of calibration frames and report them too.
