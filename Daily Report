@@ -1,12 +1,14 @@
-# Next time:
+#14040915
+I spent today fully on making photometry vs airmass for data of BD353659 in g filter (I had done r filter in the past ad to be honest the results were actually 
+	better than g).
 
-Do the following method of calculating SNR for light frames:
-	
-	###Calculating the Flat-Field SNR -> Use SNR to grade the quality of the images you produce!
-	#Once the master flat has been normalized to produce the gain table, we can quantify how uniform the flat is using the signal-to-noise ratio (SNR). The SNR is defined as the 
-	# ratio of the typical signal level (here normalized to ~1) to the pixel-to-pixel variation in the gain table. This variation is measured by the standard deviation (STD) of the 
-	# gain table values. Therefore, the flat-field SNR can be computed simply as: Flat SNR ≈ 1 /STD(gaintable)
-	#A higher SNR indicates a smoother and more uniform flat, while a lower SNR indicates more noise or pixel-to-pixel variation.
+Next time I need to:
+	1. download more data for other stars in g filter as well as master
+	2. Correct all frames for hot pixels
+	3. Perform calibration 
+	4. Run the Airmass routine
+	5. Perform Aperture Photometry and get the table
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040910
 Today I finished I did the thing below and finished calibration. the results are much better but then I rushed to perform aperture photometry too, 
@@ -79,7 +81,7 @@ Something else I learned from Dr. Rezaei for which I am really appreciative is t
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 #14040902
-Important Dates aboy Focal Reducer
+Important Dates about Focal Reducer
 It has been put on the telescope on 09_13_2025 Until 11_23_2025 So the data in this duration should not be mixed and used in masters with data before and after that.
 
 Lesson about Flats:
