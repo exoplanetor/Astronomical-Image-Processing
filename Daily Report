@@ -1,3 +1,8 @@
+#14040917
+I started calibratingthe Data for IC10 today and finished the g filter. it improved the quality a lot.
+the r-filter and i-filter are remaining
+I added the process to the progress report folder in Exo
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040915
 I spent today fully on making photometry vs airmass for data of BD353659 in g filter (I had done r filter in the past ad to be honest the results were actually 
 	better than g).
@@ -8,7 +13,6 @@ Next time I need to:
 	3. Perform calibration 
 	4. Run the Airmass routine
 	5. Perform Aperture Photometry and get the table
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040910
 Today I finished I did the thing below and finished calibration. the results are much better but then I rushed to perform aperture photometry too, 
