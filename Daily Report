@@ -1,3 +1,17 @@
+#14040921
+1. I finished IC-10 rercalibratoin today. Sent the results to Dr. Javadi, waiting for feedback.
+
+I am coming back to extinction coefficients:
+I need to:
+	1. download more data for other stars in g filter as well as master
+	2. Correct all frames for hot pixels
+	3. Perform calibration 
+	4. Run the Airmass routine
+	5. Perform Aperture Photometry and get the table
+
+2. i finished doing these:  download more data for other stars in g filter as well as master, Correct all frames for hot pixels, Perform calibration
+	for a new star in G-band: (/Observations/1403/Altafi_09_23_2024/standard/G93-48)
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040917
 I started calibratingthe Data for IC10 today and finished the g filter. it improved the quality a lot.
 the r-filter and i-filter are remaining
