@@ -1,3 +1,11 @@
+#14040922
+Today I checked all the steps of my airmass routine. I particularly chacked the altitude I get for the stars from my code with what I would manually see from
+	a sky viewing software. It worked out fine. no big discrepancy there. Although it helped me figure out something that we actually need to be aware of in
+	future observations and that is a time-sync issue that the computer which writes the headers has; since it is not directly connected to the internet
+	sometimes it lags in time and therefore a time-sync code has been written for it by the telescope control team. There is a little bug there though and
+	it is very important to include this in the progress report: that time-sync code should me manually run on that computer and sometimes the observers forget
+	to do so. perhaps we need to have a better way of doing this.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040921
 1. I finished IC-10 rercalibratoin today. Sent the results to Dr. Javadi, waiting for feedback.
 
