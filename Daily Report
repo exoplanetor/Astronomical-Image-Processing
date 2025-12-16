@@ -1,3 +1,12 @@
+#14040923
+Today I showed my hot pixel mask to Mr Altafi and he said that it contained way too many points and it should not be like that:
+This is what I originally had learned from the tutorials:
+hot_pixels = (dark_600.data > 1)
+# People use >1 as a threshold in many detector characterizations. coz Typical CCDs may have dark currents of ~0.001–0.1 e⁻/s at low temperatures, and pixels above 1 e⁻/s are often anomalously high.
+BUT IMPORTANT LESSON LEARNED Today!!   This is the dark current of the ccd but what I am working with right now is the count of pixels in images. As you can see (by scrolling the mouse on the dark fits files in ds9) EVERY Pixel has
+# a higher value of that >1 - This means we need to define the threshold in a more meaningful way. The final pattern of the Hot/Warm Pixels should have a random and scattered pattern.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040922
 Today I checked all the steps of my airmass routine. I particularly chacked the altitude I get for the stars from my code with what I would manually see from
 	a sky viewing software. It worked out fine. no big discrepancy there. Although it helped me figure out something that we actually need to be aware of in
