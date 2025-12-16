@@ -1,3 +1,6 @@
+Next time continue from calibration and testing if the mask remains after combination and from the chat gpt discussion you had
+
+
 #14040923
 Today I showed my hot pixel mask to Mr Altafi and he said that it contained way too many points and it should not be like that:
 This is what I originally had learned from the tutorials:
@@ -5,6 +8,15 @@ hot_pixels = (dark_600.data > 1)
 # People use >1 as a threshold in many detector characterizations. coz Typical CCDs may have dark currents of ~0.001–0.1 e⁻/s at low temperatures, and pixels above 1 e⁻/s are often anomalously high.
 BUT IMPORTANT LESSON LEARNED Today!!   This is the dark current of the ccd but what I am working with right now is the count of pixels in images. As you can see (by scrolling the mouse on the dark fits files in ds9) EVERY Pixel has
 # a higher value of that >1 - This means we need to define the threshold in a more meaningful way. The final pattern of the Hot/Warm Pixels should have a random and scattered pattern.
+
+Comparing my method of masking to that of Mr Altafi
+Notes on dark-frame treatment and hot-pixel handling
+
+Two different approaches to hot-pixel handling in dark frames were evaluated. In the first approach (this work), hot pixels are identified and retained as a boolean mask on each individual dark frame. During combination, masked pixels are excluded from the statistical estimator (median with sigma clipping), and the bad-pixel information is preserved in the final master dark. This ensures that pixels known to be unreliable are not trusted at any stage of calibration and can be consistently ignored in downstream processing.
+
+In the alternative approach, hot and cold pixels are identified using a global threshold and replaced via local interpolation prior to creating the master dark. This produces a visually clean calibration frame but removes any record of which pixels were originally defective. While this method is suitable for cosmetic correction or visualization, it introduces interpolated values into the calibration data and eliminates the ability to track or propagate bad-pixel information.
+
+For precision calibration and scientific measurements, preserving bad-pixel masks is preferred over interpolating pixel values. Mask-based approaches avoid introducing artificial signal and allow subsequent reduction steps to make informed decisions about pixel reliability.
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040922
