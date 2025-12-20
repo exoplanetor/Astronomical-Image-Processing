@@ -1,6 +1,10 @@
 Next time continue from calibration and testing if the mask remains after combination and from the chat gpt discussion you had
 
+#14040929
+I spent the majority of my time today on replotting the plots and rewriting the paragraphs for INO paper for Dr. Javadi.
 
+Movin on to how the hto-pixel masks are applied
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040923
 Today I showed my hot pixel mask to Mr Altafi and he said that it contained way too many points and it should not be like that:
 This is what I originally had learned from the tutorials:
