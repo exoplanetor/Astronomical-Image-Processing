@@ -1,3 +1,107 @@
+Next time: Compare Mr. Altafi's way for interpolation to Dr. Javadi's route: (there must be differences!!!)
+سلام لیلا جان
+
+خوبی؟ من از دستور زیر که استفاده کردم تمام پیکسل های داغ را برد:
+
+این دستور برای آیرف:
+median input.fits output.fits 3 3
+
+و این دستور برای پایتون:
+from astropy.io import fits
+from scipy.ndimage import median_filter
+
+data, header = fits.getdata("input.fits", header=True)
+
+filtered = median_filter(data, size=3)
+
+fits.writeto("output.fits", filtered, header, overwrite=True)
+
+
+ممنونم
+عاطفه
+
+
+import numpy as np
+from astropy.io import fits
+import matplotlib.pyplot as plt
+import csv
+from scipy.ndimage import generic_filter
+
+# Load FITS
+data = fits.getdata('C:/Users/MR.Altafi/Desktop/vip/Data Reduction/test-process/Bad Pixel Map/dark.fit')
+
+# Stats
+median = np.median(data)
+std = np.std(data)
+print(median, std)
+
+# Thresholds
+cold_thresh = median - 1 * std
+hot_thresh = median + 1 * std
+print(cold_thresh, hot_thresh)
+
+# Masks
+cold_mask = data < cold_thresh
+hot_mask = data > hot_thresh
+bad_mask = (data < cold_thresh) | (data > hot_thresh)
+
+# Define interpolation function
+def interpolate(values):
+    center = values[4]  # center of 3x3 kernel
+    neighbors = np.delete(values, 4)
+    return np.median(neighbors)
+
+# Apply only to bad pixels
+interpolated = generic_filter(data, interpolate, size=3, mode='mirror')
+data[bad_mask] = interpolated[bad_mask]
+
+# Save corrected image
+fits.writeto('dark_clean.fit', data, overwrite=True)
+
+# Get coordinates
+cold_coords = np.argwhere(cold_mask)
+hot_coords = np.argwhere(hot_mask)
+
+# Write to CSV
+with open('bad_pixels.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(['x', 'y', 'type'])  # Header
+    for y, x in cold_coords:
+        writer.writerow([x, y, 'cold'])
+    for y, x in hot_coords:
+        writer.writerow([x, y, 'hot'])
+
+# Write to SIRIL cosme file
+with open('bad_pixels_P.lst', 'w') as f:
+    for y, x in cold_coords:
+        f.write(f"P {x} {y} cold\n")
+    for y, x in hot_coords:
+        f.write(f"P {x} {y} hot\n")
+
+
+
+#--------------------------------------------------------------------- PLOTTING the image and overlays.
+# Overlay (Red = hot, Blue = cold)
+overlay = np.zeros((data.shape[0], data.shape[1], 3), dtype=np.uint8)
+overlay[..., 0] = hot_mask * 255  # Red
+overlay[..., 2] = cold_mask * 255 # Blue
+
+
+# Normalize image for display
+vmin = median - 1.5 * std
+vmax = median + 1.5 * std
+norm_data = np.clip((data - vmin) / (vmax - vmin), 0, 1)
+
+
+# Plot
+plt.figure(figsize=(10, 10))
+plt.imshow(norm_data, cmap='gray', origin='lower')
+plt.imshow(overlay, alpha=0.6, origin='lower')
+plt.title('Hot (Red) and Cold (Blue) Pixels')
+plt.axis('off')
+plt.savefig('bad_pixel_overlay_10.png', dpi=300, bbox_inches='tight')
+plt.show()
+
 Next time continue from calibration and testing if the mask remains after combination and from the chat gpt discussion you had
 
 #14040929
