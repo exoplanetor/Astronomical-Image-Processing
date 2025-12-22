@@ -1,3 +1,21 @@
+#14041001
+Today I spent the rest of my time understanding everything about hot pixels masking and other issues around that. 
+1. I tested Mr Altafi's code. And realized that when I choose the threshold of my own method correctly (meaning what I see by eye as the upper limit in the
+	long exposure vs short exposure plot in my hot maskin routine (adopted from astropy docs)) then I get the exact same mask as that of Mr Altafi's.
+
+2. I edited the document I had on the report for hot masks and it is saved here: C:\Users\Observatory\Exo\reports-tests\Image Masking\Image-Masking-Report.docx
+
+Next Steps on the hot Pixel Masking Project:
+	1- Apply Bias correction to the two 10sec and 600sec frames and re-draw the diagram. Do all poins still fall on x>y region? if yes then that must have a 
+		particular meaning for our camera and this should be included in the reports. If no, and applying bias correction actually brings the points closer to the 
+		x=y line, then make sure to apply bias correction for sure especially on master darks.
+
+	2- What should happen to data that has a saved mask? 
+		?? should we interpolate a dark frame and then apply it to the raw image?
+		?? should we apply it to the image and then interpolate the image (with hot pixel threshold or not?) to remove white noise?
+	
+	3- how does doing this interpolation and not doing it affaect the source detect step in photometry? Does it make any changes?
+-----------------------------------------------------------------------------------------------------------------------------------------
 Next time: Compare Mr. Altafi's way for interpolation to Dr. Javadi's route: (there must be differences!!!)
 سلام لیلا جان
 
