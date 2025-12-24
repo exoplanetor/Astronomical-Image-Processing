@@ -7,6 +7,22 @@ the Main problem I tackled was that the mask info wouldn't continue to stay with
 		indicates that no pixels were rejected as outliers by the combine process, even with a lower threshold. This means the combining algorithm did not find any pixel
 		values that deviated by more than 3σ across all frames. Let’s look at a few things that could help troubleshoot and solve this issue.
 
+Whatever it is: it is happening here:
+
+    combined_dark = ccdp.combine(all_darks,
+                                 method='average',
+                                 sigma_clip=True, sigma_clip_low_thresh=3, sigma_clip_high_thresh=3,
+                                 sigma_clip_func=np.ma.median, sigma_clip_dev_func=mad_std,
+                                 mem_limit=350e6
+                                 )
+
+    combined_dark.meta['comb-med'] = True
+
+    combined_dark.write(combined_path / combined_dark_name, overwrite=True)
+
+
+Figure it out.
+
 I tried reducing the sigmaclip threshold / also change combne method from meadian to average still no luck. gotta do this so that after that I can answer this:
 
 	1- What should happen to data that has a saved mask? 
