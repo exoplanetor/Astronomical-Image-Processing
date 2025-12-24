@@ -1,16 +1,31 @@
+#14041003
+Today I spent all my time doing the tasks from the last day on hot pixels.
+
+the Main problem I tackled was that the mask info wouldn't continue to stay with the files after I made a master out ofthem. At my final tries today I am standing
+	here: Mask found.
+		Contains flagged pixels: False
+		indicates that no pixels were rejected as outliers by the combine process, even with a lower threshold. This means the combining algorithm did not find any pixel
+		values that deviated by more than 3σ across all frames. Let’s look at a few things that could help troubleshoot and solve this issue.
+
+I tried reducing the sigmaclip threshold / also change combne method from meadian to average still no luck. gotta do this so that after that I can answer this:
+
+	1- What should happen to data that has a saved mask? 
+		?? should we interpolate a dark frame and then apply it to the raw image?
+		?? should we apply it to the image and then interpolate the image (with hot pixel threshold or not?) to remove white noise?
+	
+	3- how does doing this interpolation and not doing it affaect the source detect step in photometry? Does it make any changes?
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041001
 Today I spent the rest of my time understanding everything about hot pixels masking and other issues around that. 
 1. I tested Mr Altafi's code. And realized that when I choose the threshold of my own method correctly (meaning what I see by eye as the upper limit in the
 	long exposure vs short exposure plot in my hot maskin routine (adopted from astropy docs)) then I get the exact same mask as that of Mr Altafi's.
+	Lesson Learned - bias reduction does not remove read noise. So that is not the answer to it.
 
 2. I edited the document I had on the report for hot masks and it is saved here: C:\Users\Observatory\Exo\reports-tests\Image Masking\Image-Masking-Report.docx
 
 Next Steps on the hot Pixel Masking Project:
-	1- Apply Bias correction to the two 10sec and 600sec frames and re-draw the diagram. Do all poins still fall on x>y region? if yes then that must have a 
-		particular meaning for our camera and this should be included in the reports. If no, and applying bias correction actually brings the points closer to the 
-		x=y line, then make sure to apply bias correction for sure especially on master darks.
 
-	2- What should happen to data that has a saved mask? 
+	1- What should happen to data that has a saved mask? 
 		?? should we interpolate a dark frame and then apply it to the raw image?
 		?? should we apply it to the image and then interpolate the image (with hot pixel threshold or not?) to remove white noise?
 	
