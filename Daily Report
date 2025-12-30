@@ -1,5 +1,5 @@
 #14041008
-Today, In response to Dr. Javadi's request to examine the **faintest stars** in images taken with the Sloan filters (u'), (g'), (r'), and (i'), I decided to
+1. Today, In response to Dr. Javadi's request to examine the **faintest stars** in images taken with the Sloan filters (u'), (g'), (r'), and (i'), I decided to
 use Gaia catalog data and transform the Gaia (G)-band magnitudes into the corresponding Sloan filter magnitudes. The goal was to estimate the
 **faintest stars** visible in each filter, and for this, empirical relations were used to convert Gaia magnitudes to Sloan magnitudes.
 For the conversion from Gaia (G)-band magnitude to the Sloan filter magnitudes ((i'), (r'), and (u')), I applied commonly used empirical relations.
@@ -25,6 +25,10 @@ i′ Filter: The faintest star in the i′ filter had a magnitude of 22.5.
 r′ Filter: The faintest star in the r′ filter had a magnitude of 22.5.
 u′ Filter: The faintest star in the u′ filter had a magnitude of 16.8. However, given that the u′ filter magnitudes differ from Gaia G-band magnitudes
 	by approximately 2.5 magnitudes (empirically), this value is adjusted accordingly.
+
+2. Another thing I did was to list the things that were my responsibility out of the meeting with Dr. Khosroshahi.
+
+3. Finally I updated the ftp data list and reports.
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041006
