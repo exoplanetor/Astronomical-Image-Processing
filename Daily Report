@@ -1,5 +1,33 @@
-#14041006
+#14041008
+Today, In response to Dr. Javadi's request to examine the **faintest stars** in images taken with the Sloan filters (u'), (g'), (r'), and (i'), I decided to
+use Gaia catalog data and transform the Gaia (G)-band magnitudes into the corresponding Sloan filter magnitudes. The goal was to estimate the
+**faintest stars** visible in each filter, and for this, empirical relations were used to convert Gaia magnitudes to Sloan magnitudes.
+For the conversion from Gaia (G)-band magnitude to the Sloan filter magnitudes ((i'), (r'), and (u')), I applied commonly used empirical relations.
+For instance, to convert (G) to (i'), the relation (i' \approx G + 1.5) was used, and for (r'), (r' \approx G + 0.3) was applied. For the (u') filter, 
+the approximate relation (u' \approx G + 2.5) was used. These transformations allowed me to estimate the magnitudes of stars in the various Sloan filters.
 
+For 1-Second Exposure:
+
+g′Filter: The faintest star observed in the g′ filter had a magnitude of 16.8.
+i′Filter: The faintest star visible in the i′ filter had a magnitude of approximately 19.89 corresponding to a Gaia G-band magnitude of 18.4. Based on a typical
+	empirical relation for converting Gaia -band to Sloan i′-band (𝑖′≈G+1.5), I applied this correction to the magnitudes seen in the image. The stars indicated
+	in the image had approximate magnitudes around 18 to 19.
+r′Filter: For the r′ filter, the empirical conversion relation r′≈G+0.3 was used. The faintest star seen in the r′ filter had a magnitude of 18.8,
+	corresponding to a Gaia G-band magnitude of 18.5.
+u′Filter: I did not observe any stars in the u′filter for the 1-second exposure. This is likely because the available frames for the u′ filter were from
+	engineering images not accessible to me. The data for three targets observed by Dr. Mahani only included u′
+ exposure frames, but none showed any visible stars.
+
+For 1-Minute Exposure:
+
+g′ Filter: The faintest star observed in the g′ filter had a magnitude of 20.
+i′ Filter: The faintest star in the i′ filter had a magnitude of 22.5.
+r′ Filter: The faintest star in the r′ filter had a magnitude of 22.5.
+u′ Filter: The faintest star in the u′ filter had a magnitude of 16.8. However, given that the u′ filter magnitudes differ from Gaia G-band magnitudes
+	by approximately 2.5 magnitudes (empirically), this value is adjusted accordingly.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14041006
 Next time:
 I have reached to the step where I wanna apply the hot mask to the light frames and then perform interpolation but an error occurs. the latest steps are in chat GPT
 	start from there.
@@ -24,8 +52,6 @@ The important result out of this is that now I know the answer astropy procedure
 
 I understand now that the masks are used during the step of creating master dark and flat but they are not saved on. The mask is saved individually at the
 	same step it was created (in the Hot-mask.ipynb) and should be applied to the science frames, AFTER they have fionished the calibration process.
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 #14041003
