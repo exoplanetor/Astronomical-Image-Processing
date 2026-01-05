@@ -28,7 +28,13 @@
 
 2.  Another thing I did today was to download the fits files for another standard star (observed by Dr, Rezaei) to add it to the extinction coefficients measurement
 
-3.  Third thing was starting to work on r-band data for the G93-48 standard star in the extinction coefficients area
+3.  Third thing was that I realized I was making a HUUUGGGEEE mistake in the final plot for plotting magnitude of a star vs airmass.I originally averaged the
+		instrumental magnitudes of many stars within each individual frame to get a single value per image. However, credible photometric practice requires
+		tracking the same star’s magnitude across different airmasses and fitting magnitude vs. airmass to determine extinction coefficients. Simply
+		averaging different stars in each frame does not reflect how atmospheric extinction affects a single object’s brightness as airmass changes
+
+		I fixed it and my result 
+			is now: Best-fit line: y = 0.2922 * x + -12.2699 / Dr. Rezaei's results: y = 0.1500 * x + -12.0671
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041008
 1. Today, In response to Dr. Javadi's request to examine the **faintest stars** in images taken with the Sloan filters (u'), (g'), (r'), and (i'), I decided to
