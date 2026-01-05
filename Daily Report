@@ -4,7 +4,10 @@ A matter that had happened many times when talking to Dr. Javadi was that she us
 	roundness and sharpness and see how they improve source detection (by making less false dertections). Today I did this. Below is a short
 	description to be saved for me or for reports in the future:
 
-	DAOStarFinder — Parameters & What They Mean (Photutils)
+Today I did make these changes (in this routine: Ap_Phot_G93-48-iband.ipynb) and the resulting detections are much better! they are much less than before and actually very close to 
+	the location of stars I can see by eye. At least for this observing night!)
+
+DAOStarFinder — Parameters & What They Mean (Photutils)
 
 DAOStarFinder is Photutils’ implementation of the classic DAOFIND algorithm, useful for detecting stars in an astronomical image. It looks for bright, star‑shaped peaks above a threshold and then filters them based on shape criteria. 
 
