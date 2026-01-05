@@ -1,3 +1,28 @@
+#14041015
+A matter that had happened many times when talking to Dr. Javadi was that she used to tell me to check the parameters of the DAOStarFinder
+	function in the aperture photometry routine and at the step I am detecting sources. I was supposed to check two parameters corresponding
+	roundness and sharpness and see how they improve source detection (by making less false dertections). Today I did this. Below is a short
+	description to be saved for me or for reports in the future:
+
+	DAOStarFinder — Parameters & What They Mean (Photutils)
+
+DAOStarFinder is Photutils’ implementation of the classic DAOFIND algorithm, useful for detecting stars in an astronomical image. It looks for bright, star‑shaped peaks above a threshold and then filters them based on shape criteria. 
+
+Key Parameters:
+-threshold — minimum brightness (above background) a peak must have to be considered a star. Applied after convolution with the detection kernel. 
+-fwhm — expected width of a star in pixels (Full Width at Half Maximum). Sets the scale of the Gaussian kernel used for detection. 
+-ratio & theta — describe the shape of the Gaussian kernel:
+-ratio: ellipticity (minor/major axis). Default is 1.0 (circular). 
+-theta: rotation angle of the kernel (degrees counter‑clockwise). 
+-sigma_radius — how far (in sigma units) the kernel extends; larger values mean a larger kernel footprint. 
+-sharpness (sharplo, sharphi): Stars have a certain “pointiness” — not too flat, not too spiky. Setting lower and upper bounds helps remove flat noise bumps and spiky artifacts (e.g., hot pixels). 
+-roundness (roundlo, roundhi): Roundness measures how circular a source is. Negative values indicate elongation in x, positive in y. Bounds help reject very elongated shapes that are unlikely to be real stars. 
+
+Practical Notes
+The default values (ratio=1.0, sigma_radius=1.5, sharplo=0.2, sharphi=1.0, roundlo=-1.0, roundhi=1.0) are reasonable starting points for PSF‑like stars in typical imaging. 
+Shape filters don’t replace proper background subtraction or noise modeling — they complement detection by removing implausible candidates.
+Adjusting these bounds is often necessary when stars are elongated (e.g., trailing) or when noise/artifacts are prominent.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041008
 1. Today, In response to Dr. Javadi's request to examine the **faintest stars** in images taken with the Sloan filters (u'), (g'), (r'), and (i'), I decided to
 use Gaia catalog data and transform the Gaia (G)-band magnitudes into the corresponding Sloan filter magnitudes. The goal was to estimate the
