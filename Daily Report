@@ -1,3 +1,8 @@
+#14041016
+Today I finished the 3 extinction coefficients of Standard Star G93-48 in all three g',i' & r' bands. The plots are here: (C:\Users\Observatory\Exo\reports-tests\Extinction-coefficients)
+
+Now I have to start calculating it for the next 2 stars I have the data for.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041015
 1.	A matter that had happened many times when talking to Dr. Javadi was that she used to tell me to check the parameters of the DAOStarFinder
 		function in the aperture photometry routine and at the step I am detecting sources. I was supposed to check two parameters corresponding
