@@ -1,3 +1,16 @@
+#14041114
+1. The feedback on the first draft of the extinction coefficients report was that the estimates for g-band seem ok but the other two are rather high and they are most likely of the range 0.01 
+	Result: A new set of standard star observations are in order and I must prepare them.
+
+2. The second that I should do is to create a list of 10 variable stars in 3 categories, easy, medium and hard ones. and give that to Mr. Altafi
+
+3. Finish adding 1403 observed targets to the Google sheets report
+
+4. Make a pdf version of your peogress report including all the links to all online reports.
+
+5. Start creating a UI for your pipeline
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041113
 Today I finished writing the first draft of the Extinction coefficients paper.
 Pay attention that I have done all the tasks needed for including 6 stars in the plots but 2 I don't have RA and Dec (haven't asked Dr. Rezaei yet) and for 1 I did all things just to realize that it covered
