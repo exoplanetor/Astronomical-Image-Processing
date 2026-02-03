@@ -17,6 +17,11 @@
 		i': 748.0nm
 		u': 355.1nm
 
+7. Have a feeling of what the extinction coefficients are at other observatories:
+		ING - La Palma : (4650nm-g':0.1598) (6150nm-r':0.0808) (7450nm-i':0.0261) (3550-u':0.4830)
+		(reference: https://www.ing.iac.es/Astronomy/observing/manuals/ps/tech_notes/tn031.pdf
+
+		Paranal : ( 4675nm-g':0.190) (6175-r':0.104) ( 7450-i':0.048) (3525-u':0.526 )
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041113
 Today I finished writing the first draft of the Extinction coefficients paper.
