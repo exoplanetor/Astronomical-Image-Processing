@@ -10,6 +10,13 @@
 
 5. Start creating a UI for your pipeline
 
+6. Lessons learned: 
+	central wavelength of sloan filters:
+		g': 468.6nm
+		r': 616.6nm
+		i': 748.0nm
+		u': 355.1nm
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041113
 Today I finished writing the first draft of the Extinction coefficients paper.
