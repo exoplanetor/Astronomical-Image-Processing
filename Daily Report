@@ -1,6 +1,17 @@
 #14041114
 1. The feedback on the first draft of the extinction coefficients report was that the estimates for g-band seem ok but the other two are rather high and they are most likely of the range 0.01 
 	Result: A new set of standard star observations are in order and I must prepare them.
+Looking for the new set of standards stars and the preferred dates for observation
+StarName      RA (J2000.0)    DEC (J2000.0)          r'        u'-g'      g'-r'      r'-i'      i'-z'         rms r'   rms u'-g'  rms g'-r'  rms r'-i'  rms i'-z'       n u'    n g'    n r'    n i'    n z' 
+--------      ------------    -------------          --        -----      -----      -----      -----         ------   ---------  ---------  ---------  ---------       ----    ----    ----    ----    ----
+GCRV 5951     09:05:16.68      +38:47:54.7         11.474      0.854      0.346      0.135      0.029         0.002      0.004      0.004      0.003      0.004          11      11      11      11      11  
+GCRV 5757     08:44:05.00      +36:14:43.9         10.803      1.000      0.403      0.152      0.048         0.001      0.004      0.002      0.002      0.003          13      13      13      13      13  
+BD+9 2190     09:29:15.55      +08:38:00.6         11.049      0.902      0.238      0.076      0.009         0.001      0.006      0.002      0.001      0.002          10      11      11      11      10  
+BD+25 1981     08:44:24.68      +24:47:47.9          9.270      0.925      0.144      0.014     -0.037         0.002      0.004      0.003      0.003      0.004          19      19      19      18      19  
+Ross 106     10:50:28.98      +56:26:31.0         12.413      1.028      0.434      0.176      0.060         0.003      0.008      0.004      0.004      0.006          10      10       9      10      10  
+
+Sent the proposal to Mr. Altafi
+******************************
 
 2. The second that I should do is to create a list of 10 variable stars in 3 categories, easy, medium and hard ones. and give that to Mr. Altafi
 
@@ -9,19 +20,19 @@
 4. Make a pdf version of your peogress report including all the links to all online reports.
 
 5. Start creating a UI for your pipeline
-
+**********************************************
 6. Lessons learned: 
 	central wavelength of sloan filters:
 		g': 468.6nm
 		r': 616.6nm
 		i': 748.0nm
 		u': 355.1nm
-
+**********************************************
 7. Have a feeling of what the extinction coefficients are at other observatories:
-		ING - La Palma : (4650nm-g':0.1598) (6150nm-r':0.0808) (7450nm-i':0.0261) (3550-u':0.4830)
+		**ING - La Palma : (4650nm-g':0.1598) (6150nm-r':0.0808) (7450nm-i':0.0261) (3550-u':0.4830)
 		(reference: https://www.ing.iac.es/Astronomy/observing/manuals/ps/tech_notes/tn031.pdf
 
-		Paranal : ( 4675nm-g':0.190) (6175-r':0.104) ( 7450-i':0.048) (3525-u':0.526 )
+		**Paranal : ( 4675nm-g':0.190) (6175-r':0.104) ( 7450-i':0.048) (3525-u':0.526 )
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041113
 Today I finished writing the first draft of the Extinction coefficients paper.
