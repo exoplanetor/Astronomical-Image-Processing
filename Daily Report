@@ -1,4 +1,16 @@
+
+#14041128
+These are the things that I am supposed to do moving from now on:
+1. Cleaning up the calibration code so that I could show it to Dr. Amir Nezam Amiri.
+2. Starting on the pipeline UI
+3. Starting to gather the data on the Properties of our telescope, stuf that is needed by the scientific community to write proposals. (INT telescope data)
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14041119
+spent all of my time finishing updating the 1403 ftp directory
++ created a detailed progress report on things I have done to be sent to Dr.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041114
+
 1. The feedback on the first draft of the extinction coefficients report was that the estimates for g-band seem ok but the other two are rather high and they are most likely of the range 0.01 
 	Result: A new set of standard star observations are in order and I must prepare them.
 Looking for the new set of standards stars and the preferred dates for observation
