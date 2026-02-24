@@ -1,13 +1,16 @@
+#14041205
+Today I started and finished adding a new section to the guide for observers: Applying for Telescope Time
+I also had a meeting with Dr. Javadi she insisted that I keep the pipeline as my priority number 1. I contacted Dr. Amiri asking for a meeting
+
+### To Dos:
+1. Checking Dr. Rezaei's .py code
+2. Creaing Calibration pipeline UI
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14041204
 Checking the standard star frames from Mr Altafi - Did that, finished. Updated the proposal and sent.
-Adding New filters section to infor for astronomers document. Done!
+Adding New filters section to info for astronomers document. Done!
 Updated the INO Observing log with the latest observations made.
 Updated the Targets Observed report. chaned the order of columns to a more meaningful, productive way. Changed the ftp report code accordingly.
-
-
-TO DO IN FUTURE:
-!!!! An important To Do for me is to create a system for the google sheet on our stored data to be searchable.
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14041203
 Today I finished updating the ftp data report for 2 nights that had been added.
