@@ -4,6 +4,7 @@
 if the user wants to create a hot pixel mask themselves, they run:
 build_hot_pixel_mask("C:/desired/path")
 Then they go through the precesses. They have a choice to plot and replot things until they are happy with the threshold and then save the mask to the main_path
+finally apply the mask to all files in the main path 
 
 1. I am working on adding the hotpixel masks to the pipeline. 
 I realize that these observations need to be done in order to have 3 pre-made masks for this matter:
