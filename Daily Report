@@ -1,5 +1,11 @@
 #14050129
-I am working on adding the hotpixel masks to the pipeline. 
+
+2. Today finished adding the hotpixel mask bit to the pipeline! This is how the code works right now:
+if the user wants to create a hot pixel mask themselves, they run:
+build_hot_pixel_mask("C:/desired/path")
+Then they go through the precesses. They have a choice to plot and replot things until they are happy with the threshold and then save the mask to the main_path
+
+1. I am working on adding the hotpixel masks to the pipeline. 
 I realize that these observations need to be done in order to have 3 pre-made masks for this matter:
 	- Three 10s Dark frames in binning 1x1, 2x2, 3x3 
 	- Three 600s (or if possible 1000s) Dark frames in binning 1x1, 2x2, 3x3
