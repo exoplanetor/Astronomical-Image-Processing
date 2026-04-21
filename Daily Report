@@ -1,5 +1,7 @@
+#14050201
+I am still working on the pipeline. today finished all the coding started testing and it shows problems. currently comparing to original codes to see why
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14050129
-
 2. Today finished adding the hotpixel mask bit to the pipeline! This is how the code works right now:
 if the user wants to create a hot pixel mask themselves, they run:
 build_hot_pixel_mask("C:/desired/path")
