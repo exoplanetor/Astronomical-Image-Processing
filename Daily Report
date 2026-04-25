@@ -1,3 +1,7 @@
+#14040205
+I fixed a big problem in the pipeline. It now works until the final stage of reducing bias/dark/flat from light frames. But from a pipeline point of view
+I still need to do many steps.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14050201
 I am still working on the pipeline. today finished all the coding started testing and it shows problems. currently comparing to original codes to see why
 -----------------------------------------------------------------------------------------------------------------------------------------
