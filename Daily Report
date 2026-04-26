@@ -1,3 +1,11 @@
+#14040206
+The calibration pipeline is now structured into a clear workflow with master calibration (bias, dark, flats), followed by application to a single QC frame
+before processing full datasets. Background subtraction (2D) is implemented and can be toggled globally during final processing.
+QC visualization has been improved: plots now use percentile-based scaling, giving better contrast and revealing more detail across frames.
+The QC layout has been simplified to compare calibrated vs background-subtracted data side-by-side with row-level labels, improving readability and reducing
+clutter. Next steps involve refining visual diagnostics and ensuring consistency across batch processing outputs.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
 #14040205
 I fixed a big problem in the pipeline. It now works until the final stage of reducing bias/dark/flat from light frames. But from a pipeline point of view
 I still need to do many steps.
