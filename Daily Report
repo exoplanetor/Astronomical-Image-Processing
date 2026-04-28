@@ -1,3 +1,6 @@
+#14040208
+I am happy enough with the current version of the pipeline that I am putting it on shared folder today
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040206
 The calibration pipeline is now structured into a clear workflow with master calibration (bias, dark, flats), followed by application to a single QC frame
 before processing full datasets. Background subtraction (2D) is implemented and can be toggled globally during final processing.
