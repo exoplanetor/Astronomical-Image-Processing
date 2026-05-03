@@ -1,5 +1,11 @@
+#14040213
+Today I am continuing the task on creating the .tex file
+-----------------------------------------------------------------------------------------------------------------------------------------
+#14040212
+Today I spent all my time completing the INO guide for astronomers. also started creating the .tex file for the proposal. to be continued.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14040208
-I am happy enough with the current version of the pipeline that I am putting it on shared folder today
+I am happy enough with the current version of the pipeline that I am putting it on shared folder today - also tested with a new set of data and thank God things worked fine
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040206
 The calibration pipeline is now structured into a clear workflow with master calibration (bias, dark, flats), followed by application to a single QC frame
