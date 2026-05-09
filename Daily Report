@@ -1,17 +1,36 @@
 #14050219
 I started on the INO calibration GUI today. Here is where I stand to be continued for the next time:
 
-We are currently building a Tkinter-based GUI application that wraps around an astronomical CCD calibration pipeline defined in `GUIcalibration_steps.py`. The system is already in a functional “tool-like” state where the GUI can launch the full calibration workflow, display live progress, and remain responsive during long processing runs.
+We are currently building a Tkinter-based GUI application that wraps around an astronomical CCD calibration pipeline defined in `GUIcalibration_steps.py`.
+The system is already in a functional “tool-like” state where the GUI can launch the full calibration workflow, display live progress, and remain responsive 
+during long processing runs.
 
-At this stage, the GUI successfully opens a main window where the user can select a data folder, choose calibration options (such as processing mode and background subtraction), and start the pipeline execution. The pipeline runs in a separate background thread, which prevents the interface from freezing during computation. A live log panel captures printed output from the pipeline, and a progress bar visually represents completion percentage. In addition, a status label shows real-time updates such as which frame is currently being processed.
+At this stage, the GUI successfully opens a main window where the user can select a data folder, choose calibration options (such as processing mode and 
+background subtraction), and start the pipeline execution. The pipeline runs in a separate background thread, which prevents the interface from freezing 
+during computation. A live log panel captures printed output from the pipeline, and a progress bar visually represents completion percentage. In addition,
+a status label shows real-time updates such as which frame is currently being processed.
 
-The pipeline itself has been modified to support GUI interaction. It now accepts a callback function that receives `(i, total, stage)` updates during processing. The main science frame loop has been updated to use `enumerate(light_frames)`, allowing accurate progress reporting. The callback system also supports enhanced feedback, including frames processed, percentage completion, processing speed (FPS), and estimated time remaining (ETA). A basic cancel mechanism has also been introduced using a shared flag (`callback.stop`) that is checked between frames, allowing the user to stop execution safely at high level.
+The pipeline itself has been modified to support GUI interaction. It now accepts a callback function that receives `(i, total, stage)` updates during
+processing. The main science frame loop has been updated to use `enumerate(light_frames)`, allowing accurate progress reporting. The callback system also 
+supports enhanced feedback, including frames processed, percentage completion, processing speed (FPS), and estimated time remaining (ETA). A basic cancel 
+mechanism has also been introduced using a shared flag (`callback.stop`) that is checked between frames, allowing the user to stop execution safely at high 
+level.
 
-Despite this working state, there are still several limitations. Cancellation is not truly immediate because it only stops between frames, meaning long-running operations inside a single frame still complete before stopping. The pipeline also lacks structured error handling per frame, so a single corrupted FITS file can still interrupt the full run. Progress reporting is currently uniform and does not reflect the actual time or complexity differences between pipeline stages such as bias correction, flat-fielding, and science processing. Additionally, the logging system relies on stdout redirection, which works but is not ideal for thread-safe or scalable GUI applications.
+Despite this working state, there are still several limitations. Cancellation is not truly immediate because it only stops between frames, meaning long-running
+operations inside a single frame still complete before stopping. The pipeline also lacks structured error handling per frame, so a single corrupted FITS file
+can still interrupt the full run. Progress reporting is currently uniform and does not reflect the actual time or complexity differences between pipeline
+stages such as bias correction, flat-fielding, and science processing. Additionally, the logging system relies on stdout redirection, which works but is not
+ideal for thread-safe or scalable GUI applications.
 
-The next improvements will focus on making the system more robust and production-ready. This includes implementing a safer cancellation mechanism that can interrupt execution more reliably, adding per-frame error handling so processing continues even if individual files fail, and introducing a stage-weighted progress system where different pipeline steps contribute differently to overall completion percentage. A more structured architecture is also needed, likely moving toward a class-based controller design for both the GUI and pipeline logic. Finally, the logging system should be upgraded from stdout redirection to a proper thread-safe queue-based logger.
+The next improvements will focus on making the system more robust and production-ready. This includes implementing a safer cancellation mechanism that can
+interrupt execution more reliably, adding per-frame error handling so processing continues even if individual files fail, and introducing a stage-weighted
+progress system where different pipeline steps contribute differently to overall completion percentage. A more structured architecture is also needed, likely
+moving toward a class-based controller design for both the GUI and pipeline logic. Finally, the logging system should be upgraded from stdout redirection to a
+proper thread-safe queue-based logger.
 
-The current goal is to evolve this system into a lightweight observatory-grade calibration tool that behaves like a proper desktop scientific application: it should be stable under long runs, provide accurate real-time feedback, handle errors gracefully, and allow user control over execution without breaking pipeline integrity.
+The current goal is to evolve this system into a lightweight observatory-grade calibration tool that behaves like a proper desktop scientific application: 
+it should be stable under long runs, provide accurate real-time feedback, handle errors gracefully, and allow user control over execution without breaking
+pipeline integrity.
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14040215
 Today I updated the Calibration pipeline (both .py s) first removed the y/n for running the main calibration process. then a minor change in calibration steps.
