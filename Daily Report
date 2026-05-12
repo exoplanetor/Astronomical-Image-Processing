@@ -1,3 +1,9 @@
+#14050222
+Today I continued working on the GUI but later I had my weekly meaning with Dr. Javadi we decided that creating a GUI is not our priority wight now.
+What is then?
+1. Turning the Aperture Photometry Procedure into a smoothly running pipeline.
+2. Doing the same for Astrometry.
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14050220
 what I see now in the GUI is that it runs somewhat ok, the steps are not there any more, but the plot still opens as a popup window. I don't want that. we'll start 
 from here next time again.
