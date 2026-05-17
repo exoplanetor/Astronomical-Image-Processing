@@ -1,40 +1,40 @@
 #14050227
-I am updating my bit in the INO paper about calibration pipeline and sending it to Dr. Javadi today.Sent-Done!
+1. I am updating my bit in the INO paper about calibration pipeline and sending it to Dr. Javadi today.Sent-Done!
 
-I also created this list (Create a list of 10 variable stars in 3 categories, easy, medium and hard ones) and chose a total of 10 stars in 3 difficulty level. 
+2. I also created this list (Create a list of 10 variable stars in 3 categories, easy, medium and hard ones) and chose a total of 10 stars in 3 difficulty level. 
 	I am creating a proposal for its first star XZ Cygni. THis is my complete list for now:
 
-Star Name	Variable Type	Magnitude Range	Period	Constellation	Difficulty
-XZ Cyg	RRAB/BL*	8.9 - 10.16 V	0.4666 d  (11.20 h)	Cygnus	Easy
-SW And	RRAB/BL	9.14 - 10.14 V	0.442262 d  (10.6143 h)	Andromeda	Easy
-RZ Lyr	RRAB/BL	10.6 - 12.03 V	0.5112423 d  (12.26982 h)	Lyra	Easy
----------------------------					
-V0477 Cyg	EA+HB   8.5 - 9.34 V  2.3469906 d	Cygnus	Moderate
-V0357 Cyg	RRAB/BL	13.1 - 14.4 p	0.5201189 d  (12.48285 h)	Cygnus	Moderate
-ZZ Cyg      EA/SD	10.59 - 11.54 V	0.62861261 d	Cygnus	Moderate
-VZ Cygni	DCEP	8.6 - 9.28 V	4.864453 d	Cygnus	Moderate
----------------------------				
-V0841 Cyg   EB/KE	11.30 - 11.85 V	0.761134664 d	Cygnus	Hard
-V1305 Cyg   EB/KE	11.4 - 11.8 p	0.9009015 d	Cygnus	Hard
-V2185 Cyg   EA	10.62 - 10.7 Ic	4.161 d	Cygnus	Hard
+		Star Name	Variable Type	Magnitude Range	Period	Constellation	Difficulty
+		XZ Cyg	RRAB/BL*	8.9 - 10.16 V	0.4666 d  (11.20 h)	Cygnus	Easy
+		SW And	RRAB/BL	9.14 - 10.14 V	0.442262 d  (10.6143 h)	Andromeda	Easy
+		RZ Lyr	RRAB/BL	10.6 - 12.03 V	0.5112423 d  (12.26982 h)	Lyra	Easy
+		---------------------------					
+		V0477 Cyg	EA+HB   8.5 - 9.34 V  2.3469906 d	Cygnus	Moderate
+		V0357 Cyg	RRAB/BL	13.1 - 14.4 p	0.5201189 d  (12.48285 h)	Cygnus	Moderate
+		ZZ Cyg      EA/SD	10.59 - 11.54 V	0.62861261 d	Cygnus	Moderate
+		VZ Cygni	DCEP	8.6 - 9.28 V	4.864453 d	Cygnus	Moderate
+		---------------------------				
+		V0841 Cyg   EB/KE	11.30 - 11.85 V	0.761134664 d	Cygnus	Hard
+		V1305 Cyg   EB/KE	11.4 - 11.8 p	0.9009015 d	Cygnus	Hard
+		V2185 Cyg   EA	10.62 - 10.7 Ic	4.161 d	Cygnus	Hard
+		
+		These are my criteria for choosing difficulty level:
+		Easy
+		•	Unsaturated with 1 s exposure 
+		•	Bright enough for high SNR 
+		•	Large variability amplitude 
+		•	Isolated field 
+		•	Well-known period 
+		Medium
+		•	Smaller amplitude OR somewhat faint 
+		•	Requires better reduction/calibration 
+		Hard
+		•	Low amplitude (<0.1 mag) 
+		•	Crowded field 
+		•	Fast variability 
+		•	Faint targets near your sensitivity/calibration limits
 
-These are my criteria for choosing difficulty level:
-Easy
-•	Unsaturated with 1 s exposure 
-•	Bright enough for high SNR 
-•	Large variability amplitude 
-•	Isolated field 
-•	Well-known period 
-Medium
-•	Smaller amplitude OR somewhat faint 
-•	Requires better reduction/calibration 
-Hard
-•	Low amplitude (<0.1 mag) 
-•	Crowded field 
-•	Fast variability 
-•	Faint targets near your sensitivity/calibration limits
-
-
+3. I am making some structural changes to the INO form in tex
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14050226
 I spent my whole time today creating a new proposal for observing standard stars for atmospheric extinction coefficients and sent it to Dr. Javadi
