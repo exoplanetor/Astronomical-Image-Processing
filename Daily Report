@@ -1,3 +1,38 @@
+#14050302
+1. Done!- Today I spent some good time updating the INO-Calibration.py and included inspecting images by eye to the beginning of calibration 
+	(rather than where it originally was; beginning of photometry) It took some good time but it is finally Done!
+2. I started working on turning the Aperture photometry notebook into a pipeline. After some discussions this is where I am standing at right now:
+	functions.py
+		•	FITS loading + cleaning 
+		•	image quality stats + warning system 
+		•	source detection 
+		•	footprint filtering 
+		•	source merging 
+		•	automatic FWHM estimation 
+		•	aperture + sky annulus definition 
+		•	aperture photometry 
+		•	sky subtraction 
+		•	flux error propagation 
+		•	instrumental magnitude conversion 
+		•	utility functions (cutouts only) 
+		________________________________________
+		photometrypipeline.py
+		•	user configuration 
+		•	FITS file loop 
+		•	load image 
+		•	image quality check 
+		•	detect sources 
+		•	filter sources 
+		•	compute FWHM automatically 
+		•	define apertures 
+		•	run photometry 
+		•	compute magnitudes 
+		•	extract metadata from FITS headers (time, airmass, etc.) 
+		•	write CSV automatically (final product) 
+		•	extinction fit + plots
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 #14050229
 1. Done!- Today I finished working on the INO observer's guide and the Latex Proposal form and Sent it to Dr. Danesh.
 2. Done!- I also updated Dr. Raoof's Proposal and sent it to Dr. Javadi and Mr Altafi
