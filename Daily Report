@@ -1,3 +1,22 @@
+#14050303
+I am creating the Photometry Pipeline:
+Here is where I am at:
+the whole original code I had for aperture photometry and reporting instrumental magnitudes is turned into a fully working pipeline. 
+what needs to be done at the moment:
+
+ok let's do this for us. And I understand that we already don't have RA/Dec (WCS) of all stars. so let's first create a function that does these:
+1. opens the first science frame and asks the user to click on the image where they say their source is located. So this image needs to be clickable. I know that could be tricky
+2. asks the user to enter the RA and Dec of that source. Obviously because of fwhm where the user clicks won't always be the exact center of the star so we need to  think of a way to assign that posision to the approximate center of that star
+3. Then assign RA and Dec to other found stars based on their distance from this reference point
+4. I dunno if JWST does this for each science image individually and then averages positions or not but we should both think about it and also compare to what others usually do.
+and finally create this table for our sources (per science frame or an average out of all frames??):
+x, y
+RA/Dec (WCS)
+inst magnitude + error
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 #14050302
 1. Done!- Today I spent some good time updating the INO-Calibration.py and included inspecting images by eye to the beginning of calibration 
 	(rather than where it originally was; beginning of photometry) It took some good time but it is finally Done!
@@ -30,8 +49,6 @@
 		•	extract metadata from FITS headers (time, airmass, etc.) 
 		•	write CSV automatically (final product) 
 		•	extinction fit + plots
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 #14050229
 1. Done!- Today I finished working on the INO observer's guide and the Latex Proposal form and Sent it to Dr. Danesh.
