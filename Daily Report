@@ -1,18 +1,139 @@
 #14050303
 I am creating the Photometry Pipeline:
 Here is where I am at:
-the whole original code I had for aperture photometry and reporting instrumental magnitudes is turned into a fully working pipeline. 
-what needs to be done at the moment:
+1. the whole original code I had for aperture photometry and reporting instrumental magnitudes is turned into a fully working pipeline. 
+	what needs to be done at the moment:
 
-ok let's do this for us. And I understand that we already don't have RA/Dec (WCS) of all stars. so let's first create a function that does these:
-1. opens the first science frame and asks the user to click on the image where they say their source is located. So this image needs to be clickable. I know that could be tricky
-2. asks the user to enter the RA and Dec of that source. Obviously because of fwhm where the user clicks won't always be the exact center of the star so we need to  think of a way to assign that posision to the approximate center of that star
-3. Then assign RA and Dec to other found stars based on their distance from this reference point
-4. I dunno if JWST does this for each science image individually and then averages positions or not but we should both think about it and also compare to what others usually do.
-and finally create this table for our sources (per science frame or an average out of all frames??):
-x, y
-RA/Dec (WCS)
-inst magnitude + error
+2. ok let's do this for us. And I understand that we already don't have RA/Dec (WCS) of all stars. so let's first create a function that does these:
+		1. opens the first science frame and asks the user to click on the image where they say their source is located. So this image needs to be clickable. I know that could be tricky
+		2. asks the user to enter the RA and Dec of that source. Obviously because of fwhm where the user clicks won't always be the exact center of the star so we need to  think of a way to assign that posision to the approximate center of that star
+		3. Then assign RA and Dec to other found stars based on their distance from this reference point
+		4. I dunno if JWST does this for each science image individually and then averages positions or not but we should both think about it and also compare to what others usually do.
+		and finally create this table for our sources (per science frame or an average out of all frames??):
+		x, y
+		RA/Dec (WCS)
+		inst magnitude + error
+
+3. Here is where I last stand:
+
+⭐ Stage 2: Catalog Matching (this is where “true magnitudes” begin)
+
+Right now you have:
+
+pixel positions (x, y)
+instrumental magnitudes
+a rough sky anchor (your clicked star)
+
+What JWST-style pipelines do next is:
+
+“Turn your detected stars into real sky objects by matching them to a reference catalog”
+
+🧭 What we will build next (simple + offline-first)
+
+We will NOT rely on astrometry.net or online queries.
+
+Instead we will:
+
+✔ Step 2A — Use a pre-downloaded Gaia catalog file
+
+You will download once (we’ll define format later).
+
+It contains:
+
+RA
+Dec
+G magnitude (or similar)
+✔ Step 2B — Convert your pseudo-WCS positions → approximate RA/Dec
+
+You already have:
+
+reference RA/Dec
+reference pixel (x_ref, y_ref)
+pixel scale
+
+So we now extend:
+
+Add rotation-free sky projection:
+
+We assume:
+
+small field
+no distortion
+no rotation (for now)
+
+So:
+
+Δx → ΔRA
+Δy → ΔDec
+✔ Step 2C — Match stars to Gaia catalog
+
+We do:
+
+nearest neighbor search in RA/Dec space
+tolerance ~ 0.5–1.0 arcsec
+✔ Step 2D — Compute photometric zero-point
+
+For matched stars:
+
+ZP = Gaia_mag - inst_mag
+
+Then:
+
+true_mag = inst_mag + ZP
+⚠️ Important conceptual correction (very important)
+
+You asked earlier:
+
+“Am I computing magnitudes or just getting instrumental ones?”
+
+Answer:
+
+Right now:
+
+❌ you are NOT computing true magnitudes
+✔ you are computing instrumental magnitudes only
+
+Stage 2 is what converts them into real magnitudes.
+
+📊 What JWST does (simplified comparison)
+
+JWST pipeline equivalent:
+
+Step	Your system
+Detect sources	DONE
+Aperture photometry	DONE
+WCS solution	YOU ARE APPROXIMATING IT
+Catalog matching	NEXT STEP
+Photometric calibration	NEXT STEP
+🧠 Why your reference star matters (important insight)
+
+Yes — your clicked RA/Dec is VERY useful:
+
+It acts as:
+
+anchor point for sky mapping
+rough WCS origin
+alignment reference across frames
+
+But:
+
+it does NOT guarantee absolute accuracy
+
+We fix that in Stage 3 (fit refinement).
+
+🚀 NEXT STEP (what I will build for you next)
+
+We will create:
+
+🧩 “offline catalog matcher module”
+
+It will:
+
+Build pseudo RA/Dec for ALL stars
+Load Gaia catalog (local CSV/FITS)
+Match using angular distance
+Output:
+x | y | RA | Dec | inst_mag | Gaia_mag | zero_point
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 
