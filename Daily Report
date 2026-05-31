@@ -1,3 +1,11 @@
+#14050310
+I Re-started the Photometry Pipeline with all my steps from the jupyter notebooks I had before.
+Next time I need to continue from  this step:
+
+# At this step update the previosuly created csv file the csv file yourself by hand. I need  these columns at the end
+# filename	time_utc	alt_deg	zenith_deg	airmass	inst_mag	e_inst_mag
+-----------------------------------------------------------------------------------------------------------------------------------------
+
 #14050309
 
 Altogether things went very badly today coz the photometry is not working very well. I think next time, I would re start from my original photometry code. 
